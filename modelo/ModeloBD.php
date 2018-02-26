@@ -2,7 +2,7 @@
 
 abstract class BD {
 
-    private $ddbb = "mysql:host=localhost; dbname=colaborativa";
+    private $ddbb = "mysql:host=localhost; dbname=industech";
     private $user = 'root';
     private $passw = '';
     protected $conexion;
