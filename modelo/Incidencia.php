@@ -214,4 +214,5 @@ class Incidencia extends BD{
                     'idIncidencia' => $this->getIdIncidencia()]);
         return $filas;
     }
+    
 }
