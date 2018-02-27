@@ -25,6 +25,17 @@
     <body>      
             <!--ESTO ES EL CUERPO -->
             <div id="contenedor-general">      
+        
+                <form action="index.php?controller=incidencia&action=c" method="POST">
+                    titulo<input type="text" name="titulo" >
+                    descripcion<input type="text" name="descripcion" >
+                    prioridad<input type="number" name="prioridad">
+                    categoria<input type="number" name="categoria" >
+                    empresa<input type="number" name="empresa" >
+                    tecnico<input type="number" name="tecnico" >
+                   contacto<input type="number" name="contacto" >
+                   <input type="submit">
+                </form>
                 {% block content %}
                 {% endblock %}
 

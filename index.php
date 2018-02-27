@@ -5,9 +5,9 @@ require_once 'controller/ControllerGenerico.php';
 require_once 'controller/IncidenciaController.php';
 
 session_start();
-if (!isset($_SESSION['idusuario']) ) {
-    loginView();
-} elseif (isset($_GET['controller']) || isset($_SESSION['idusuario'])) {
+//if (!isset($_SESSION['idusuario']) ) {
+//    loginView();}    else
+ if (isset($_GET['controller']) || isset($_SESSION['idusuario'])) {
     switch (@$_GET['controller']) {
         case 'incidencia':
             $controller = new IncidenciaController();

@@ -20,10 +20,12 @@ class IncidenciaController extends Controller {
         $incidencia->setDescripcion($_POST['descripcion']);
         $incidencia->setFecha();
         $incidencia->setEstado(0);
+        $incidencia->setPrioridad($_POST['prioridad']);
         $incidencia->setCategoria($_POST['categoria']);
         $incidencia->setEmpresa($_POST['empresa']);
         $incidencia->setTecnico($_POST['tecnico']);
         $incidencia->setContacto($_POST['contacto']);
+        $incidencia->nuevaIncidencia();
     }
 
 }
