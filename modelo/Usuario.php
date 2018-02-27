@@ -136,5 +136,7 @@ class Usuario extends BD{
                 . "`telefono` = :telefono "
                 . "WHERE `idUsuario` = :idUsuario", 
                 ['nombre']);
+        return $filas;
     }
+    
 }
