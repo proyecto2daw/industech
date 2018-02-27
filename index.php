@@ -9,7 +9,7 @@ if (!isset($_SESSION['idusuario']) ) {
     loginView();
 } elseif (isset($_GET['controller']) || isset($_SESSION['idusuario'])) {
     switch (@$_GET['controller']) {
-        case 'usuario':
+        case 'incidencia':
             $controller = new IncidenciaController();
             action($controller);
             break;

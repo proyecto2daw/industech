@@ -1,6 +1,6 @@
 <?php
 
-require_once './ModeloBD.php';
+require_once 'ModeloBD.php';
 class Incidencia extends BD{
     private $idIncidencia;
     private $titulo;
@@ -71,7 +71,7 @@ class Incidencia extends BD{
     }
 
     function setFecha($fecha) {
-        $this->fecha = $fecha;
+        $this->fecha = date("Y-m-d H:i:sa");
     }
 
     function setPrioridad($prioridad) {
