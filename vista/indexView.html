@@ -27,24 +27,16 @@
     </tr>
   </thead>
   <tbody>
+   
+    {% for incidencia in datos.incidencias %}
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+        <th scope="row">{{incidencia.titulo}}</th>
+        <td>{{incidencia.descripcion}}</td>
+        <td>{{incidencia.fecha}}</td>
+        <td>{{incidencia.categoria}}</td>
+        
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
+    {%endfor%}
   </tbody>
 </table>
   </div>
