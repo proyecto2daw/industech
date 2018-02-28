@@ -70,8 +70,8 @@ class Incidencia extends BD{
         $this->descripcion = $descripcion;
     }
 
-    function setFecha($fecha) {
-        $this->fecha = $fecha;
+    function setFecha() {
+        $this->fecha = date("Y-m-d H:i:sa");
     }
 
     function setPrioridad($prioridad) {
@@ -101,10 +101,11 @@ class Incidencia extends BD{
     public function nuevaIncidencia() {
        $id = $this->insert("INSERT INTO $this->tabla "
                 . "(titulo, descripcion, fecha, prioridad, estado, categoria, empresa, tecnico, contacto) "
-                . "VALUES (:titulo, :descripcion, :fecha, :estado, :categoria, :empresa, :tecnico, :contacto)",
+        . "VALUES (:titulo,:descripcion,:fecha,:prioridad,:estado,:categoria,:empresa,:tecnico,:contacto)",
                 ['titulo' => $this->getTitulo(),
                     'descripcion' => $this->getDescripcion(),
                     'fecha' => $this->getFecha(),
+                    'prioridad'=> $this->getPrioridad(),
                     'estado' => $this->getEstado(),
                     'categoria' => $this->getCategoria(),
                     'empresa' => $this->getEmpresa(),
