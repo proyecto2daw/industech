@@ -9,7 +9,7 @@
 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <!-- Google apis -->
@@ -18,12 +18,14 @@
 
         <!-- CSS -->
         <link rel="stylesheet" href="css/style.css">
-
+        
+         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
+        
         <!-- Alertify -->
         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
         <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/alertify.min.css"/>
 
-
+        <script src="js/index.js"></script>
     </head>
     <body class="container">      
         <!--ESTO ES EL CUERPO -->
@@ -33,7 +35,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="gears.png"></a>
+                <a class="navbar-brand" href="#"><img src="img/gears.png "></a>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item active">
@@ -58,7 +60,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="index.php?controller=incidencia&action=crear" method="POST">
+                        <form action="index.php?controller=incidencia&action=crear" method="POST" id="formIncidencia">
                         <div class="modal-body">
                                 titulo<input type="text" name="titulo" >
                                 descripcion<input type="text" name="descripcion" >

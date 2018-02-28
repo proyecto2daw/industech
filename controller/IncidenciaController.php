@@ -25,7 +25,14 @@ class IncidenciaController extends Controller {
         $incidencia->setEmpresa($_POST['empresa']);
         $incidencia->setTecnico($_POST['tecnico']);
         $incidencia->setContacto($_POST['contacto']);
-        $incidencia->nuevaIncidencia();
+        $id=$incidencia->nuevaIncidencia();
+        echo $id;
+    }
+    function getMisIncidencias(){
+        $incidencia= new Incidencia();
+        $incidencia->setTecnico($_SESSION['idusuario']);
+       $misIncidencias= $incidencia->getIncidenciasByTecnico();
+       return $misIncidencias;
     }
 
 }

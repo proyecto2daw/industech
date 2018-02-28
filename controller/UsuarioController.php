@@ -19,10 +19,11 @@ class UsuarioController extends Controller {
        if($object->idUsuario==NULL){
            $this->view('login', ['error'=>'login erroneo']);
        }else{
-            $this->view('index', []);
+          
             $_SESSION['idusuario']=$object->idUsuario;
+             index();
        }
        
-    
+   
     }
 }

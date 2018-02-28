@@ -169,10 +169,10 @@ class Incidencia extends BD{
     }
     
     public function getIncidenciasByTecnico() {
-        $results = $this->fSelectN("SELECT `idIncidencia`, `titulo`, `descripcion`, `fecha`, `prioridad`, `estado`, `categoria`, `empresa`, `tecnico`, `contacto` "
+        $results = $this->fSelectN("SELECT idIncidencia, titulo, descripcion, fecha, prioridad, estado, categoria, empresa, tecnico, contacto "
                 . "FROM $this->tabla "
-                . "WHERE `tecnico` = :tecnico "
-                . "ORDER BY `fecha` DESC", 
+                . "WHERE tecnico = :tecnico "
+                . "ORDER BY fecha DESC", 
                 ['tecnico' => $this->getTecnico()]);
         return $results;
     }
