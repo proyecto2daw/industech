@@ -1,6 +1,6 @@
 <?php
 
-require_once 'ModeloBD.php';
+require_once './ModeloBD.php';
 class Incidencia extends BD{
     private $idIncidencia;
     private $titulo;
@@ -70,8 +70,8 @@ class Incidencia extends BD{
         $this->descripcion = $descripcion;
     }
 
-    function setFecha() {
-       $this->fecha = date("Y-m-d H:i:sa");
+    function setFecha($fecha) {
+        $this->fecha = $fecha;
     }
 
     function setPrioridad($prioridad) {
@@ -100,12 +100,11 @@ class Incidencia extends BD{
     
     public function nuevaIncidencia() {
        $id = $this->insert("INSERT INTO $this->tabla "
-                . "(`titulo`, `descripcion`, `fecha`, `prioridad`, `estado`, `categoria`, `empresa`, `tecnico`, `contacto`) "
-                . "VALUES (:titulo, :descripcion, :fecha,:prioridad, :estado, :categoria, :empresa, :tecnico, :contacto)",
+                . "(titulo, descripcion, fecha, prioridad, estado, categoria, empresa, tecnico, contacto) "
+                . "VALUES (:titulo, :descripcion, :fecha, :estado, :categoria, :empresa, :tecnico, :contacto)",
                 ['titulo' => $this->getTitulo(),
                     'descripcion' => $this->getDescripcion(),
                     'fecha' => $this->getFecha(),
-                    'prioridad'=> $this->getPrioridad(),
                     'estado' => $this->getEstado(),
                     'categoria' => $this->getCategoria(),
                     'empresa' => $this->getEmpresa(),
@@ -115,94 +114,153 @@ class Incidencia extends BD{
     }
     
     public function getAllIncidencias() {
-        $results = $this->fSelectN("SELECT `idIncidencia`, `titulo`, `descripcion`, `fecha`, `prioridad`, `estado`, `categoria`, `empresa`, `tecnico`, `contacto` "
-                . "FROM $this->tabla "
-                . "ORDER BY `fecha` DESC", []);
+        $results = $this->fSelectN("SELECT idIncidencia,titulo, descripcion, fecha, prioridad, estado, incidencias.categoria, incidencias.empresa, incidencias.tecnico, incidencias.contacto, categorias.nombre AS nombreCategoria, empresas.nombre AS nombreEmpresa, usuarios.nombre AS nombreTecnico, usuarios.apellidos AS apellidosTecnico, empleados.nombre AS nombreContacto, empleados.apellido AS apellidoContacto "
+                . "FROM $this->tabla, empresas, usuarios, empleados, categorias "
+                . "WHERE incidencias.categoria = categorias.idCategoria "
+                . "AND incidencias.empresa = empresas.idEmpresa "
+                . "AND incidencias.tecnico = usuarios.idUsuario "
+                . "AND incidencias.contacto = empleados.idEmpleado "
+                . "ORDER BY fecha DESC", []);                
         return $results;
     }
     
-    //LAS SIGUIENTES FUNCIONES DE GETINCIDENCIASPORALGO IGUAL SE PODIAN HACER EN UNA, YA MIRAREMOS
-    public function getIncidenciasByDia() {
-        //ESTA IGUAL NECESITAMOS PARA BUSCAR POR DIA PERO HABRIA QUE HACER OTRO CAMPO EN BD QUE FUERA DIAMES (O ALGO ASI) Y NO DATETIME
-        /*$results = $this->fSelectN("SELECT `idIncidencia`, `titulo`, `descripcion`, `fecha`, `prioridad`, `estado`, `categoria`, `empresa`, `tecnico`, `contacto` "
-                . "FROM $this->tabla "
-                . "WHERE `dia` = :dia "
-                . "ORDER BY `fecha` DESC", 
-                ['dia' => $this->getDia()]);
-        return $results;*/
+    public function getIncidenciasByFecha() {
+        $results = $this->fSelectN("SELECT i.idIncidencia, i.titulo, i.descripcion, i.fecha, i.prioridad, i.estado, i.categoria, i.empresa, i.tecnico, i.contacto, c.nombre AS nombreCategoria, e.nombre AS nombreEmpresa, u.nombre AS nombreTecnico, u.apellidos AS apellidosTecnico, d.nombre AS contactoNombre, d.apellido AS contactoApellido "
+                . "FROM $this->tabla i "
+                . "JOIN categorias c "
+                . "ON i.categoria = c.idCategoria "
+                . "JOIN empresas e "
+                . "ON i.empresa = e.idEmpresa "
+                . "JOIN usuarios u "
+                . "ON i.tecnico = u.idUsuario "
+                . "JOIN empleados d "
+                . "ON i.contacto = d.idEmpleado "
+                . "WHERE fecha = :fecha "
+                . "ORDER BY fecha DESC", 
+                ['fecha' => $this->getFecha()]);
+        return $results;
     }
     
     public function getIncidenciasByPrioridad() {
-        $results = $this->fSelectN("SELECT `idIncidencia`, `titulo`, `descripcion`, `fecha`, `prioridad`, `estado`, `categoria`, `empresa`, `tecnico`, `contacto` "
-                . "FROM $this->tabla "
-                . "WHERE `prioridad` = :prioridad "
-                . "ORDER BY `fecha` DESC", 
+        $results = $this->fSelectN("SELECT i.idIncidencia, i.titulo, i.descripcion, i.fecha, i.prioridad, i.estado, i.categoria, i.empresa, i.tecnico, i.contacto, c.nombre AS nombreCategoria, e.nombre AS nombreEmpresa, u.nombre AS nombreTecnico, u.apellidos AS apellidosTecnico, d.nombre AS contactoNombre, d.apellido AS contactoApellido "
+                . "FROM $this->tabla i "
+                . "JOIN categorias c "
+                . "ON i.categoria = c.idCategoria "
+                . "JOIN empresas e "
+                . "ON i.empresa = e.idEmpresa "
+                . "JOIN usuarios u "
+                . "ON i.tecnico = u.idUsuario "
+                . "JOIN empleados d "
+                . "ON i.contacto = d.idEmpleado "
+                . "WHERE i.prioridad = :prioridad "
+                . "ORDER BY fecha DESC", 
                 ['prioridad' => $this->getPrioridad()]);
         return $results;
     }
     
     public function getIncidenciasByEstado() {
-        $results = $this->fSelectN("SELECT `idIncidencia`, `titulo`, `descripcion`, `fecha`, `prioridad`, `estado`, `categoria`, `empresa`, `tecnico`, `contacto` "
-                . "FROM $this->tabla "
-                . "WHERE `estado` = :estado "
-                . "ORDER BY `fecha` DESC", 
+        $results = $this->fSelectN("SELECT i.idIncidencia, i.titulo, i.descripcion, i.fecha, i.prioridad, i.estado, i.categoria, i.empresa, i.tecnico, i.contacto, c.nombre AS nombreCategoria, e.nombre AS nombreEmpresa, u.nombre AS nombreTecnico, u.apellidos AS apellidosTecnico, d.nombre AS contactoNombre, d.apellido AS contactoApellido "
+                . "FROM $this->tabla i "
+                . "JOIN categorias c "
+                . "ON i.categoria = c.idCategoria "
+                . "JOIN empresas e "
+                . "ON i.empresa = e.idEmpresa "
+                . "JOIN usuarios u "
+                . "ON i.tecnico = u.idUsuario "
+                . "JOIN empleados d "
+                . "ON i.contacto = d.idEmpleado "
+                . "WHERE i.estado = :estado "
+                . "ORDER BY fecha DESC", 
                 ['estado' => $this->getEmpresa()]);
         return $results;
     }
     
     public function getIncidenciasByCategoria() {
-        $results = $this->fSelectN("SELECT `idIncidencia`, `titulo`, `descripcion`, `fecha`, `prioridad`, `estado`, `categoria`, `empresa`, `tecnico`, `contacto` "
-                . "FROM $this->tabla "
-                . "WHERE `categoria` = :categoria "
-                . "ORDER BY `fecha` DESC", 
-                ['categoria' => $this->getCategoria()]);
+        $results = $this->fSelectN("SELECT i.idIncidencia, i.titulo, i.descripcion, i.fecha, i.prioridad, i.estado, i.categoria, i.empresa, i.tecnico, i.contacto, c.nombre AS nombreCategoria, e.nombre AS nombreEmpresa, u.nombre AS nombreTecnico, u.apellidos AS apellidosTecnico, d.nombre AS contactoNombre, d.apellido AS contactoApellido "
+                . "FROM $this->tabla i "
+                . "JOIN categorias c "
+                . "ON i.categoria = c.idCategoria "
+                . "JOIN empresas e "
+                . "ON i.empresa = e.idEmpresa "
+                . "JOIN usuarios u "
+                . "ON i.tecnico = u.idUsuario "
+                . "JOIN empleados d "
+                . "ON i.contacto = d.idEmpleado "
+                . "WHERE i.categoria = :categoria "
+                . "ORDER BY fecha DESC", 
+                ['categoria' => $this->getCategoria()]);               
         return $results;
     }
     
     public function getIncidenciasByEmpresa() {
-        $results = $this->fSelectN("SELECT `idIncidencia`, `titulo`, `descripcion`, `fecha`, `prioridad`, `estado`, `categoria`, `empresa`, `tecnico`, `contacto` "
-                . "FROM $this->tabla "
-                . "WHERE `empresa` = :empresa "
-                . "ORDER BY `fecha` DESC", 
+        $results = $this->fSelectN("SELECT i.idIncidencia, i.titulo, i.descripcion, i.fecha, i.prioridad, i.estado, i.categoria, i.empresa, i.tecnico, i.contacto, c.nombre AS nombreCategoria, e.nombre AS nombreEmpresa, u.nombre AS nombreTecnico, u.apellidos AS apellidosTecnico, d.nombre AS contactoNombre, d.apellido AS contactoApellido "
+                . "FROM $this->tabla i "
+                . "JOIN categorias c "
+                . "ON i.categoria = c.idCategoria "
+                . "JOIN empresas e "
+                . "ON i.empresa = e.idEmpresa "
+                . "JOIN usuarios u "
+                . "ON i.tecnico = u.idUsuario "
+                . "JOIN empleados d "
+                . "ON i.contacto = d.idEmpleado "
+                . "WHERE i.empresa = :empresa "
+                . "ORDER BY fecha DESC", 
                 ['empresa' => $this->getEmpresa()]);
         return $results;
     }
     
     public function getIncidenciasByTecnico() {
-        $results = $this->fSelectN("SELECT `idIncidencia`, `titulo`, `descripcion`, `fecha`, `prioridad`, `estado`, `categoria`, `empresa`, `tecnico`, `contacto` "
-                . "FROM $this->tabla "
-                . "WHERE `tecnico` = :tecnico "
-                . "ORDER BY `fecha` DESC", 
+        $results = $this->fSelectN("SELECT i.idIncidencia, i.titulo, i.descripcion, i.fecha, i.prioridad, i.estado, i.categoria, i.empresa, i.tecnico, i.contacto, c.nombre AS nombreCategoria, e.nombre AS nombreEmpresa, u.nombre AS nombreTecnico, u.apellidos AS apellidosTecnico, d.nombre AS contactoNombre, d.apellido AS contactoApellido "
+                . "FROM $this->tabla i "
+                . "JOIN categorias c "
+                . "ON i.categoria = c.idCategoria "
+                . "JOIN empresas e "
+                . "ON i.empresa = e.idEmpresa "
+                . "JOIN usuarios u "
+                . "ON i.tecnico = u.idUsuario "
+                . "JOIN empleados d "
+                . "ON i.contacto = d.idEmpleado "
+                . "WHERE i.tecnico = :tecnico "
+                . "ORDER BY fecha DESC", 
                 ['tecnico' => $this->getTecnico()]);
         return $results;
     }
     
     public function getIncidenciaById() {
-        $object = $this->fSelectO("SELECT `idIncidencia`, `titulo`, `descripcion`, `fecha`, `prioridad`, `estado`, `categoria`, `empresa`, `tecnico`, `contacto` "
-                . "WHERE `idIncidencia` = :idIncidencia", 
+        $object = $this->fSelectO("SELECT i.idIncidencia, i.titulo, i.descripcion, i.fecha, i.prioridad, i.estado, i.categoria, i.empresa, i.tecnico, i.contacto, c.nombre AS nombreCategoria, e.nombre AS nombreEmpresa, u.nombre AS nombreTecnico, u.apellidos AS apellidosTecnico, d.nombre AS contactoNombre, d.apellido AS contactoApellido "
+                . "FROM $this->tabla i "
+                . "JOIN categorias c "
+                . "ON i.categoria = c.idCategoria "
+                . "JOIN empresas e "
+                . "ON i.empresa = e.idEmpresa "
+                . "JOIN usuarios u "
+                . "ON i.tecnico = u.idUsuario "
+                . "JOIN empleados d "
+                . "ON i.contacto = d.idEmpleado "
+                . "WHERE idIncidencia = :idIncidencia", 
                 ['idIncidencia' => $this->getIdIncidencia()]);
         return $object;
     }
     
     public function deleteIncidencia() {
         $filas = $this->delete("DELETE FROM $this->tabla "
-                . "WHERE `idIncidencia` = :idIncidencia", 
+                . "WHERE idIncidencia = :idIncidencia", 
                 ['idIncidencia' => $this->getIdIncidencia()]);
         return $filas;
     }
     
     public function updateIncidencia() {
         $filas = $this->update("UPDATE $this->tabla "
-                . "SET `titulo` = :titulo, "
-                . "`descripcion` = :descripcion, "
-                . "`fecha` = :fecha, "
-                . "`prioridad` = :prioridad, "
-                . "`estado` = :estado, "
-                . "`categoria` = :categoria, "
-                . "`empresa` = :empresa, "
-                . "`tecnico` = :tecnico, "
-                . "`contacto` = :contacto "
-                . "WHERE `idIncidencia` = :idIncidencia", 
+                . "SET titulo = :titulo, "
+                . "descripcion = :descripcion, "
+                . "fecha = :fecha, "
+                . "prioridad = :prioridad, "
+                . "estado = :estado, "
+                . "categoria = :categoria, "
+                . "empresa = :empresa, "
+                . "tecnico = :tecnico, "
+                . "contacto = :contacto "
+                . "WHERE idIncidencia = :idIncidencia", 
                 ['titulo' => $this->getTitulo(), 
                     'descripcion' => $this->getDescripcion(), 
                     'fecha' => $this->getFecha(),
