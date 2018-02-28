@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>PRUEBAS DE ANIMACION HTML</title>
+        <title>INDUSTECH S.L.</title>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="css/loginStyle.css">
+        <!-- FAVICON -->
+        <link rel="icon" type="image/png" href="img/cloud.png"  />
+        
         <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
     <body>
+
 
         <div id="prueba" class="centrar" data-aos="zoom-in-up">
             <form method="POST" action="index.php?controller=usuario&action=login">
@@ -31,11 +35,15 @@
             {{datos.error}}
 
         </div>
+        
+            <div class="alert alert-danger centrar" role="alert" style="display: none;">
+                This is a danger alert—check it out!
+            </div>
         <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>	
         <script>
-        AOS.init({
-            duration: 600
-        });
+AOS.init({
+    duration: 600
+});
         </script>
 
     </body>

@@ -1,8 +1,10 @@
 <html lang="es">
     <head>
-        <title>TODO supply a title</title>
+        <title>INDUSTECH S.L.</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- FAVICON -->
+        <link rel="icon" type="image/png" href="img/cloud.png"  />
 
         <!-- JQuery -->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" ></script>
@@ -18,9 +20,9 @@
 
         <!-- CSS -->
         <link rel="stylesheet" href="css/style.css">
-        
-         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
-        
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
+
         <!-- Alertify -->
         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
         <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/alertify.min.css"/>
@@ -35,7 +37,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="img/gears.png "></a>
+                <a class="navbar-brand" href="#"><img src="img/gears.png"></a>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item active">
@@ -61,40 +63,74 @@
                             </button>
                         </div>
                         <form action="index.php?controller=incidencia&action=crear" method="POST" id="formIncidencia">
-                        <div class="modal-body">
-                                titulo<input type="text" name="titulo" >
-                                descripcion<input type="text" name="descripcion" >
-                                prioridad<input type="number" name="prioridad">
-                                categoria<input type="number" name="categoria" >
-                                empresa<input type="number" name="empresa" >
-                                tecnico<input type="number" name="tecnico" >
-                                contacto<input type="number" name="contacto" >
-                            
-                        </div>
-                        <div class="modal-footer">
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label for="inputTitulo" class="col-sm-2 col-form-label">Titulo</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputTitulo" placeholder="Titulo" name="titulo">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputDescripcion" class="col-sm-2 col-form-label">Detalle</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputDescripcion" placeholder="Descripcion" name="descripcion">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputPrioridad" class="col-sm-2 col-form-label">Prioridad</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="inputPrioridad" placeholder="Prioridad" name="prioridad">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputCategoria" class="col-sm-2 col-form-label">Categoria</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="inputCategoria" placeholder="Categoria" name="categoria">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmpresa" class="col-sm-2 col-form-label">Empresa</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="inputEmpresa" placeholder="Empresa" name="empresa">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputTecnico" class="col-sm-2 col-form-label">Tecnico</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="inputTecnico" placeholder="Tecnico" name="tecnico">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputContacto" class="col-sm-2 col-form-label">Contacto</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="inputContacto" placeholder="Contacto" name="contacto">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
+                            </div>
                         </form>
-                        
+
                     </div>
                 </div>
             </div>
-                <!-- <form action="index.php?controller=incidencia&action=crear" method="POST">
-                    titulo<input type="text" name="titulo" >
-                    descripcion<input type="text" name="descripcion" >
-                    prioridad<input type="number" name="prioridad">
-                    categoria<input type="number" name="categoria" >
-                    empresa<input type="number" name="empresa" >
-                    tecnico<input type="number" name="tecnico" >
-                    contacto<input type="number" name="contacto" >
-                    <input type="submit">
-                </form>-->
+            <!-- <form action="index.php?controller=incidencia&action=crear" method="POST">
+                titulo<input type="text" name="titulo" >
+                descripcion<input type="text" name="descripcion" >
+                prioridad<input type="number" name="prioridad">
+                categoria<input type="number" name="categoria" >
+                empresa<input type="number" name="empresa" >
+                tecnico<input type="number" name="tecnico" >
+                contacto<input type="number" name="contacto" >
+                <input type="submit">
+            </form>-->
 
-                {% block content %}
-                {% endblock %}
+            {% block content %}
+            {% endblock %}
 
-            </div>
+        </div>
 
     </body>
 
