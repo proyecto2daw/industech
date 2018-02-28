@@ -1,6 +1,6 @@
 <?php
 
-require_once './ModeloBD.php';
+require_once 'ModeloBD.php';
 class Categoria extends BD {
     private $idCategoria;
     private $nombre;

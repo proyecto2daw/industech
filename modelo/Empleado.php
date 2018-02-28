@@ -1,6 +1,6 @@
 <?php
 
-require_once './ModeloBD.php';
+require_once 'ModeloBD.php';
 class Empleado extends BD {
     private $idEmpleado;
     private $nombre;

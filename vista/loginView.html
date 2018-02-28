@@ -1,5 +1,45 @@
-{% extends "index.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PRUEBAS DE ANIMACION HTML</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/loginStyle.css">
+	<link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
 
-{% block content %}
-{{datos.prueba}}
-{%endblock%}
+	<div id="prueba" class="centrar" data-aos="zoom-in-up">
+		<form method="POST" action="index.php?controller=usuario&action=login">
+			<table>
+				<caption>Inicio Sesion</caption>
+				<tr>
+					<td>Usuario: </td>
+					<td><input type="text" name="user"></td>
+				</tr>
+				<tr>
+					<td>Contraseña: </td>
+					<td><input type="password" name="pass"></td>
+				</tr>
+			</table>
+			<div id="botones_form">
+				<input type="submit" value="Acceder" class="boton_personalizado">&nbsp;&nbsp;&nbsp;
+				<input type="reset"  value="Reset"  class="boton_personalizado">
+			</div>
+
+		</form>
+            {{datos.error}}
+
+</div>
+
+
+
+<script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>	
+<script> 
+    AOS.init({
+      duration: 600
+    });
+</script>
+
+</body>
+</html>

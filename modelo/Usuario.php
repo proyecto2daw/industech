@@ -1,6 +1,6 @@
 <?php
 
-require_once './ModeloBD.php';
+require_once 'ModeloBD.php';
 class Usuario extends BD{
     private $idUsuario;
     private $nombre;
@@ -107,7 +107,7 @@ class Usuario extends BD{
     public function getAllUsuarios() {
         $results = $this->fSelectN("SELECT `idUsuario`, `nombre`, `apellidos`, `tipo`, `username`, `password`, `correo`, `telefono` "
                 . "FROM $this->tabla", []);
-        return $results;;
+        return $results;
     }
     
     public function getUsuarioById() {

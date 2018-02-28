@@ -6,7 +6,6 @@ abstract class BD {
     private $user = 'root';
     private $passw = '';
     protected $conexion;
-    private $tabla;
 
     function connect() {
         $this->conexion = new PDO($this->ddbb, $this->user, $this->passw);
@@ -98,37 +97,4 @@ abstract class BD {
             return $ex;
         }
     }
-
-    public function getAll() {
-        $result = $this->fSelectN("SELECT * FROM $this->tabla", []);
-        return $result;
-    }
-
-    public function getById($id) {
-        $object = $this->fSelectO("SELECT * FROM $this->tabla WHERE id = :id", ["id" => $id]);
-        return $object;
-    }
-
-    public function getByColumn($column, $value) {
-        $result = $this->fSelectN("SELECT * FROM $this->tabla WHERE :column = :value", ["column" => $column, "value" => $value]);
-        return $result;
-    }
-
-    public function deleteById($id) {
-        try {
-            $filas = $this->delete("DELETE FROM $this->tabla WHERE id = :id", ["id" => $id]);
-            return $filas;
-        } catch (Exception $e) {
-            return -1;
-        }
-    }
-
-    public function deleteByColumn($column, $value) {
-        try {
-            $this->delete("DELETE FROM $this->tabla WHERE :column = ':value'", ["column" => $column, "value" => $value]);
-        } catch (Exception $e) {
-            return -1;
-        }
-    }
-
 }

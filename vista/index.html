@@ -8,39 +8,59 @@
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" ></script>
 
         <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" ></script>
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <!-- Google apis -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
-     
 
+        <!-- CSS -->
+        <link rel="stylesheet" href="css/style.css">
+        
         <!-- Alertify -->
         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
         <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/alertify.min.css"/>
 
-        
-    </head>
-    <body>      
-            <!--ESTO ES EL CUERPO -->
-            <div id="contenedor-general">      
-        
-                <form action="index.php?controller=incidencia&action=c" method="POST">
-                    titulo<input type="text" name="titulo" >
-                    descripcion<input type="text" name="descripcion" >
-                    prioridad<input type="number" name="prioridad">
-                    categoria<input type="number" name="categoria" >
-                    empresa<input type="number" name="empresa" >
-                    tecnico<input type="number" name="tecnico" >
-                   contacto<input type="number" name="contacto" >
-                   <input type="submit">
-                </form>
-                {% block content %}
-                {% endblock %}
 
-            </div>
-     
+    </head>
+    <body class="container">      
+        <!--ESTO ES EL CUERPO -->
+
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="#"><img src="gears.png"></a>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        
+                    
+                </div>
+            </nav>
+        </header>
+        <div id="contenedor-general">      
+            <!-- <form action="index.php?controller=incidencia&action=crear" method="POST">
+                titulo<input type="text" name="titulo" >
+                descripcion<input type="text" name="descripcion" >
+                prioridad<input type="number" name="prioridad">
+                categoria<input type="number" name="categoria" >
+                empresa<input type="number" name="empresa" >
+                tecnico<input type="number" name="tecnico" >
+                contacto<input type="number" name="contacto" >
+                <input type="submit">
+            </form>-->
+            
+            {% block content %}
+            {% endblock %}
+
+        </div>
+
     </body>
 
 </html>

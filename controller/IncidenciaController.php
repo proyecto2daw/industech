@@ -7,7 +7,7 @@ class IncidenciaController extends Controller {
 
     function run($action) {
         switch ($action) {
-            case 'c':
+            case 'crear':
                 $this->crearIncidencia();
                 break;
         }

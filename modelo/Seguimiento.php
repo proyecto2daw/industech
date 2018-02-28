@@ -1,6 +1,6 @@
 <?php
 
-require_once './ModeloBD.php';
+require_once 'ModeloBD.php';
 class Seguimiento extends BD {
     private $idSeguimiento;
     private $descripcion;
