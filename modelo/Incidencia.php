@@ -1,6 +1,6 @@
 <?php
 
-require_once './ModeloBD.php';
+require_once 'ModeloBD.php';
 class Incidencia extends BD{
     private $idIncidencia;
     private $titulo;
