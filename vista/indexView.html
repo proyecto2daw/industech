@@ -24,6 +24,7 @@
       <th scope="col">First</th>
       <th scope="col">Last</th>
       <th scope="col">Handle</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -34,6 +35,7 @@
         <td>{{incidencia.descripcion}}</td>
         <td>{{incidencia.fecha}}</td>
         <td>{{incidencia.categoria}}</td>
+        <td><a class="btn btn-primary" href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" ><i class="fa fa-eye"></i></a></td>
         
     </tr>
     {%endfor%}
