@@ -2,7 +2,7 @@ $.getJSON(
     'https://cdn.rawgit.com/highcharts/highcharts/v6.0.5/samples/data/usdeur.json',
     function (data) {
 
-        Highcharts.chart('container', {
+        Highcharts.chart('estadistica1', {
             chart: {
                 zoomType: 'x'
             },
@@ -18,7 +18,7 @@ $.getJSON(
             },
             yAxis: {
                 title: {
-                    text: 'Exchange rate'
+                    text: 'Nº incidencias'
                 }
             },
             legend: {
@@ -53,10 +53,146 @@ $.getJSON(
 
             series: [{
                 type: 'area',
-                name: 'USD to EUR',
+                name: 'total de incidencias',
                 data: data
             }]
         });
     }
 );
+
+Highcharts.chart('estadistica2', {
+    chart: {
+        type: 'pie',
+        options3d: {
+            enabled: true,
+            alpha: 45,
+            beta: 0
+        }
+    },
+    title: {
+        text: 'Browser market shares at a specific website, 2014'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            depth: 35,
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}'
+            }
+        }
+    },
+    series: [{
+        type: 'pie',
+        name: 'Browser share',
+        data: [
+            ['urgente ', 45.0],
+            ['muy urgente', 26.8],
+            {
+                name: 'leve',
+                y: 12.8,
+                sliced: true,
+                selected: true
+            },
+            ['medio', 8.5],
+            
+        ]
+    }]
+});
+Highcharts.chart('estadistica3', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'World\'s largest cities per 2014'
+    },
+    subtitle: {
+        text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+    },
+    xAxis: {
+        type: 'category',
+        labels: {
+            rotation: -45,
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            }
+        }
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Incidencias registradas'
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    tooltip: {
+        pointFormat: 'incidencias <b>totales</b>'
+    },
+    series: [{
+        name: 'Population',
+        data: [
+            ['Mercedes', 23.7],
+            ['renault', 16.1],
+            ['Ibermatica', 14.2],
+            ['Deusto', 14.0],
+            ['Michelin', 12.5],
+            ['Garaje Manolo', 12.1],
+            
+        ],
+        dataLabels: {
+            enabled: true,
+            rotation: -90,
+            color: '#FFFFFF',
+            align: 'right',
+            format: '{point.y:.1f}', // one decimal
+            y: 10, // 10 pixels down from the top
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            }
+        }
+    }]
+});
+Highcharts.chart('estadistica4', {
+    chart: {
+        type: 'pie',
+        options3d: {
+            enabled: true,
+            alpha: 45
+        }
+    },
+    title: {
+        text: 'Contents of Highsoft\'s weekly fruit delivery'
+    },
+    subtitle: {
+        text: '3D donut in Highcharts'
+    },
+    plotOptions: {
+        pie: {
+            innerSize: 100,
+            depth: 45
+        }
+    },
+    series: [{
+        name: 'Delivered amount',
+        data: [
+            ['Bananas', 8],
+            ['Kiwi', 3],
+            ['Mixed nuts', 1],
+            ['Oranges', 6],
+            ['Apples', 8],
+            ['Pears', 4],
+            ['Clementines', 4],
+            ['Reddish (bag)', 1],
+            ['Grapes (bunch)', 1]
+        ]
+    }]
+});
 
