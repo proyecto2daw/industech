@@ -10,6 +10,9 @@ class IncidenciaController extends Controller {
             case 'crear':
                 $this->crearIncidencia();
                 break;
+            case 'ver':
+                $this->verIncidencia();
+                break;
         }
     }
 
@@ -33,6 +36,12 @@ class IncidenciaController extends Controller {
         $incidencia->setTecnico($_SESSION['idusuario']);
        $misIncidencias= $incidencia->getIncidenciasByTecnico();
        return $misIncidencias;
+    }
+    function  verIncidencia(){
+        $incidencia =new Incidencia();
+        $incidencia->setIdIncidencia($_GET['id']);
+        $incidenciaDetail=$incidencia->getIncidenciaById();
+        $this->view('incidencia',['incidencia'=>$incidenciaDetail]);
     }
 
 }

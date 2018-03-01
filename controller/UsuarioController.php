@@ -8,6 +8,9 @@ class UsuarioController extends Controller {
             case 'login':
                 $this->login();
                 break;
+            case 'logout':
+                $this->logout();
+                break;
         }
     }
     function login(){
@@ -19,10 +22,15 @@ class UsuarioController extends Controller {
        if($object->idUsuario==NULL){
            $this->view('login', ['error'=>'login erroneo']);
        }else{
-            $this->view('index', []);
+          
             $_SESSION['idusuario']=$object->idUsuario;
+             index();
        }
        
-    
+   
+    }
+    function logout(){
+        session_abort();
+        $this->view('login',[]);
     }
 }

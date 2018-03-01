@@ -8,7 +8,7 @@ require_once 'controller/UsuarioController.php';
 session_start();
 if (!isset($_SESSION['idusuario']) && !isset($_POST['user']) ) {
    loginView();   
-}elseif (isset($_GET['controller']) || isset($_SESSION['idusuario'])) {
+}elseif (isset($_GET['controller']) || isset($_SESSION['idusuario']) || isset($_POST['user'])) {
     switch (@$_GET['controller']) {
         case 'incidencia':
             $controller = new IncidenciaController();
@@ -34,6 +34,7 @@ function loginView() {
 }
 
 function index() {
+
     $ctrl = new IncidenciaController();
     $incidencias=$ctrl->getMisIncidencias();
     $ctrl->view('index', ["incidencias"=>$incidencias]);
