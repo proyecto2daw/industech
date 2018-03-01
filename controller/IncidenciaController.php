@@ -13,6 +13,7 @@ class IncidenciaController extends Controller {
             case 'ver':
                 $this->verIncidencia();
                 break;
+          
         }
     }
 
