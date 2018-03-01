@@ -56,7 +56,7 @@ class Seguimiento extends BD {
 
     public function nuevoSeguimiento() {
         $insert = $this->insert("INSERT INTO $this->tabla "
-                . "(`descripcion`, `usuario`, `incidencia`, `fecha`) "
+                . "(descripcion, usuario, incidencia, fecha) "
                 . "VALUES (:descripcion, :usuario, :incidencia, :fecha)", 
                 ['descripcion' => $this->getDescripcion(), 
                     'usuario' => $this->getUsuario(), 
@@ -66,57 +66,62 @@ class Seguimiento extends BD {
     }
     
     public function getAllSeguimientos() {
-        $results = $this->fSelectN("SELECT `idSeguimiento`, `descripcion`, `usuario`, `incidencia`, `fecha` "
-                . "FROM $this->tabla", []);
+        $results = $this->fSelectN("SELECT idSeguimiento, descripcion, usuario, incidencia, fecha "
+                . "FROM $this->tabla "
+                . "ORDER BY fecha DESC", []);
         return $results;
     }
     
     public function getSeguimientosByUsuario() {
-        $results = $this->fSelectN("SELECT `idSeguimiento`, `descripcion`, `usuario`, `incidencia`, `fecha` "
+        $results = $this->fSelectN("SELECT idSeguimiento, descripcion, usuario, incidencia, fecha "
                 . "FROM $this->tabla "
-                . "WHERE `usuario` = :usuario", 
+                . "WHERE usuario = :usuario "
+                . "ORDER BY fecha DESC", 
                 ['usuario' => $this->getUsuario()]);
         return $results;
     }
     
     public function getSeguimientosByIncidencia() {
-        $results = $this->fSelectN("SELECT `idSeguimiento`, `descripcion`, `usuario`, `incidencia`, `fecha` "
-                . "FROM $this->tabla "
-                . "WHERE `incidencia` = :incidencia", 
-                ['incidencia' => $this->getIncidencia()]);
+        $results = $this->fSelectN("SELECT s.idSeguimiento, s.descripcion, s.usuario, s.incidencia, s.fecha, u.nombre, u.apellidos "
+                . "FROM $this->tabla s "
+                . "JOIN usuarios u "
+                . "ON s.usuario = u.idUsuario "
+                . "WHERE s.incidencia = :incidencia "
+                . "ORDER BY fecha DESC", 
+                ['incidencia' => $this->getIncidencia()]);               
         return $results;
     }
     
-    //ESTA IGUAL NECESITAMOS PARA BUSCAR POR DIA PERO HABRIA QUE HACER OTRO CAMPO EN BD QUE FUERA DIAMES (O ALGO ASI) Y NO FECHA (DATETIME)
     public function getSeguimientosByFecha() {
-        $results = $this->fSelectN("SELECT `idSeguimiento`, `descripcion`, `usuario`, `incidencia`, `fecha` "
+        $results = $this->fSelectN("SELECT idSeguimiento, descripcion, usuario, incidencia, fecha "
                 . "FROM $this->tabla "
-                . "WHERE `fecha` = :fecha", 
+                . "WHERE fecha = :fecha "
+                . "ORDER BY fecha DESC", 
                 ['fecha' => $this->getFecha()]);
         return $results;
     }
     
     public function getSeguimientoById() {
-        $object = $this->fSelectO("SELECT `idSeguimiento`, `descripcion`, `usuario`, `incidencia`, `fecha` "
+        $object = $this->fSelectO("SELECT idSeguimiento, descripcion, usuario, incidencia, fecha "
                 . "FROM $this->tabla "
-                . "WHERE `idSeguimiento` = :idSeguimiento", 
+                . "WHERE idSeguimiento = :idSeguimiento", 
                 ['idSeguimiento' => $this->getIdSeguimiento()]);
         return $object;
     }
     
     public function deleteSeguimiento() {
         $filas = $this->delete("DELETE FROM $this->tabla "
-                . "WHERE `idSeguimiento` = :idSeguimiento", 
+                . "WHERE idSeguimiento = :idSeguimiento", 
                 ['idSeguimiento' => $this->idSeguimiento]);
         return $filas;
     }
     
     public function updateSeguimiento() {
         $filas = $this->update("UPDATE $this->tabla "
-                . "SET `descripcion` = :descripcion, "
-                . "`usuario` = :usuario, "
-                . "`incidencia` = :incidencia, "
-                . "`fecha` = :fecha "
+                . "SET descripcion = :descripcion, "
+                . "usuario = :usuario, "
+                . "incidencia = :incidencia, "
+                . "fecha = :fecha "
                 . "WHERE `idSeguimiento` = :idSeguimiento", 
                 ['descripcion' => $this->getDescripcion(), 
                     'usuario' => $this->getUsuario(), 
