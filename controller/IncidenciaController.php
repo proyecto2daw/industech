@@ -2,6 +2,7 @@
 
 require_once 'ControllerGenerico.php';
 require_once 'modelo/Incidencia.php';
+require_once 'modelo/Seguimiento.php';
 
 class IncidenciaController extends Controller {
 
@@ -13,6 +14,13 @@ class IncidenciaController extends Controller {
             case 'ver':
                 $this->verIncidencia();
                 break;
+            case 'estadisticas' :
+                $this->estadisticas();
+                break;
+            case 'getEstadisticas' :
+                $this->getEstadisticas();
+                break;
+          
         }
     }
 
@@ -37,11 +45,30 @@ class IncidenciaController extends Controller {
        $misIncidencias= $incidencia->getIncidenciasByTecnico();
        return $misIncidencias;
     }
+    
     function  verIncidencia(){
         $incidencia =new Incidencia();
         $incidencia->setIdIncidencia($_GET['id']);
         $incidenciaDetail=$incidencia->getIncidenciaById();
-        $this->view('incidencia',['incidencia'=>$incidenciaDetail]);
+        
+        //Buscamos los datos del Seguimiento de la Incidencia
+        $seguimiento = new Seguimiento();
+        $seguimiento->setIncidencia($_GET['id']);
+        $seguimientoIncidencia = $seguimiento->getSeguimientosByIncidencia();
+        
+        $this->view('incidencia',['incidencia'=>$incidenciaDetail, 'seguimientos'=>$seguimientoIncidencia]);
+    }
+    
+    function estadisticas() {
+        
+        $this->view('estadisticas',[]);
+    }
+    function getEstadisticas(){
+         $incidencia = new Incidencia();
+        $statsCategoria=$incidencia->getEstadisticaByCategoria();
+        $statsEmpresa=$incidencia->getEstadisticaByEmpresa();
+        $statsPrioridad=$incidencia->getEstadisticaByPrioridad();
+        echo json_encode(["categoria"=>$statsCategoria,"empresa"=>$statsEmpresa,"prioridad"=>$statsPrioridad]);
     }
 
 }

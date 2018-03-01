@@ -101,11 +101,11 @@ class Incidencia extends BD{
     public function nuevaIncidencia() {
        $id = $this->insert("INSERT INTO $this->tabla "
                 . "(titulo, descripcion, fecha, prioridad, estado, categoria, empresa, tecnico, contacto) "
-        . "VALUES (:titulo,:descripcion,:fecha,:prioridad,:estado,:categoria,:empresa,:tecnico,:contacto)",
+        . "VALUES (:titulo, :descripcion, :fecha,:prioridad, :estado, :categoria, :empresa, :tecnico, :contacto)",
                 ['titulo' => $this->getTitulo(),
                     'descripcion' => $this->getDescripcion(),
                     'fecha' => $this->getFecha(),
-                    'prioridad'=> $this->getPrioridad(),
+                    'prioridad'=>$this->getPrioridad(),
                     'estado' => $this->getEstado(),
                     'categoria' => $this->getCategoria(),
                     'empresa' => $this->getEmpresa(),
@@ -274,5 +274,18 @@ class Incidencia extends BD{
                     'idIncidencia' => $this->getIdIncidencia()]);
         return $filas;
     }
-    
+   
+    function getEstadisticaByCategoria() {
+    $stat= $this->fSelectN("SELECT nombre, COUNT(idIncidencia) as numero FROM `incidencias`, categorias WHERE categoria=categorias.idCategoria GROUP by categoria", []);
+    return $stat;
+}
+    function getEstadisticaByPrioridad() {
+    $stat= $this->fSelectN("SELECT count(*) as numero,prioridad FROM `incidencias` GROUP BY prioridad", []);
+    return $stat;
+}
+function getEstadisticaByEmpresa() {
+    $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,empresas.nombre FROM `incidencias`, empresas WHERE empresa=empresas.idEmpresa GROUP by empresa", []);
+    return $stat;
+}
+
 }
