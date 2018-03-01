@@ -1,30 +1,22 @@
 html,body{
-
     margin:0px;
-
-    height:100%;
-
-
 }
 
 body{
-    background-image: url("http://www.hdfondos.eu/preview/get_photo/83357/1920/1080");
-    background-repeat: no-repeat;
+    background: url("http://www.hdfondos.eu/preview/get_photo/83357/1920/1080") ;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
 }
 
 
 section{
-
     border-right: 2px solid black;
     height: 100%;
-
-
 }
 
 aside{
-    
     height: 100%;
-
 }
 
 #contenedor{
@@ -34,6 +26,6 @@ aside{
 }
 
 .colorfondo{
-/*    background-color: plum;
-    color: white;*/
+    /*    background-color: plum;
+        color: white;*/
 }

@@ -18,7 +18,7 @@ class EmpresaController extends Controller {
     
     function mostrarTodasEmpresas() {
         $empresa = new Empresa();
-        $listaEmpresas = $empresa->getAllEmpresas();
+        $listaEmpresas = $empresa->getAllEmpresas();     
     }
     
     function mostrarEmpresa() {
