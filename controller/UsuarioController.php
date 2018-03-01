@@ -8,6 +8,9 @@ class UsuarioController extends Controller {
             case 'login':
                 $this->login();
                 break;
+            case 'logout':
+                $this->logout();
+                break;
         }
     }
     function login(){
@@ -25,5 +28,9 @@ class UsuarioController extends Controller {
        }
        
    
+    }
+    function logout(){
+        session_abort();
+        $this->view('login',[]);
     }
 }
