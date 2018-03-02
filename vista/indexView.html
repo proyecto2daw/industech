@@ -27,29 +27,32 @@
                     </thead>
                     <tbody>
 
-                        {% for incidencia in datos.incidencias %}
-                        <tr>
-                            <th scope="row">{{incidencia.titulo}}</th>
-                            <td>{{incidencia.descripcion}}</td>
-                            <td>{{incidencia.fecha}}</td>
-                            <td>{{incidencia.nombreCategoria}}</td>
-                            <td><a class="btn btn-primary" href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" ><i class="fa fa-eye"></i></a></td>
 
-                        </tr>
-                        {%endfor%}
-                    </tbody>
-                </table>
-            </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">TAB2</div><!-- 2º tab-->
-            <!-- 3º tab-->
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-    </section>
+   
+    {% for incidencia in datos.incidencias %}
+    <tr>
+        <th scope="row">{{incidencia.titulo}}</th>
+        <td>{{incidencia.descripcion}}</td>
+        <td>{{incidencia.fecha}}</td>
+        <td>{{incidencia.nombreCategoria}}</td>
+        <td><a class="btn btn-primary" href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" ><i class="fa fa-eye"></i></a></td>
+        
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+  </div>
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">TAB2</div><!-- 2º tab-->
+  <!-- 3º tab-->
+  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </div>
+</section>
+
 
 {%endblock%}

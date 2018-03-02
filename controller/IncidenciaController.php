@@ -88,7 +88,12 @@ class IncidenciaController extends Controller {
         $seguimiento->setIncidencia($_GET['id']);
         $seguimientoIncidencia = $seguimiento->getSeguimientosByIncidencia();
         
-        $this->view('incidencia',['incidencia'=>$incidenciaDetail, 'seguimientos'=>$seguimientoIncidencia]);
+        //buscamos los empleados de contacto en esa empresa
+        $empleado = new Empleado();
+        $empleado->setEmpresa($_GET['empresa']);
+        $listaEmpleadosEmpresa = $empleado->getEmpleadosByEmpresa();
+        
+        $this->view('incidencia',['incidencia'=>$incidenciaDetail, 'seguimientos'=>$seguimientoIncidencia, 'empleados'=>$listaEmpleadosEmpresa]);
     }
 
     function obtenerDatosParaRellenarCombosModalCategoria() {

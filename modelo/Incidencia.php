@@ -228,7 +228,7 @@ class Incidencia extends BD{
     }
     
     public function getIncidenciaById() {
-        $object = $this->fSelectO("SELECT i.idIncidencia, i.titulo, i.descripcion, i.fecha, DATE_FORMAT(i.fecha,'%Y-%m-%d') AS fechaFormateada, i.prioridad, i.estado, i.categoria, i.empresa, i.tecnico, i.contacto, c.nombre AS nombreCategoria, e.nombre AS nombreEmpresa, u.nombre AS nombreTecnico, u.apellidos AS apellidosTecnico, d.nombre AS nombreContacto, d.apellido AS apellidoContacto "
+        $object = $this->fSelectO("SELECT i.idIncidencia, i.titulo, i.descripcion, i.fecha, DATE_FORMAT(i.fecha,'%Y-%m-%d') AS fechaFormateada, i.prioridad, i.estado, i.categoria, i.empresa, i.tecnico, i.contacto, c.nombre AS nombreCategoria, e.nombre AS nombreEmpresa, u.nombre AS nombreTecnico, u.apellidos AS apellidosTecnico, d.nombre AS nombreContacto, d.apellido AS apellidoContacto, d.telefono AS telefonoContacto "
                 . "FROM $this->tabla i "
                 . "JOIN categorias c "
                 . "ON i.categoria = c.idCategoria "
@@ -276,15 +276,22 @@ class Incidencia extends BD{
     }
    
     function getEstadisticaByCategoria() {
-    $stat= $this->fSelectN("SELECT nombre, COUNT(idIncidencia) as numero FROM `incidencias`, categorias WHERE categoria=categorias.idCategoria GROUP by categoria", []);
-    return $stat;
-}
+        $stat= $this->fSelectN("SELECT nombre, COUNT(idIncidencia) as numero FROM $this->tabla, categorias WHERE categoria=categorias.idCategoria GROUP by categoria", []);
+        return $stat;
+    }
+    
     function getEstadisticaByPrioridad() {
-    $stat= $this->fSelectN("SELECT count(*) as numero,prioridad FROM `incidencias` GROUP BY prioridad", []);
-    return $stat;
-}
+        $stat= $this->fSelectN("SELECT count(*) as numero,prioridad FROM $this->tabla GROUP BY prioridad", []);
+        return $stat;
+    }
+    
     function getEstadisticaByEmpresa() {
-        $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,empresas.nombre FROM `incidencias`, empresas WHERE empresa=empresas.idEmpresa GROUP by empresa", []);
+        $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,empresas.nombre FROM $this->tabla, empresas WHERE empresa=empresas.idEmpresa GROUP by empresa", []);
+        return $stat;
+    }    
+    
+    function getEstadisticasByFecha() {
+        $stat= $this->fSelectN("SELECT COUNT(*), DATE FORMAT(fecha, '%m') FROM $this->tabla GROUP BY DATE FORMAT(fecha, '%m')", []);
         return $stat;
     }
 
