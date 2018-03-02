@@ -5,7 +5,7 @@ require_once 'modelo/Incidencia.php';
 require_once 'modelo/Categoria.php';
 require_once 'modelo/Empresa.php';
 require_once 'modelo/Usuario.php';
-//require_once 'modelo/Contacto.php';
+require_once 'modelo/Empleado.php';
 
 
 class IncidenciaController extends Controller {
@@ -90,9 +90,10 @@ class IncidenciaController extends Controller {
     }
 
     function obtenerDatosParaRellenarCombosModalContacto() {
-        //$contacto = new Contac;
-        $listaEmpresas = $empresa->getAllEmpresas();
-        echo json_encode($listaEmpresas);
+        $empleado = new Empleado();
+        $empleado->setEmpresa($_GET['idEmpresa']);
+        $listaEmpleados = $empleado->getEmpleadosByEmpresa();
+        echo json_encode($listaEmpleados);
     }
     
     function estadisticas() {
