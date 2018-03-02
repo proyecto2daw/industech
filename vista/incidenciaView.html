@@ -1,8 +1,99 @@
 {% extends "index.html" %}
 
 {% block content %}
-
-<div>
-  {{datos.incidencia.titulo}} 
-</div>
+<div  id="contenedor" class="row">
+    <section class="col-8">
+        <div>            
+            <form action="index.php?controller=incidencia&action=update&id={{datos.incidencia.idIncidencia}}" method="post"> 
+                <div class="row" style="margin-bottom: 3%;">
+                    <h4 class="col-sm-6">Incidencia</h4>
+                    <button type="submit" class="btn btn-warning offset-5" title="modificar incidencia"><i class="fas fa-edit"></i></button>
+                </div>
+                <div class="form-group row">
+                    <label for="tit" class="col-sm-2 col-form-label">Título</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="tit" name="titulo" value="{{datos.incidencia.titulo}}" placeholder="{{datos.incidencia.titulo}}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="des" class="col-sm-2 col-form-label">Descripción</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="des" rows="3" name="descripcion" placeholder="{{datos.incidencia.descripcion}}"></textarea>
+                        <input type="hidden" name="viejoDescripcion" value="{{datos.incidencia.descripcion}}" />
+                    </div>
+                </div>
+                <div class="form-group row">                    
+                    <label for="emp" class="col-sm-2 col-form-label">Empresa</label>
+                    <div class="col col-sm-10">
+                        <input type="text" class="form-control" id="emp" name="empresa" value="{{datos.incidencia.empresa}}" placeholder="{{datos.incidencia.empresa}}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="fech" class="col-sm-2 col-form-label">Fecha</label>
+                    <div class="col-sm-3">
+                        <input type="date" class="form-control" id="fech" name="fecha" value="{{datos.incidencia.fechaFormateada}}">
+                    </div>
+                    <label for="pri" class="col-sm-2 offset-2 col-form-label">Prioridad</label>
+                    <div class="col col-sm-3">
+                        <input type="text" class="form-control" id="pri" name="prioridad" value="{{datos.incidencia.prioridad}}" placeholder="{{datos.incidencia.prioridad}}">
+                    </div>
+                </div>
+                <div class="form-group row">                    
+                    <label for="est" class="col-sm-2 col-form-label">Estado</label>
+                    <div class="col col-sm-3">
+                        <input type="text" class="form-control" id="est" name="estado" value="{{datos.incidencia.estado}}" placeholder="{{datos.incidencia.estado}}">
+                    </div>
+                    <label for="cat" class="col-sm-2 offset-2 col-form-label">Categoria</label>
+                    <div class="col col-sm-3">
+                        <input type="text" class="form-control" id="cat" name="categoria" value="{{datos.incidencia.categoria}}" placeholder="{{datos.incidencia.categoria}}">
+                    </div>
+                </div>                
+                <div class="form-group row">
+                    <label for="tec" class="col-sm-2 col-form-label">Técnico</label>
+                    <div class="col col-sm-3">
+                        <input type="text" class="form-control" id="tec" name="tecnico" value="{{datos.incidencia.tecnico}}" placeholder="{{datos.incidencia.nombreTecnico}} {{datos.incidencia.apellidosTecnico}}">
+                    </div>
+                    <label for="con" class="col-sm-2 offset-2 col-form-label">Contacto</label>
+                    <div class="col col-sm-3">
+                        <input type="text" class="form-control" id="con" name="contacto" value="{{datos.incidencia.contacto}}" placeholder="{{datos.incidencia.nombreContacto}} {{datos.incidencia.apellidoContacto}}">
+                    </div>
+                </div>
+            </form>            
+        </div>
+        
+        <hr style="border: 1px solid black;">
+        
+        <div class="tab-content" id="myTabContent2">
+            <h4>Seguimiento</h4>
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <table class="table table-hover table-responsive-lg">
+                    <thead class="thead-dark colorfondo">
+                        <tr>
+                            <th scope="col">Fecha y Hora</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Técnico</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>                        
+                        {% for seguimiento in datos.seguimientos %}
+                        <tr style="margin-top: 10px;">
+                            <th scope="row">{{seguimiento.fecha}}</th>
+                            <td>{{seguimiento.descripcion}}</td>
+                            <td>{{seguimiento.nombreTecnico}} {{seguimiento.apellidosTecnico}}</td>                                  
+                        </tr>                        
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>  
+    </section>
+    <aside class="col-4">  
+	<div class="list-group">
+            <span class="list-group-item list-group-item-action active">OPCIONES</span>
+            <a href="#" class="list-group-item list-group-item-action">Estadisticas</a>
+            <a href="#" class="list-group-item list-group-item-action">Mantenimientos</a>
+        </div>
+    </aside>
+</div>    
 {%endblock%}

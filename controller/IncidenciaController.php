@@ -37,8 +37,11 @@ class IncidenciaController extends Controller {
             case 'getEstadisticas' :
                 $this->getEstadisticas();
                 break;
-          case 'todas' :
+            case 'todas' :
                 $this->verTodas();
+                break;
+            case 'update' :
+                $this->modificarIncidencia();
                 break;
         }
     }
@@ -70,7 +73,13 @@ class IncidenciaController extends Controller {
         $incidencia =new Incidencia();
         $incidencia->setIdIncidencia($_GET['id']);
         $incidenciaDetail = $incidencia->getIncidenciaById();
-        $this->view('incidencia', ['incidencia' => $incidenciaDetail]);
+        
+        //Buscamos los datos del Seguimiento de la Incidencia
+        $seguimiento = new Seguimiento();
+        $seguimiento->setIncidencia($_GET['id']);
+        $seguimientoIncidencia = $seguimiento->getSeguimientosByIncidencia();
+        
+        $this->view('incidencia',['incidencia'=>$incidenciaDetail, 'seguimientos'=>$seguimientoIncidencia]);
     }
 
     function obtenerDatosParaRellenarCombosModalCategoria() {
@@ -129,10 +138,35 @@ class IncidenciaController extends Controller {
         } 
         echo json_encode(["categoria"=>$statsCategoria,"empresa"=>$statsEmpresa,"prioridad"=>$statsPrioridad]);
     }
+    
     function verTodas(){
          $incidencia = new Incidencia();
          $incidencias=$incidencia->getAllIncidencias();
          $this->view('todasIncidencias', ['incidencias'=>$incidencias]);
          
+    }
+    
+    function modificarIncidencia(){
+        if($_POST['descripcion'] == '' || $_POST['descripcion'] == ' ') {
+            $descripcion = $_POST['viejoDescripcion'];
+        }
+        else {
+            $descripcion = $_POST['descripcion'];
+        }
+        
+        $incidencia = new Incidencia();
+        $incidencia->setIdIncidencia($_GET['id']);
+        $incidencia->setTitulo($_POST['titulo']);
+        $incidencia->setDescripcion($descripcion);
+        $incidencia->setFecha($_POST['fecha']);
+        $incidencia->setPrioridad($_POST['prioridad']);
+        $incidencia->setEstado(0);
+        $incidencia->setCategoria($_POST['categoria']);
+        $incidencia->setEmpresa($_POST['empresa']);
+        $incidencia->setTecnico($_POST['tecnico']);
+        $incidencia->setContacto($_POST['contacto']);        
+        $updateIncidencia = $incidencia->updateIncidencia();
+        
+        header('Location: index.php?controller=incidencia&action=ver&id='. $incidencia->getIdIncidencia());
     }
 }
