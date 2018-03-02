@@ -2,6 +2,7 @@
 
 require_once 'ControllerGenerico.php';
 require_once 'modelo/Incidencia.php';
+require_once 'modelo/Seguimiento.php';
 require_once 'modelo/Categoria.php';
 require_once 'modelo/Empresa.php';
 require_once 'modelo/Usuario.php';
