@@ -2,8 +2,10 @@ $.getJSON(
     'index.php?controller=incidencia&action=getEstadisticas',
     function (data) {
         console.log(data);
+      
+        
 datos= data;
-console.log(datos['prioridad']);
+//console.log(datos['prioridad'][0].numero);
         Highcharts.chart('estadistica1', {
             chart: {
                 zoomType: 'x'
@@ -183,7 +185,7 @@ Highcharts.chart('estadistica4', {
     },
     series: [{
         name: 'Delivered amount',
-        data: datos['prioridad']
+        data: [datos['prioridad'][0].numero,datos['prioridad'][1].numero]
     }]
 });
 

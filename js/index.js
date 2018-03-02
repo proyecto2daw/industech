@@ -39,12 +39,12 @@ $(document).ready(function () {
             });
         }
     });
-    
-    
-    $('#inputEmpresa').change(function(){
-       
-       $('#inputContacto').removeAttr('disabled'); 
-       $.ajax({
+
+
+    $('#inputEmpresa').change(function () {
+
+        $('#inputContacto').removeAttr('disabled');
+        $.ajax({
             url: 'index.php?controller=incidencia&action=datosModalContacto',
             method: 'POST',
             success: function (data) {
@@ -56,20 +56,32 @@ $(document).ready(function () {
                 });
             }
         });
-        
-        
+
+
     });
 
-    $('#formIncidencia').submit(function (e) {
-        e.preventDefault();
-        var datos = $(this).serialize();
-        $.ajax({
-            url: 'index.php?controller=incidencia&action=crear',
-            method: 'POST',
-            data: datos,
-            success: function (data) {
-                alert(data);
-            }
-        });
+
+    $('#formIncidencia').validetta({
+        realTime: true,
+        display: 'bubble',
+        bubblePosition: 'right', // Bubble position // right / bottom
+        bubbleGapLeft: 50,
+        onValid: function (e) {
+            e.preventDefault();
+            var datos = $(this).serialize();
+            $.ajax({
+                url: 'index.php?controller=incidencia&action=crear',
+                method: 'POST',
+                data: datos,
+                success: function (data) {
+                    if (data != 0) {
+                        alertify.success("insertado con exito");
+                    } else {
+                        alertify.error("error");
+                    }
+                }
+            });
+        }
     });
+
 });
