@@ -276,15 +276,22 @@ class Incidencia extends BD{
     }
    
     function getEstadisticaByCategoria() {
-    $stat= $this->fSelectN("SELECT nombre, COUNT(idIncidencia) as numero FROM `incidencias`, categorias WHERE categoria=categorias.idCategoria GROUP by categoria", []);
-    return $stat;
-}
+        $stat= $this->fSelectN("SELECT nombre, COUNT(idIncidencia) as numero FROM $this->tabla, categorias WHERE categoria=categorias.idCategoria GROUP by categoria", []);
+        return $stat;
+    }
+    
     function getEstadisticaByPrioridad() {
-    $stat= $this->fSelectN("SELECT count(*) as numero,prioridad FROM `incidencias` GROUP BY prioridad", []);
-    return $stat;
-}
+        $stat= $this->fSelectN("SELECT count(*) as numero,prioridad FROM $this->tabla GROUP BY prioridad", []);
+        return $stat;
+    }
+    
     function getEstadisticaByEmpresa() {
-        $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,empresas.nombre FROM `incidencias`, empresas WHERE empresa=empresas.idEmpresa GROUP by empresa", []);
+        $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,empresas.nombre FROM $this->tabla, empresas WHERE empresa=empresas.idEmpresa GROUP by empresa", []);
+        return $stat;
+    }    
+    
+    function getEstadisticasByFecha() {
+        $stat= $this->fSelectN("SELECT COUNT(*), DATE FORMAT(fecha, '%m') FROM $this->tabla GROUP BY DATE FORMAT(fecha, '%m')", []);
         return $stat;
     }
 
