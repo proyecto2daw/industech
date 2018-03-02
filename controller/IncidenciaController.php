@@ -34,6 +34,9 @@ class IncidenciaController extends Controller {
             case 'estadisticas' :
                 $this->estadisticas();
                 break;
+            case 'getEstadisticas' :
+                $this->getEstadisticas();
+                break;
           
         }
     }
@@ -61,9 +64,6 @@ class IncidenciaController extends Controller {
         return $misIncidencias;
     }
 
-
-
-    
     function  verIncidencia(){
         $incidencia =new Incidencia();
         $incidencia->setIdIncidencia($_GET['id']);
@@ -93,6 +93,19 @@ class IncidenciaController extends Controller {
         //$contacto = new Contac;
         $listaEmpresas = $empresa->getAllEmpresas();
         echo json_encode($listaEmpresas);
+    }
+    
+    function estadisticas() {
+        
+        $this->view('estadisticas',[]);
+    }
+    
+    function getEstadisticas(){
+         $incidencia = new Incidencia();
+        $statsCategoria=$incidencia->getEstadisticaByCategoria();
+        $statsEmpresa=$incidencia->getEstadisticaByEmpresa();
+        $statsPrioridad=$incidencia->getEstadisticaByPrioridad();
+        echo json_encode(["categoria"=>$statsCategoria,"empresa"=>$statsEmpresa,"prioridad"=>$statsPrioridad]);
     }
 
 }

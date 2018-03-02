@@ -1,7 +1,9 @@
 $.getJSON(
-    'https://cdn.rawgit.com/highcharts/highcharts/v6.0.5/samples/data/usdeur.json',
+    'index.php?controller=incidencia&action=getEstadisticas',
     function (data) {
-
+        console.log(data);
+datos= data;
+console.log(datos['prioridad']);
         Highcharts.chart('estadistica1', {
             chart: {
                 zoomType: 'x'
@@ -57,8 +59,7 @@ $.getJSON(
                 data: data
             }]
         });
-    }
-);
+    
 
 Highcharts.chart('estadistica2', {
     chart: {
@@ -98,7 +99,7 @@ Highcharts.chart('estadistica2', {
                 sliced: true,
                 selected: true
             },
-            ['medio', 8.5],
+            ['medio', 8.5]
             
         ]
     }]
@@ -182,17 +183,9 @@ Highcharts.chart('estadistica4', {
     },
     series: [{
         name: 'Delivered amount',
-        data: [
-            ['Bananas', 8],
-            ['Kiwi', 3],
-            ['Mixed nuts', 1],
-            ['Oranges', 6],
-            ['Apples', 8],
-            ['Pears', 4],
-            ['Clementines', 4],
-            ['Reddish (bag)', 1],
-            ['Grapes (bunch)', 1]
-        ]
+        data: datos['prioridad']
     }]
 });
 
+}
+);

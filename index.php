@@ -34,7 +34,7 @@ function loginView() {
 }
 
 function index() {
-
+    
     $ctrl = new IncidenciaController();
     $incidencias=$ctrl->getMisIncidencias();
     $ctrl->view('index', ["incidencias"=>$incidencias]);
