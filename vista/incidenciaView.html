@@ -30,23 +30,38 @@
                 </div>
             </div>
             <div class="form-group row">                    
-                <label for="est" class="col-sm-1 offset-1 col-form-label">Estado</label>
+                <label for="tec" class="col-sm-1 offset-1 col-form-label">Técnico</label>
                 <div class="col col-sm-3">
-                    <input type="text" class="form-control" id="est" name="estado" value="{{datos.incidencia.estado}}" placeholder="{{datos.incidencia.estado}}">
+                    <input type="text" class="form-control" id="tec" name="tecnico" value="{{datos.incidencia.tecnico}}" placeholder="{{datos.incidencia.nombreTecnico}} {{datos.incidencia.apellidosTecnico}}">
                 </div>
                 <label for="cat" class="col-sm-1 offset-1 col-form-label">Categoria</label>
                 <div class="col col-sm-3">
                     <input type="text" class="form-control" id="cat" name="categoria" value="{{datos.incidencia.categoria}}" placeholder="{{datos.incidencia.categoria}}">
                 </div>
             </div>                
-            <div class="form-group row">
-                <label for="tec" class="col-sm-1 offset-1 col-form-label">Técnico</label>
-                <div class="col col-sm-3">
-                    <input type="text" class="form-control" id="tec" name="tecnico" value="{{datos.incidencia.tecnico}}" placeholder="{{datos.incidencia.nombreTecnico}} {{datos.incidencia.apellidosTecnico}}">
-                </div>
+            <div class="form-group row">                
+                <!-- <label for="con" class="col-sm-1 offset-1 col-form-label">Contacto</label> -->
+                
                 <label for="con" class="col-sm-1 offset-1 col-form-label">Contacto</label>
                 <div class="col col-sm-3">
+                    <select class="form-control" id="con" name="contacto">
+                        <option value="{{datos.incidencia.contacto}}" selected>{{datos.incidencia.nombreContacto}} {{datos.incidencia.apellidoContacto}}</option>
+                       
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                
+                
+                <!-- <div class="col col-sm-3">
                     <input type="text" class="form-control" id="con" name="contacto" value="{{datos.incidencia.contacto}}" placeholder="{{datos.incidencia.nombreContacto}} {{datos.incidencia.apellidoContacto}}">
+                </div> -->
+                
+                <label for="telCon" class="col-sm-1 offset-1 col-form-label">Teléfono Contacto</label>
+                <div class="col col-sm-3">
+                    <input type="text" class="form-control" id="telCon" name="telefonoContacto" value="{{datos.incidencia.telefonoContacto}}">
                 </div>
             </div>
             <div class="form-group row">
