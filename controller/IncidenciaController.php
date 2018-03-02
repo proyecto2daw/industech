@@ -7,6 +7,7 @@ require_once 'modelo/Empresa.php';
 require_once 'modelo/Usuario.php';
 //require_once 'modelo/Contacto.php';
 
+
 class IncidenciaController extends Controller {
 
     function run($action) {
@@ -16,6 +17,7 @@ class IncidenciaController extends Controller {
                 break;
             case 'datosModalCategoria':
                 $this->obtenerDatosParaRellenarCombosModalCategoria();
+        
                 break;
             case 'datosModalTecnico':
                 $this->obtenerDatosParaRellenarCombosModalTecnico();
@@ -29,6 +31,10 @@ class IncidenciaController extends Controller {
             case 'ver':
                 $this->verIncidencia();
                 break;
+            case 'estadisticas' :
+                $this->estadisticas();
+                break;
+          
         }
     }
 
@@ -55,8 +61,11 @@ class IncidenciaController extends Controller {
         return $misIncidencias;
     }
 
-    function verIncidencia() {
-        $incidencia = new Incidencia();
+
+
+    
+    function  verIncidencia(){
+        $incidencia =new Incidencia();
         $incidencia->setIdIncidencia($_GET['id']);
         $incidenciaDetail = $incidencia->getIncidenciaById();
         $this->view('incidencia', ['incidencia' => $incidenciaDetail]);
