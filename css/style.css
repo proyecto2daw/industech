@@ -4,7 +4,8 @@ html,body{
 
 body{
     background: url("http://www.hdfondos.eu/preview/get_photo/83357/1920/1080") ;
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
     height: 100%;
     background-size: cover;
 }
@@ -25,7 +26,4 @@ aside{
     background-color: #F0F1FF;
 }
 
-.colorfondo{
-    /*    background-color: plum;
-        color: white;*/
-}
+
