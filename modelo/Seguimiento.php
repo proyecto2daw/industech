@@ -130,5 +130,4 @@ class Seguimiento extends BD {
                     'idSeguimiento' => $this->getIdSeguimiento()]);
         return $filas;
     }
-
 }

@@ -169,4 +169,5 @@ class IncidenciaController extends Controller {
         
         header('Location: index.php?controller=incidencia&action=ver&id='. $incidencia->getIdIncidencia());
     }
+
 }
