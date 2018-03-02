@@ -82,7 +82,7 @@ class Seguimiento extends BD {
     }
     
     public function getSeguimientosByIncidencia() {
-        $results = $this->fSelectN("SELECT s.idSeguimiento, s.descripcion, s.usuario, s.incidencia, s.fecha, u.nombre, u.apellidos "
+        $results = $this->fSelectN("SELECT s.idSeguimiento, s.descripcion, s.usuario, s.incidencia, s.fecha, u.nombre AS nombreTecnico, u.apellidos AS apellidosTecnico "
                 . "FROM $this->tabla s "
                 . "JOIN usuarios u "
                 . "ON s.usuario = u.idUsuario "
@@ -130,5 +130,4 @@ class Seguimiento extends BD {
                     'idSeguimiento' => $this->getIdSeguimiento()]);
         return $filas;
     }
-
 }

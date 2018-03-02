@@ -57,23 +57,32 @@ $(document).ready(function () {
                 });
             }
         });
+
+
     });
 
 
-});
-
-$('#formIncidencia').submit(function (e) {
-    e.preventDefault();
-    var form = $(this);
-    var datos = form.serialize();
-    $.ajax({
-        url: form.atrr('action'),
-        method: 'POST',
-        data: datos,
-        success: function (data) {
-            alert(data);
+    $('#formIncidencia').validetta({
+        realTime: true,
+        display: 'bubble',
+        bubblePosition: 'right', // Bubble position // right / bottom
+        bubbleGapLeft: 50,
+        onValid: function (e) {
+            e.preventDefault();
+            var datos = $(this).serialize();
+            $.ajax({
+                url: 'index.php?controller=incidencia&action=crear',
+                method: 'POST',
+                data: datos,
+                success: function (data) {
+                    if (data != 0) {
+                        alertify.success("insertado con exito");
+                    } else {
+                        alertify.error("error");
+                    }
+                }
+            });
         }
     });
 
 });
-
