@@ -60,7 +60,15 @@ class IncidenciaController extends Controller {
         $incidencia->setTecnico($_POST['tecnico']);
         $incidencia->setContacto($_POST['contacto']);
         $id = $incidencia->nuevaIncidencia();
-        echo $id;
+        
+        if($_POST['tecnico'] == $_SESSION['idusuario']){
+            echo $id; 
+            
+        }else{
+            echo 'ok';
+           
+        }
+        
     }
 
     function getMisIncidencias() {

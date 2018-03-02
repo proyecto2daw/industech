@@ -41,19 +41,18 @@ $(document).ready(function () {
     });
 
 
-    $('#inputEmpresa').change(function () {
-        $('#inputContacto').removeAttr('disabled');
+    $('[name="empresa"]').change(function () {
+        $('[name="contacto"]').removeAttr('disabled');
         var idEmpresa = $(this).val();
         $.ajax({
             url: 'index.php?controller=incidencia&action=datosModalContacto&idEmpresa=' + idEmpresa,
             method: 'GET',
             success: function (data) {
-                console.log(data);
                 var datosModal = jQuery.parseJSON(data);
-                $('#inputContacto').empty();
-                $('#inputContacto').append('<option >Seleccione opcion</option>');
+                $('[name="contacto"]').empty();
+                $('[name="contacto"]').append('<option >Seleccione opcion</option>');
                 $.each(datosModal, function (key, item) {
-                    $('#inputContacto').append('<option value="' + item.idEmpleado + '">' + item.nombre + '</option>');
+                    $('[name="contacto"]').append('<option value="' + item.idEmpleado + '">' + item.nombre + '</option>');
                 });
             }
         });
@@ -69,17 +68,26 @@ $(document).ready(function () {
         bubbleGapLeft: 50,
         onValid: function (e) {
             e.preventDefault();
-            var datos = $(this).serialize();
+            var datos = $('#formIncidencia').serialize();
+            console.log(datos);
             $.ajax({
                 url: 'index.php?controller=incidencia&action=crear',
                 method: 'POST',
                 data: datos,
                 success: function (data) {
-                    if (data != 0) {
+                    console.log(data);
+                    if (data != 0 && data != 'ok') {
                         alertify.success("insertado con exito");
-                    } else {
-                        alertify.error("error");
+                        $('#tablaIncidencias').prepend('<tr>\n\
+                                                            <th scope="row">'+$('[name="titulo"]').val()+'</th>\n\
+                                                            <td>{{incidencia.descripcion}}</td><td>{{incidencia.fecha}}</td>\n\
+                                                            <td>{{incidencia.nombreCategoria}}</td> \n\
+                                                            <td><a class="btn btn-primary" href="index.php?controller=incidencia&action=ver&id='+data+'" title="ver incidencia" ><i class="fa fa-eye"></i></a></td>\n\
+                                                        </tr>');
                     }
+//                    else {
+//                        alertify.error("error");
+//                    }
                 }
             });
         }
