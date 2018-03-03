@@ -4,18 +4,16 @@
 {% block content %}
 
 <section class="col-10">
-
     <div>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#filtro" aria-expanded="false" aria-controls="filtro">
             Filtro
         </button>
     </div>
-    <div class="collapse" id="collapseExample" style="margin-top: 10px">
+    <div class="collapse" id="filtro" style="margin-top: 10px">
         <div class="card card-body">
             Añadir formulario para filtros
         </div>
     </div>
-
     <table class="table table-hover" style="margin-top: 10px;">
         <thead class="thead-dark colorfondo">
             <tr>
@@ -27,17 +25,15 @@
             </tr>
         </thead>
         <tbody>
-
-            {% for incidencia in datos.incidencias %}
+        {% for incidencia in datos.incidencias %}
             <tr>
                 <th scope="row">{{incidencia.titulo}}</th>
                 <td>{{incidencia.descripcion}}</td>
                 <td>{{incidencia.fecha}}</td>
                 <td>{{incidencia.nombreCategoria}}</td>
                 <td><a class="btn btn-primary" href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" ><i class="fa fa-eye"></i></a></td>
-
             </tr>
-            {%endfor%}
+        {%endfor%}
         </tbody>
     </table>
 </section>

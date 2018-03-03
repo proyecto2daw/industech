@@ -61,6 +61,15 @@ $(document).ready(function () {
     });
 
 
+    $(".modal").on("hidden.bs.modal", function () {
+        $("#formIncidencia").trigger("reset");
+        ;
+        $('[name="contacto"]').prop("disabled", true);
+        $('[name="contacto"]').empty();
+    });
+
+
+
     $('#formIncidencia').validetta({
         realTime: true,
         display: 'bubble',
@@ -79,10 +88,10 @@ $(document).ready(function () {
                     if (data != 0 && data != 'ok') {
                         alertify.success("insertado con exito");
                         $('#tablaIncidencias').prepend('<tr>\n\
-                                                            <th scope="row">'+$('[name="titulo"]').val()+'</th>\n\
+                                                            <th scope="row">' + $('[name="titulo"]').val() + '</th>\n\
                                                             <td>{{incidencia.descripcion}}</td><td>{{incidencia.fecha}}</td>\n\
                                                             <td>{{incidencia.nombreCategoria}}</td> \n\
-                                                            <td><a class="btn btn-primary" href="index.php?controller=incidencia&action=ver&id='+data+'" title="ver incidencia" ><i class="fa fa-eye"></i></a></td>\n\
+                                                            <td><a class="btn btn-primary" href="index.php?controller=incidencia&action=ver&id=' + data + '" title="ver incidencia" ><i class="fa fa-eye"></i></a></td>\n\
                                                         </tr>');
                     }
 //                    else {
