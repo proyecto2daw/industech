@@ -1,6 +1,7 @@
 var empresas = [];
 var categorias = [];
 var prioridades = [];
+var fechas=[];
 $.getJSON(
         'index.php?controller=incidencia&action=getEstadisticas',
         function (data) {
@@ -25,7 +26,7 @@ $.getJSON(
                             'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
                 },
                 xAxis: {
-                    type: 'datetime'
+                    type: 'number'
                 },
                 yAxis: {
                     title: {
@@ -65,7 +66,7 @@ $.getJSON(
                 series: [{
                         type: 'area',
                         name: 'total de incidencias',
-                        data: []
+                        data: fechas
                     }]
             });
 
@@ -220,5 +221,8 @@ function parseEmpresa(datos) {
         prioridades.push([prioridad, parseInt(datos.prioridad[k].numero)]);
     }
     console.log(prioridades);
+    for(var n in datos.fecha){
+        fechas.push([parseInt(datos.fecha[n].numeroMes),parseInt(datos.fecha[n].numero)]);
+    }
 
 }
