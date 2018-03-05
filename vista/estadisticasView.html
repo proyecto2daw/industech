@@ -4,11 +4,34 @@
 {{datos.prueba}}
 
 
-<div id="estadistica1"></div>
-<div id="estadistica2"></div>
-<div id="estadistica3"></div>
-<div id="estadistica4"></div>
-
+    <section class="col-10">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="prueba-tab" data-toggle="tab" href="#prueba" role="tab" aria-controls="prueba" aria-selected="false">Prueba</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div id="estadistica1"></div>
+                <div id="estadistica2"></div>
+            </div>
+            <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div id="estadistica3"></div>
+                <div id="estadistica4"></div>
+            </div>
+            <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab"></div>
+            <div class="tab-pane fade " id="prueba" role="tabpanel" aria-labelledby="prueba-tab"></div>
+        </div>
+    </section>
 
 <script src="https://code.highcharts.com/highcharts.src.js"></script>
 <script src="js/estadisticas.js"></script>

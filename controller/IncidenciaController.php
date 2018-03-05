@@ -62,7 +62,15 @@ class IncidenciaController extends Controller {
         $incidencia->setTecnico($_POST['tecnico']);
         $incidencia->setContacto($_POST['contacto']);
         $id = $incidencia->nuevaIncidencia();
-        echo $id;
+        
+        if($_POST['tecnico'] == $_SESSION['idusuario']){
+            echo $id; 
+            
+        }else{
+            echo 'ok';
+           
+        }
+        
     }
 
     function getMisIncidencias() {
@@ -144,24 +152,9 @@ class IncidenciaController extends Controller {
         $statsCategoria=$incidencia->getEstadisticaByCategoria();
         $statsEmpresa=$incidencia->getEstadisticaByEmpresa();
         $statsPrioridad=$incidencia->getEstadisticaByPrioridad();
-       
-        foreach ($statsPrioridad as &$value) {           
-            switch ($value) {
-                case "0":
-                    $value = 'leve';
-                    break;
-                case "1":
-                    $value = 'medio';
-                    break;
-                case "2":
-                    $value = 'alta';
-                    break;
-                case "3":
-                    $value = 'grave';
-                    break;
-            }
-        } 
-        echo json_encode(["categoria"=>$statsCategoria,"empresa"=>$statsEmpresa,"prioridad"=>$statsPrioridad]);
+       $stasFecha=$incidencia->getEstadisticasByFecha();
+        
+        echo json_encode(["categoria"=>$statsCategoria,"empresa"=>$statsEmpresa,"prioridad"=>$statsPrioridad,"fecha"=>$stasFecha]);
     }
     
     function verTodas(){

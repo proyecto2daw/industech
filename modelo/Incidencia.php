@@ -291,7 +291,7 @@ class Incidencia extends BD{
     }    
     
     function getEstadisticasByFecha() {
-        $stat= $this->fSelectN("SELECT COUNT(*), DATE FORMAT(fecha, '%m') FROM $this->tabla GROUP BY DATE FORMAT(fecha, '%m')", []);
+        $stat= $this->fSelectN("SELECT COUNT(*) as numero, DATE_FORMAT(fecha, '%m') as numeroMes FROM $this->tabla GROUP BY DATE_FORMAT(fecha, '%m')", []);
         return $stat;
     }
 
