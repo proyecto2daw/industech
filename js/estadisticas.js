@@ -75,7 +75,7 @@ function estadisticaTiempo(datos) {
             zoomType: 'x'
         },
         title: {
-            text: 'USD to EUR exchange rate over time'
+            text: 'Incidencias a lo largo del añi'
         },
         subtitle: {
             text: document.ontouchstart === undefined ?
@@ -138,7 +138,7 @@ function estadisticasPrioridad(datos) {
             }
         },
         title: {
-            text: 'Browser market shares at a specific website, 2014'
+            text: 'Prioridad en incidencias registradas'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -167,7 +167,7 @@ function estadisticaEmpresa(datos) {
             type: 'column'
         },
         title: {
-            text: 'World\'s largest cities per 2014'
+            text: 'Incidencias por empresa'
         },
         subtitle: {
             text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
@@ -232,7 +232,7 @@ function estadisticaCategoria(datos) {
             }
         },
         title: {
-            text: 'Contents of Highsoft\'s weekly fruit delivery'
+            text: 'Incidencias por categoria'
         },
         subtitle: {
             text: '3D donut in Highcharts'
