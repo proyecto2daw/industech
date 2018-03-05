@@ -3,21 +3,21 @@
 {% block content %}
 
 
-<select>
+<select class="filtro" name="categoria">
     {% for categoria in datos.categorias%}
-    <option>{{categoria.nombre}}</option>
+    <option value="{{categoria.idCategoria}}">{{categoria.nombre}}</option>
     {%endfor%}
 </select>
-<select>
+<select class="filtro" name="empresa">
     {% for empresa in datos.empresas%}
-    <option>{{empresa.nombre}}</option>
+    <option value="{{empresa.idEmpresa}}">{{empresa.nombre}}</option>
     {%endfor%}
 </select>
-<select>
-    <option>baja</option>
-    <option>media</option>
-    <option>alta</option>
-    <option>urgente</option>
+<select class="filtro" name="prioridad">
+    <option value="0">baja</option>
+    <option value="1">media</option>
+    <option value="2">alta</option>
+    <option value="3">urgente</option>
     
 </select>
     <section class="col-10">

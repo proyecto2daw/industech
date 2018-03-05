@@ -318,7 +318,7 @@ class Incidencia extends BD{
         return $stat;
     }
     function statEmpresaByCategoria(){
-        $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,empresas.nombre,categorias.nombre FROM incidencias, empresas,categorias WHERE empresa=empresas.idEmpresa and categorias.idCategoria=incidencias.categoria and categoria =:categoria GROUP by empresa", ['categoria'=> $this->getCategoria()]);
+        $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,empresas.nombre,categorias.nombre as categoria FROM incidencias, empresas,categorias WHERE empresa=empresas.idEmpresa and categorias.idCategoria=incidencias.categoria and categoria =:categoria GROUP by empresa", ['categoria'=> $this->getCategoria()]);
         return $stat;
     }
     
