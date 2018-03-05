@@ -167,10 +167,22 @@ class IncidenciaController extends Controller {
     }
     
     function verTodas(){
+        $categoria = new Categoria();
+        $listaCategorias = $categoria->getAllCategorias();
+        
+        $usuario = new Usuario();
+        $listaUsuarios = $usuario->getAllUsuarios();
+        
+        $empresa = new Empresa();
+        $listaEmpresas = $empresa->getAllEmpresas();
         
          $incidencia = new Incidencia();
          $incidencias=$incidencia->getAllIncidencias();
-         $this->view('todasIncidencias', ['incidencias'=>$incidencias]);
+         $this->view('todasIncidencias', ['incidencias'=>$incidencias,
+                                          'categorias'=>$listaCategorias,
+                                          'tecnicos'=>$listaUsuarios,
+                                          'empresas'=>$listaEmpresas
+                 ]);
          
     }
     

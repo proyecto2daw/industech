@@ -3,6 +3,7 @@
 
 {% block content %}
 
+
 <section class="col-10">
     <div>
         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#filtro" aria-expanded="false" aria-controls="filtro">
@@ -16,11 +17,21 @@
                 <div class="form-group row">                    
                     <label for="inputTecnicoFiltro" class="col-sm-1 offset-1 col-form-label">Técnico</label>
                     <div class="col col-sm-3">
-                        <select name="tecnico" class="form-control camposFormModificar" id="inputTecnicoFiltro" ></select>
+                        <select name="tecnico" class="form-control camposFormModificar" id="inputTecnicoFiltro" >
+                            <option>Seleccione opcion</option>
+                            {% for tecnico in datos.tecnicos %}
+                            <option value="{{tecnico.idUsuario}}">{{tecnico.nombre}}</option>
+                            {%endfor%}
+                        </select>
                     </div>
                     <label for="inputCategoriaFiltro" class="col-sm-1 offset-1 col-form-label">Categoria</label>
                     <div class="col col-sm-3">
-                        <select name="categoria" class="form-control camposFormModificar" id="inputCategoriaFiltro" ></select>
+                        <select name="categoria" class="form-control camposFormModificar" id="inputCategoriaFiltro" >
+                            <option>Seleccione opcion</option>
+                            {% for categoria in datos.categorias %}
+                            <option value="{{categoria.idCategoria}}">{{categoria.nombre}}</option>
+                            {%endfor%} 
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -30,7 +41,8 @@
                     </div>
                     <label for="inputPrioridadFiltro" class="col-sm-1  offset-1 col-form-label">Prioridad</label>
                     <div class="col col-sm-3">
-                        <select name="prioridad" class="form-control camposFormModificar" id="inputPrioridadFiltro" >
+                        <select name="prioridad" class="form-control" id="inputPrioridadFiltro" >
+                            <option value="">Seleccione opcion</option>
                             <option value="0">Baja</option>
                             <option value="1">Media</option>
                             <option value="2">Alta</option>
@@ -52,7 +64,12 @@
                 <div class="form-group row">                 
                     <label for="nombreEmpresaFiltro" class="col-sm-1 offset-1 col-form-label">Empresa</label>
                     <div class="col col-sm-3">
-                        <input type="text" class="form-control" id="nombreEmpresaFiltro" name="empresa" >
+                        <select class="form-control" id="nombreEmpresaFiltro" name="empresa">
+                             <option>Seleccione opcion</option>
+                            {% for empresa in datos.empresas %}
+                            <option value="{{empresa.idEmpresa}}">{{empresa.nombre}}</option>
+                            {%endfor%} 
+                        </select>
                     </div>
                 </div>
                 
@@ -65,7 +82,7 @@
 
 
     </div>
-    <table class="table table-hover" style="margin-top: 10px;" id="todasIncidenciasTable">
+    <table class="table table-hover"  id="todasIncidenciasTable" style="margin-top:10px;" >
         <thead class="thead-dark colorfondo">
             <tr>
                 <th scope="col">Titulo</th>
