@@ -294,6 +294,22 @@ class Incidencia extends BD{
         $stat= $this->fSelectN("SELECT COUNT(*) as numero, DATE_FORMAT(fecha, '%m') as numeroMes FROM $this->tabla GROUP BY DATE_FORMAT(fecha, '%m')", []);
         return $stat;
     }
+    
+    function  filtrarDatosIncidencias($fechaInicio,$fechaFinal){
+        $query="SELECT * FROM $this->tabla where 1 = 1 ";
+        $where;
+        
+        if($this->getEstado()!= ''){
+            $where="and estado = ".$this->getEstado();
+            
+        }
+        
+        echo $query.$where;
+        
+       // $stat= $this->fSelectN($query.$where, []);
+        
+        
+    }
 
     
     

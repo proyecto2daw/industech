@@ -11,8 +11,59 @@
     </div>
     <div class="collapse" id="filtro" style="margin-top: 10px">
         <div class="card card-body">
-            Añadir formulario para filtros
+            <!--prueba -->
+            <form method="POST" action="index.php?controller=incidencia&action=filtroIncidencias">
+                <div class="form-group row">                    
+                    <label for="inputTecnicoFiltro" class="col-sm-1 offset-1 col-form-label">Técnico</label>
+                    <div class="col col-sm-3">
+                        <select name="tecnico" class="form-control camposFormModificar" id="inputTecnicoFiltro" ></select>
+                    </div>
+                    <label for="inputCategoriaFiltro" class="col-sm-1 offset-1 col-form-label">Categoria</label>
+                    <div class="col col-sm-3">
+                        <select name="categoria" class="form-control camposFormModificar" id="inputCategoriaFiltro" ></select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEstadoFiltro" class="col-sm-1 offset-1 col-form-label">Estado</label>
+                    <div class="col col-sm-3">
+                        <input type="text" class="form-control"  name="estado"  id="inputEstadoFiltro">
+                    </div>
+                    <label for="inputPrioridadFiltro" class="col-sm-1  offset-1 col-form-label">Prioridad</label>
+                    <div class="col col-sm-3">
+                        <select name="prioridad" class="form-control camposFormModificar" id="inputPrioridadFiltro" >
+                            <option value="0">Baja</option>
+                            <option value="1">Media</option>
+                            <option value="2">Alta</option>
+                            <option value="3">Urgente</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">                    
+                    <label for="fechaInicialFiltro" class="col-sm-1 offset-1 col-form-label" >Fecha Inicial</label>
+                    <div class="col-sm-3">
+                        <input type="date" class="form-control" id="fechaInicial" name="fechaInicialFiltro">
+                    </div>
+                    <label for="fechaFinalFiltro" class="col-sm-1 offset-1 col-form-label">Fecha Final</label>
+                    <div class="col-sm-3">
+                        <input type="date" class="form-control" id="fechaFinal" name="fechaFinalFiltro" >
+                    </div>
+                </div>
+
+                <div class="form-group row">                 
+                    <label for="nombreEmpresaFiltro" class="col-sm-1 offset-1 col-form-label">Empresa</label>
+                    <div class="col col-sm-3">
+                        <input type="text" class="form-control" id="nombreEmpresaFiltro" name="empresa" >
+                    </div>
+                </div>
+                
+                 <button type="submit" class="btn btn-primary">Buscar</button>
+
+            </form>  <!-- fin: prueba -->
+
+
         </div>
+
+
     </div>
     <table class="table table-hover" style="margin-top: 10px;" id="todasIncidenciasTable">
         <thead class="thead-dark colorfondo">
@@ -25,7 +76,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for incidencia in datos.incidencias %}
+            {% for incidencia in datos.incidencias %}
             <tr>
                 <th scope="row">{{incidencia.titulo}}</th>
                 <td>{{incidencia.descripcion}}</td>
@@ -33,7 +84,7 @@
                 <td>{{incidencia.nombreCategoria}}</td>
                 <td><a class="btn btn-primary" href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" ><i class="fa fa-eye"></i></a></td>
             </tr>
-        {%endfor%}
+            {%endfor%}
         </tbody>
     </table>
 </section>

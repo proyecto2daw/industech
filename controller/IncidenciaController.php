@@ -46,6 +46,9 @@ class IncidenciaController extends Controller {
             case 'seguimientoIncidencia' :
                 $this->nuevoSeguimientoIncidencia();
                 break;
+            case 'filtroIncidencias' :
+                $this->filtroIncidencias();
+                break;
         }
     }
 
@@ -161,6 +164,7 @@ class IncidenciaController extends Controller {
     }
     
     function verTodas(){
+        
          $incidencia = new Incidencia();
          $incidencias=$incidencia->getAllIncidencias();
          $this->view('todasIncidencias', ['incidencias'=>$incidencias]);
@@ -203,4 +207,19 @@ class IncidenciaController extends Controller {
       echo $nuevoSeguimiento;
     }
     
+    function filtroIncidencias(){
+        $incidencia = new Incidencia();
+   
+        $incidencia->setPrioridad($_POST['prioridad']);
+        $incidencia->setCategoria($_POST['categoria']);
+        $incidencia->setEmpresa($_POST['empresa']);
+        $incidencia->setTecnico($_POST['tecnico']);
+        $incidencia->setContacto($_POST['contacto']);
+        $incidencia->setEstado($_POST['estado']);
+        
+        $listaIncidenciasFiltrada = $incidencia->filtrarDatosIncidencias($_POST['fechaInicial'],$_POST['fechaFinal']);
+        
+        
+    } 
+
 }
