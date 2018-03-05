@@ -1,9 +1,25 @@
 {% extends "index.html" %}
 
 {% block content %}
-{{datos.prueba}}
 
 
+<select>
+    {% for categoria in datos.categorias%}
+    <option>{{categoria.nombre}}</option>
+    {%endfor%}
+</select>
+<select>
+    {% for empresa in datos.empresas%}
+    <option>{{empresa.nombre}}</option>
+    {%endfor%}
+</select>
+<select>
+    <option>baja</option>
+    <option>media</option>
+    <option>alta</option>
+    <option>urgente</option>
+    
+</select>
     <section class="col-10">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">

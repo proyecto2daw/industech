@@ -323,7 +323,19 @@ class Incidencia extends BD{
     }
     
     function statCategoriaByPrioridad(){
-        $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,empresas.nombre,prioridad FROM incidencias, empresas WHERE empresa=empresas.idEmpresa and prioridad =:prioridad GROUP by empresa", ['prioridad'=> $this->getPrioridad()]);
+        $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,categorias.nombre FROM incidencias, categorias WHERE categoria=categorias.idCategoria and prioridad=:prioridad GROUP by categoria", ['prioridad'=> $this->getPrioridad()]);
+        return $stat;
+    }
+    function statCategoriaByEmpresa(){
+         $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,categorias.nombre FROM incidencias, categorias,empresas WHERE categoria=categorias.idCategoria and empresas.idEmpresa=empresa and empresa=:empresa GROUP by categoria", ['empresa'=> $this->getEmpresa()]);
+        return $stat;
+    }
+    function statPrioridadByCategoria(){
+         $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero , prioridad FROM incidencias WHERE categoria=:categoria GROUP by prioridad", ['categoria'=> $this->getCategoria()]);
+        return $stat;
+    }
+    function statPrioridadByEmpresa() {
+        $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,prioridad FROM incidencias,empresas WHERE empresa=:empresa and empresas.idEmpresa=empresa GROUP by prioridad", ['empresa'=> $this->getEmpresa()]);
         return $stat;
     }
     
