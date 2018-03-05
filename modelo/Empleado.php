@@ -56,7 +56,7 @@ class Empleado extends BD {
 
     public function nuevoEmpleado() {
         $insert = $this->insert("INSERT INTO $this->tabla "
-                . "(`nombre`, `apellido`, `telefono`, `empresa`) "
+                . "(nombre, apellido, telefono, empresa) "
                 . "VALUES (:nombre, :apellido, :telefono, :empresa)", 
                 ['nombre' => $this->getNombre(), 
                     'apellido' => $this->getApellido(), 
@@ -66,41 +66,41 @@ class Empleado extends BD {
     }
     
     public function getAllEmpleados() {
-        $results = $this->fSelectN("SELECT `idEmpleado`, `nombre`, `apellido`, `telefono`, `empresa` "
+        $results = $this->fSelectN("SELECT idEmpleado, nombre, apellido, telefono, empresa "
                 . "FROM $this->tabla", []);
         return $results;
     }
     
     public function getEmpleadosByEmpresa() {
-        $results = $this->fSelectN("SELECT `idEmpleado`, `nombre`, `apellido`, `telefono`, `empresa` "
+        $results = $this->fSelectN("SELECT idEmpleado, nombre, apellido, telefono, empresa "
                 . "FROM $this->tabla "
-                . "WHERE `empresa` = :empresa", 
+                . "WHERE empresa = :empresa", 
                 ['empresa' => $this->getEmpresa()]);
         return $results;
     }
     
     public function getEmpleadoById() {
-        $object = $this->fSelectO("SELECT `idEmpleado`, `nombre`, `apellido`, `telefono`, `empresa` "
+        $object = $this->fSelectO("SELECT idEmpleado, nombre, apellido, telefono, empresa "
                 . "FROM $this->tabla "
-                . "WHERE `idEmpleado` = :idEmpleado", 
+                . "WHERE idEmpleado = :idEmpleado", 
                 ['idEmpleado' => $this->getIdEmpleado()]);
         return $object;
     }
     
     public function deleteEmpleado() {
         $filas = $this->delete("DELETE FROM $this->tabla "
-                . "WHERE `idEmpleado` = :idEmpleado", 
+                . "WHERE idEmpleado = :idEmpleado", 
                 ['idEmpleado' => $this->getIdEmpleado()]);
         return $filas;
     }
     
     public function updateEmpleado() {
         $filas = $this->update("UPDATE $this->tabla "
-                . "SET `nombre` = :nombre, "
-                . "`apellido` = :apellido, "
-                . "`telefono` = :telefono, "
-                . "`empresa` = :empresa "
-                . "WHERE `idEmpleado` = :idEmpleado", 
+                . "SET nombre = :nombre, "
+                . "apellido = :apellido, "
+                . "telefono = :telefono, "
+                . "empresa = :empresa "
+                . "WHERE idEmpleado = :idEmpleado", 
                 ['nombre' => $this->getNombre(), 
                     'apellido' => $this->getApellido(), 
                     'telefono' => $this->getTelefono(), 

@@ -4,6 +4,7 @@
 require_once 'controller/ControllerGenerico.php';
 require_once 'controller/IncidenciaController.php';
 require_once 'controller/UsuarioController.php';
+require_once 'controller/EmpleadoController.php';
 
 session_start();
 if (!isset($_SESSION['idusuario']) && !isset($_POST['user']) ) {
@@ -16,6 +17,10 @@ if (!isset($_SESSION['idusuario']) && !isset($_POST['user']) ) {
             break;
         case 'usuario':
             $controller = new UsuarioController();
+            action($controller);
+            break;
+        case 'empleado':
+            $controller= new EmpleadoController();
             action($controller);
             break;
         default:

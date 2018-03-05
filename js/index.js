@@ -69,12 +69,14 @@ $(document).ready(function () {
         bubbleGapLeft: 50,
         onValid: function (e) {
             e.preventDefault();
-            var datos = $(this).serialize();
+            var datos = $('#formIncidencia').serialize();
+            alert(datos);
             $.ajax({
                 url: 'index.php?controller=incidencia&action=crear',
                 method: 'POST',
                 data: datos,
                 success: function (data) {
+                    console.log(data);
                     if (data != 0) {
                         alertify.success("insertado con exito");
                     } else {

@@ -228,7 +228,7 @@ class Incidencia extends BD{
     }
     
     public function getIncidenciaById() {
-        $object = $this->fSelectO("SELECT i.idIncidencia, i.titulo, i.descripcion, i.fecha, DATE_FORMAT(i.fecha,'%Y-%m-%d') AS fechaFormateada, i.prioridad, i.estado, i.categoria, i.empresa, i.tecnico, i.contacto, c.nombre AS nombreCategoria, e.nombre AS nombreEmpresa, u.nombre AS nombreTecnico, u.apellidos AS apellidosTecnico, d.nombre AS nombreContacto, d.apellido AS apellidoContacto, d.telefono AS telefonoContacto "
+        $object = $this->fSelectO("SELECT i.idIncidencia, i.titulo, i.descripcion, DATE_FORMAT(i.fecha,'%Y-%m-%d') AS fechaFormateada, i.prioridad, i.estado, i.categoria, i.empresa, i.tecnico, i.contacto, c.nombre AS nombreCategoria, e.nombre AS nombreEmpresa, u.nombre AS nombreTecnico, u.apellidos AS apellidosTecnico, d.nombre AS nombreContacto, d.apellido AS apellidoContacto, d.telefono AS telefonoContacto "
                 . "FROM $this->tabla i "
                 . "JOIN categorias c "
                 . "ON i.categoria = c.idCategoria "

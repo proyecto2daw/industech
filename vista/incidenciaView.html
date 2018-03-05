@@ -4,71 +4,72 @@
 
 <section class="col-10">
     <div>      
-        <form action="index.php?controller=incidencia&action=update&id={{datos.incidencia.idIncidencia}}" method="post"> 
+        <form action="" id="editarIncidenciaForm" method="post"> 
             <div class="row" style="margin-bottom: 3%;">
                 <h4 class="col-sm-6">Incidencia</h4>
-                <button type="submit" class="btn btn-warning offset-5" title="modificar incidencia"><i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-primary offset-4" id="btnCerrarIncidencia" title="cerrar incidencia"><i class="fas fa-lock"></i></button>
+                <button type="button" class="btn btn-secondary offset-4" id="btnCancelarModificar" title="cancelar modificar" hidden><i class="fas fa-times"></i></i></button>
+                &nbsp;&nbsp;
+                <button type="button" class="btn btn-warning" id="btnActivarModificar" title="modificar incidencia"><i class="fas fa-edit"></i></button>
+                <button type="submit" class="btn btn-success" id="btnGuardarModificar" title="guardar cambios" hidden><i class="fas fa-check"></i></button>
             </div>
             <div class="form-group row">                    
-                <label for="emp" class="col-sm-1 offset-1 col-form-label">Empresa</label>
+                <label for="nombreEmpresaModificar" class="col-sm-1 offset-1 col-form-label">Empresa</label>
                 <div class="col col-sm-3">
-                     <input type="text" class="form-control" id="emp" name="empresa" value="{{datos.incidencia.empresa}}" placeholder="{{datos.incidencia.empresa}}">
+                    <input type="hidden" id="empresaModificar" name="empresa" value="{{datos.incidencia.empresa}}" />
+                    <input type="text" class="form-control" id="nombreEmpresaModificar" name="empresaNombre" value="{{datos.incidencia.nombreEmpresa}}" disabled>
                 </div>
                 <label for="tit" class="col-sm-1 offset-1 col-form-label">Título</label>
                 <div class="col col-sm-3">
-                    <input type="text" class="form-control" id="tit" name="titulo" value="{{datos.incidencia.titulo}}" placeholder="{{datos.incidencia.titulo}}">
+                    <input type="text" class="form-control" id="tit" name="titulo" value="{{datos.incidencia.titulo}}" placeholder="{{datos.incidencia.titulo}}" disabled>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="fech" class="col-sm-1 offset-1 col-form-label">Fecha</label>
                 <div class="col-sm-3">
-                    <input type="date" class="form-control" id="fech" name="fecha" value="{{datos.incidencia.fechaFormateada}}">
+                    <input type="date" class="form-control" id="fech" name="fecha" value="{{datos.incidencia.fechaFormateada}}" disabled>
                 </div>
-                <label for="pri" class="col-sm-1  offset-1 col-form-label">Prioridad</label>
+                <label for="inputPrioridadModificar" class="col-sm-1  offset-1 col-form-label">Prioridad</label>
                 <div class="col col-sm-3">
-                    <input type="text" class="form-control" id="pri" name="prioridad" value="{{datos.incidencia.prioridad}}" placeholder="{{datos.incidencia.prioridad}}">
+                    <input type="hidden" id="prioridadActual" name="prioridad" value="{{datos.incidencia.prioridad}}" />
+                    <select name="prioridad" class="form-control camposFormModificar" id="inputPrioridadModificar" disabled>
+                        <option value="{{datos.incidencia.prioridad}}" selected>{{datos.nombrePrioridad}}</option>
+                        <option value="0">Baja</option>
+                        <option value="1">Media</option>
+                        <option value="2">Alta</option>
+                        <option value="3">Urgente</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">                    
-                <label for="tec" class="col-sm-1 offset-1 col-form-label">Técnico</label>
+                <label for="inputTecnicoModificar" class="col-sm-1 offset-1 col-form-label">Técnico</label>
                 <div class="col col-sm-3">
-                    <input type="text" class="form-control" id="tec" name="tecnico" value="{{datos.incidencia.tecnico}}" placeholder="{{datos.incidencia.nombreTecnico}} {{datos.incidencia.apellidosTecnico}}">
+                    <input type="hidden" id="tecnicoActual" name="tecnico" value="{{datos.incidencia.tecnico}}" />
+                    <select name="tecnico" class="form-control camposFormModificar" id="inputTecnicoModificar" disabled></select>
                 </div>
-                <label for="cat" class="col-sm-1 offset-1 col-form-label">Categoria</label>
+                <label for="inputCategoriaModificar" class="col-sm-1 offset-1 col-form-label">Categoria</label>
                 <div class="col col-sm-3">
-                    <input type="text" class="form-control" id="cat" name="categoria" value="{{datos.incidencia.categoria}}" placeholder="{{datos.incidencia.categoria}}">
+                    <input type="hidden" id="categoriaActual" name="categoria" value="{{datos.incidencia.categoria}}" />
+                    <select name="categoria" class="form-control camposFormModificar" id="inputCategoriaModificar" disabled></select>
                 </div>
             </div>                
             <div class="form-group row">                
-                <!-- <label for="con" class="col-sm-1 offset-1 col-form-label">Contacto</label> -->
-                
-                <label for="con" class="col-sm-1 offset-1 col-form-label">Contacto</label>
+                <label for="inputContactoModificar" class="col-sm-1 offset-1 col-form-label">Contacto</label>
                 <div class="col col-sm-3">
-                    <select class="form-control" id="con" name="contacto">
-                        <option value="{{datos.incidencia.contacto}}" selected>{{datos.incidencia.nombreContacto}} {{datos.incidencia.apellidoContacto}}</option>
-                       
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
+                    <input type="hidden" id="contactoActual" name="contacto" value="{{datos.incidencia.contacto}}" />
+                    <select name="contacto" class="form-control camposFormModificar" id="inputContactoModificar" disabled></select>                    
                 </div>
                 
-                
-                <!-- <div class="col col-sm-3">
-                    <input type="text" class="form-control" id="con" name="contacto" value="{{datos.incidencia.contacto}}" placeholder="{{datos.incidencia.nombreContacto}} {{datos.incidencia.apellidoContacto}}">
-                </div> -->
-                
-                <label for="telCon" class="col-sm-1 offset-1 col-form-label">Teléfono Contacto</label>
+                <label for="telContacto" class="col-sm-1 offset-1 col-form-label">Teléfono</label>
                 <div class="col col-sm-3">
-                    <input type="text" class="form-control" id="telCon" name="telefonoContacto" value="{{datos.incidencia.telefonoContacto}}">
+                    <input type="text" class="form-control" id="telContacto" name="telefonoContacto" value="{{datos.incidencia.telefonoContacto}}"  disabled>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="des" class="col-sm-1 offset-1 col-form-label">Descripción</label>
+                <label for="inputDescripcion" class="col-sm-1 offset-1 col-form-label">Descripción</label>
                 <div class="col-sm-8">
-                    <textarea class="form-control" id="des" rows="3" name="descripcion" placeholder="{{datos.incidencia.descripcion}}"></textarea>
-                    <input type="hidden" name="viejoDescripcion" value="{{datos.incidencia.descripcion}}" />
+                    <textarea class="form-control camposFormModificar" id="inputDescripcion" rows="3" name="descripcion" disabled>{{datos.incidencia.descripcion}}</textarea>
+                    <input type="hidden" id="descripcionActual" name="viejoDescripcion" value="{{datos.incidencia.descripcion}}" />
                 </div>
             </div>
         </form>            
@@ -79,7 +80,7 @@
     <div class="tab-content" id="myTabContent2">
         <div class="row" style="margin-bottom: 3%;">
             <h4 class="col-sm-6">Seguimiento</h4>
-            <a class="btn btn-success offset-5" href="#" data-toggle="modal" data-target="#añadirSeguimiento" title="añadir segumiento"><i class="fas fa-plus"></i></a>
+            <a class="btn btn-success offset-4" href="#" data-toggle="modal" data-target="#añadirSeguimiento" title="añadir seguimiento"><i class="fas fa-plus" style="margin-top: 3px;"></i></a>
         </div>
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <table class="table table-hover table-responsive-lg">
@@ -110,23 +111,26 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Registro de Incidencia</h5>
+                <h5 class="modal-title">Registro de Seguimiento</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="index.php?controller=seguimiento&action=crear" method="POST" id="formSeguimiento">
+            <form action="index.php?controller=incidencia&action=seguimientoIncidencia" method="POST" id="formSeguimiento">
                 <div class="modal-body">
                     <div class="form-group row">
                         <label for="desSeg" class="col-sm-3 col-form-label">Descripción</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" id="desSeg" rows="3" name="descripcion" placeholder="descripción"></textarea>
+                            <textarea class="form-control" id="desSeg" rows="3" name="descripcionSeguimiento" placeholder="descripción" data-validetta="required"></textarea>
                         </div>
+                        <input type="hidden" name="usuarioSeguimiento" value="{{datos.incidencia.tecnico}}" />
+                        <input type="hidden" name="incidenciaSeguimiento" value="{{datos.incidencia.idIncidencia}}" />
+                        <input type="hidden" name="empresaSeguimiento" value="{{datos.incidencia.empresa}}" />
                     </div>                                
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal" title="cerrar"><i class="fas fa-times"></i></button>
+                    <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-check" title="guardar"></i></button>
                 </div>
             </form>
 
@@ -135,4 +139,6 @@
 </div>
 
 
+<script src="js/incidencia.js"></script>
 {%endblock%}
+

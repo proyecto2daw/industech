@@ -17,8 +17,7 @@ class IncidenciaController extends Controller {
                 $this->crearIncidencia();
                 break;
             case 'datosModalCategoria':
-                $this->obtenerDatosParaRellenarCombosModalCategoria();
-        
+                $this->obtenerDatosParaRellenarCombosModalCategoria();        
                 break;
             case 'datosModalTecnico':
                 $this->obtenerDatosParaRellenarCombosModalTecnico();
@@ -43,6 +42,9 @@ class IncidenciaController extends Controller {
                 break;
             case 'update' :
                 $this->modificarIncidencia();
+                break;
+            case 'seguimientoIncidencia' :
+                $this->nuevoSeguimientoIncidencia();
                 break;
         }
     }
@@ -82,10 +84,29 @@ class IncidenciaController extends Controller {
         
         //buscamos los empleados de contacto en esa empresa
         $empleado = new Empleado();
-        $empleado->setEmpresa($_GET['empresa']);
+        $empleado->setEmpresa($_GET['e']);
         $listaEmpleadosEmpresa = $empleado->getEmpleadosByEmpresa();
         
-        $this->view('incidencia',['incidencia'=>$incidenciaDetail, 'seguimientos'=>$seguimientoIncidencia, 'empleados'=>$listaEmpleadosEmpresa]);
+        $prioridad = $incidenciaDetail->prioridad;
+        switch ($prioridad) {
+            case 0 :
+                $nombrePrioridad = 'Baja';
+                break;
+            case 1 :
+                $nombrePrioridad = 'Media';
+                break;
+            case 2 :
+                $nombrePrioridad = 'Alta';
+                break;
+            case 3 :
+                $nombrePrioridad = 'Urgente';
+                break;
+        }
+
+        $this->view('incidencia',['incidencia'=>$incidenciaDetail, 
+            'seguimientos'=>$seguimientoIncidencia, 
+            'empleados'=>$listaEmpleadosEmpresa, 
+            'nombrePrioridad' => $nombrePrioridad]);
     }
 
     function obtenerDatosParaRellenarCombosModalCategoria() {
@@ -124,24 +145,21 @@ class IncidenciaController extends Controller {
         $statsEmpresa=$incidencia->getEstadisticaByEmpresa();
         $statsPrioridad=$incidencia->getEstadisticaByPrioridad();
        
-        foreach ($statsPrioridad as &$value) {
-           
-                 switch ($value){
-                     case "0":
-                         $value='leve';
-                         break;
-                     case "1":
-                         $value='medio';
-                         break;
-                      case "2":
-                         $value='alta';
-                         break;
-                      case "3":
-                         $value='grave';
-                         break;
-                 }  
-            
-           
+        foreach ($statsPrioridad as &$value) {           
+            switch ($value) {
+                case "0":
+                    $value = 'leve';
+                    break;
+                case "1":
+                    $value = 'medio';
+                    break;
+                case "2":
+                    $value = 'alta';
+                    break;
+                case "3":
+                    $value = 'grave';
+                    break;
+            }
         } 
         echo json_encode(["categoria"=>$statsCategoria,"empresa"=>$statsEmpresa,"prioridad"=>$statsPrioridad]);
     }
@@ -175,6 +193,18 @@ class IncidenciaController extends Controller {
         $updateIncidencia = $incidencia->updateIncidencia();
         
         header('Location: index.php?controller=incidencia&action=ver&id='. $incidencia->getIdIncidencia());
+    }
+    
+    function nuevoSeguimientoIncidencia() {
+        $fecha = date('Y-m-d h:i:s');
+        $seguimiento = new Seguimiento();
+        $seguimiento->setDescripcion($_POST['descripcionSeguimiento']);
+        $seguimiento->setUsuario($_POST['usuarioSeguimiento']);
+        $seguimiento->setIncidencia($_POST['incidenciaSeguimiento']);
+        $seguimiento->setFecha($fecha);
+        $nuevoSeguimiento = $seguimiento->nuevoSeguimiento();
+        
+      echo $nuevoSeguimiento;
     }
 
 }
