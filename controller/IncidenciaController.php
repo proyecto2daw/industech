@@ -95,7 +95,7 @@ class IncidenciaController extends Controller {
         
         //buscamos los empleados de contacto en esa empresa
         $empleado = new Empleado();
-        $empleado->setEmpresa($_GET['e']);
+        $empleado->setEmpresa($incidencia->getEmpresa());
         $listaEmpleadosEmpresa = $empleado->getEmpleadosByEmpresa();
         
         $prioridad = $incidenciaDetail->prioridad;

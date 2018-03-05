@@ -101,5 +101,6 @@ $(document).ready(function () {
             });
         }
     });
+    $('#todasIncidenciasTable').tablesorter(); 
 
 });

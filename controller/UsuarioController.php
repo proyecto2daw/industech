@@ -19,7 +19,7 @@ class UsuarioController extends Controller {
         $user->setPassword($_POST['pass']);
         $object=$user->getLogin();
 
-       if($object->idUsuario==NULL){
+       if(@$object->idUsuario==NULL){
            $this->view('login', ['error'=>'login erroneo']);
        }else{
           
