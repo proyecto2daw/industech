@@ -49,6 +49,9 @@ class IncidenciaController extends Controller {
             case 'filtroIncidencias' :
                 $this->filtroIncidencias();
                 break;
+            case 'filtroEstadisticas' :
+                $this->filtroEstadisticas();
+                break;
         }
     }
 
@@ -221,5 +224,15 @@ class IncidenciaController extends Controller {
         
         
     } 
+    function filtroEstadisticas(){
+        $i=new Incidencia();
+        if(isset($_POST['categoria'])){
+            $i->setCategoria($_POST['categoria']);
+            $empresas=$i->statEmpresaByCategoria();
+            $prioriades=$i->statPrioridadByCategoria();
+            echo json_encode(["empresa"=>$empresas,"prioridad"=>$prioriades]);
+           
+        }
+    }
 
 }

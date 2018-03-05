@@ -12,11 +12,23 @@ $.getJSON(
         }
 );
 $(document).ready(function(){
-    
+    $('.filtro').change(function(){
+       var datos=$(this).serialize();
+       alert(datos);
+       $.ajax({
+           url:'index.php?controller=incidencia&action=filtroEstadisticas',
+           data:datos,
+           method:'POST',
+           success:function(data){
+               console.log(data);
+           var datos= jQuery.parseJSON(data);
+             parseData(datos);
+           }
+           
+       });
+    });
 });
 function parseData(datos) {
-//    console.log('datos');
-//    console.log(datos.empresas);
     parseEmpresa(datos);
     parseCategoria(datos);
     parsePrioridad(datos);

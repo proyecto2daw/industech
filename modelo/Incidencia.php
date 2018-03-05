@@ -314,16 +314,16 @@ class Incidencia extends BD{
     
     
     function statEmpresaByPrioridad(){
-        $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,empresas.nombre,prioridad FROM incidencias, empresas WHERE empresa=empresas.idEmpresa and prioridad =:prioridad GROUP by empresa", ['prioridad'=> $this->getPrioridad()]);
+        $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,empresas.nombre as nombre,prioridad FROM incidencias, empresas WHERE empresa=empresas.idEmpresa and prioridad =:prioridad GROUP by empresa", ['prioridad'=> $this->getPrioridad()]);
         return $stat;
     }
     function statEmpresaByCategoria(){
-        $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,empresas.nombre,categorias.nombre FROM incidencias, empresas,categorias WHERE empresa=empresas.idEmpresa and categorias.idCategoria=incidencias.categoria and categoria =:categoria GROUP by empresa", ['categoria'=> $this->getCategoria()]);
+        $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,empresas.nombre as nombre,categorias.nombre FROM incidencias, empresas,categorias WHERE empresa=empresas.idEmpresa and categorias.idCategoria=incidencias.categoria and categoria =:categoria GROUP by empresa", ['categoria'=> $this->getCategoria()]);
         return $stat;
     }
     
     function statCategoriaByPrioridad(){
-        $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,categorias.nombre FROM incidencias, categorias WHERE categoria=categorias.idCategoria and prioridad=:prioridad GROUP by categoria", ['prioridad'=> $this->getPrioridad()]);
+        $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,categorias.nombre as nombre FROM incidencias, categorias WHERE categoria=categorias.idCategoria and prioridad=:prioridad GROUP by categoria", ['prioridad'=> $this->getPrioridad()]);
         return $stat;
     }
     function statCategoriaByEmpresa(){
@@ -331,7 +331,7 @@ class Incidencia extends BD{
         return $stat;
     }
     function statPrioridadByCategoria(){
-         $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero , prioridad FROM incidencias WHERE categoria=:categoria GROUP by prioridad", ['categoria'=> $this->getCategoria()]);
+         $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero , prioridad as prioridad FROM incidencias WHERE categoria=:categoria GROUP by prioridad", ['categoria'=> $this->getCategoria()]);
         return $stat;
     }
     function statPrioridadByEmpresa() {
