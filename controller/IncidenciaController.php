@@ -143,8 +143,11 @@ class IncidenciaController extends Controller {
     }
     
     function estadisticas() {
-        
-        $this->view('estadisticas',[]);
+        $empresa=new Empresa();
+        $categoria=new Categoria();
+        $categorias=$categoria->getAllCategorias();
+        $empresas=$empresa->getAllEmpresas();
+        $this->view('estadisticas',["empresas"=>$empresas,"categorias"=>$categorias]);
     }
     
     function getEstadisticas(){
@@ -199,5 +202,5 @@ class IncidenciaController extends Controller {
         
       echo $nuevoSeguimiento;
     }
-
+    
 }
