@@ -102,9 +102,30 @@ $(document).ready(function () {
         }
     });
     
+    $('.cerrar').click(function(){
+        var estado = 1;
+        var idIncidencia = $(this).val();       
+        var url='index.php?controller=incidencia&action=cerrar&id=' + idIncidencia + '&es=' + estado;
+        
+        $.ajax({
+            url: url,            
+            success: function (data) {
+                resultado=data;
+                if(resultado == 1) {
+                    location.replace('index.php');
+                }
+                else {
+                    alert('No se ha podido cerrar la Incidencia');
+                }
+            }
+        });
+    });
+    
     $('.borrar').click(function(){
         var estado = 2;
         var idIncidencia = $(this).val();
+        
+        //alert('idIncidencia---> ' + idIncidencia);
         
         var url='index.php?controller=incidencia&action=borradoLogico&id=' + idIncidencia + '&es=' + estado;
         
