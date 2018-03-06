@@ -49,8 +49,8 @@ class IncidenciaController extends Controller {
             case 'filtroIncidencias' :
                 $this->filtroIncidencias();
                 break;
-            case 'filtroEstadisticas' :
-                $this->filtroEstadisticas();
+            case 'getEstadisticasFiltro':
+                $this->filtroStats();
                 break;
         }
     }
@@ -236,15 +236,23 @@ class IncidenciaController extends Controller {
         
         
     } 
-    function filtroEstadisticas(){
+    function filtroStats(){
         $i=new Incidencia();
-        if(isset($_POST['categoria'])){
-            $i->setCategoria($_POST['categoria']);
-            $empresas=$i->statEmpresaByCategoria();
-            $prioriades=$i->statPrioridadByCategoria();
-            echo json_encode(["empresa"=>$empresas,"prioridad"=>$prioriades]);
-           
+        if(isset($_GET['categoria'])){
+            $i->setCategoria($_GET['categoria']);
+            $empresa=$i->statEmpresaByCategoria();
+            $prioridad=$i->statPrioridadByCategoria();
+            echo json_encode(['empresa'=>$empresa,'prioridad'=>$prioridad]);
+        }else if(isset($_GET['prioridad'])){
+            $i->setPrioridad($_GET['prioridad']);
+            $empresa=$i->statEmpresaByPrioridad();
+            $categoria=$i->statCategoriaByPrioridad();
+            echo json_encode(['empresa'=>$empresa,'categoria'=>$categoria]);
+        }else if(isset($_GET['empresa'])){
+            $i->setEmpresa($_GET['empresa']);
+            $categoria=$i->statCategoriaByEmpresa();
+            $prioridad=$i->statPrioridadByEmpresa();
+            echo json_encode(['categoria'=>$categoria,'prioridad'=>$prioridad]);
         }
     }
-
 }
