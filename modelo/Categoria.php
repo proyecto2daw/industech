@@ -27,41 +27,41 @@ class Categoria extends BD {
         $this->nombre = $nombre;
     }
 
-    public function nuevaCategoria() {
+    /* public function nuevaCategoria() {
         $insert = $this->insert("INSERT INTO $this->tabla "
-                . "(`nombre`) "
+                . "(nombre) "
                 . "VALUES (:nombre)", 
                 ['nombre' => $this->getNombre()]);
         return $insert;
-    }
+    } */
     
     public function getAllCategorias() {
-        $results = $this->fSelectN("SELECT `idCategoria`, `nombre` "
+        $results = $this->fSelectN("SELECT idCategoria, nombre "
                 . "FROM $this->tabla", []);
         return $results;
     }
     
-    public function getCategoriaById() {
-        $object = $this->fSelectO("SELECT `idCategoria`, `nombre` "
+    /* public function getCategoriaById() {
+        $object = $this->fSelectO("SELECT idCategoria, nombre "
                 . "FROM $this->tabla "
-                . "WHERE `idCategoria` = :idCategoria", 
+                . "WHERE idCategoria = :idCategoria", 
                 ['idCategoria' => $this->getIdCategoria()]);
         return $object;
-    }
+    } */
     
-    public function deleteCategoria() {
+    /* public function deleteCategoria() {
         $filas = $this->delete("DELETE FROM $this->tabla "
-                . "WHERE `idCategoria` = :idCategoria", 
+                . "WHERE idCategoria = :idCategoria", 
                 ['idCategoria' => $this->getIdCategoria()]);
         return $filas;
-    }
+    } */
     
-    public function updateCategoria() {
+    /* public function updateCategoria() {
         $filas = $this->update("UPDATE $this->tabla "
-                . "SET `nombre` = :nombre "
-                . "WHERE `idCategoria` = :idCategoria", 
+                . "SET nombre = :nombre "
+                . "WHERE idCategoria = :idCategoria", 
                 ['idCategoria' => $this->getIdCategoria()]);
         return $filas;
-    }
+    } */
 
 }

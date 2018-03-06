@@ -65,21 +65,21 @@ class Seguimiento extends BD {
         return $insert;
     }
     
-    public function getAllSeguimientos() {
+    /* public function getAllSeguimientos() {
         $results = $this->fSelectN("SELECT idSeguimiento, descripcion, usuario, incidencia, fecha "
                 . "FROM $this->tabla "
                 . "ORDER BY fecha DESC", []);
         return $results;
-    }
+    } */
     
-    public function getSeguimientosByUsuario() {
+    /* public function getSeguimientosByUsuario() {
         $results = $this->fSelectN("SELECT idSeguimiento, descripcion, usuario, incidencia, fecha "
                 . "FROM $this->tabla "
                 . "WHERE usuario = :usuario "
                 . "ORDER BY fecha DESC", 
                 ['usuario' => $this->getUsuario()]);
         return $results;
-    }
+    } */
     
     public function getSeguimientosByIncidencia() {
         $results = $this->fSelectN("SELECT s.idSeguimiento, s.descripcion, s.usuario, s.incidencia, s.fecha, u.nombre AS nombreTecnico, u.apellidos AS apellidosTecnico "
@@ -92,31 +92,31 @@ class Seguimiento extends BD {
         return $results;
     }
     
-    public function getSeguimientosByFecha() {
+    /* public function getSeguimientosByFecha() {
         $results = $this->fSelectN("SELECT idSeguimiento, descripcion, usuario, incidencia, fecha "
                 . "FROM $this->tabla "
                 . "WHERE fecha = :fecha "
                 . "ORDER BY fecha DESC", 
                 ['fecha' => $this->getFecha()]);
         return $results;
-    }
+    } */
     
-    public function getSeguimientoById() {
+    /* public function getSeguimientoById() {
         $object = $this->fSelectO("SELECT idSeguimiento, descripcion, usuario, incidencia, fecha "
                 . "FROM $this->tabla "
                 . "WHERE idSeguimiento = :idSeguimiento", 
                 ['idSeguimiento' => $this->getIdSeguimiento()]);
         return $object;
-    }
+    } */
     
-    public function deleteSeguimiento() {
+    /* public function deleteSeguimiento() {
         $filas = $this->delete("DELETE FROM $this->tabla "
                 . "WHERE idSeguimiento = :idSeguimiento", 
                 ['idSeguimiento' => $this->idSeguimiento]);
         return $filas;
-    }
+    } */
     
-    public function updateSeguimiento() {
+    /* public function updateSeguimiento() {
         $filas = $this->update("UPDATE $this->tabla "
                 . "SET descripcion = :descripcion, "
                 . "usuario = :usuario, "
@@ -129,5 +129,5 @@ class Seguimiento extends BD {
                     'fecha' => $this->getFecha(), 
                     'idSeguimiento' => $this->getIdSeguimiento()]);
         return $filas;
-    }
+    } */
 }

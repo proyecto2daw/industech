@@ -5,7 +5,6 @@ class Usuario extends BD{
     private $idUsuario;
     private $nombre;
     private $apellidos;
-    private $tipo;
     private $username;
     private $password;
     private $correo;
@@ -28,9 +27,7 @@ class Usuario extends BD{
         return $this->apellidos;
     }
 
-    function getTipo() {
-        return $this->tipo;
-    }
+    
 
     function getUsername() {
         return $this->username;
@@ -60,9 +57,7 @@ class Usuario extends BD{
         $this->apellidos = $apellidos;
     }
 
-    function setTipo($tipo) {
-        $this->tipo = $tipo;
-    }
+   
 
     function setUsername($username) {
         $this->username = $username;
@@ -80,63 +75,68 @@ class Usuario extends BD{
         $this->telefono = $telefono;
     }
     
-    public function nuevoUsuario() {
+    /* public function nuevoUsuario() {
         $id = $this->insert("INSERT INTO $this->tabla "
-                . "(`nombre`, `apellidos`, `tipo`, `username`, `password`, `correo`, `telefono`) "
+                . "(nombre, apellidos, username, password, correo, telefono) "
                 . "VALUES (:nombre, : apellidos, :tipo, :username, :password, :correo, :telefono)",
                 ['nombre' => $this->getNombre(), 
                     'apellidos' => $this->getApellidos(), 
-                    'tipo' => $this->getTipo(), 
+                    
                     'username' => $this->getUsername(), 
                     'password' => $this->getPassword(), 
                     'correo' => $this->getCorreo(), 
                     'telefono' => $this->getTelefono()]);
         return $id;
-    }
+    } */
     
     public function getLogin() {
-        $object = $this->fSelectO("SELECT `idUsuario`, `nombre`, `apellidos`, `tipo`, `username`, `password`, `correo`, `telefono` "
+        $object = $this->fSelectO("SELECT idUsuario, nombre, apellidos,  username, password, correo, telefono "
                 . "FROM $this->tabla "
-                . "WHERE `username` = :username "
-                . "AND `password` = :password", 
+                . "WHERE username = :username "
+                . "AND password = :password", 
                 ['username' => $this->getUsername(), 
                     'password' => $this->getPassword()]);
         return $object;
     }
     
     public function getAllUsuarios() {
-        $results = $this->fSelectN("SELECT `idUsuario`, `nombre`, `apellidos`, `tipo`, `username`, `password`, `correo`, `telefono` "
+        $results = $this->fSelectN("SELECT idUsuario, nombre, apellidos, username, password, correo, telefono "
                 . "FROM $this->tabla", []);
         return $results;
     }
     
-    public function getUsuarioById() {
-        $object = $this->fSelectO("SELECT `idUsuario`, `nombre`, `apellidos`, `tipo`, `username`, `password`, `correo`, `telefono` "
+    /* public function getUsuarioById() {
+        $object = $this->fSelectO("SELECT idUsuario, nombre, apellidos, username, password, correo, telefono "
                 . "FROM $this->tabla "
-                . "WHERE `idUsuario` = :idUsuario", 
+                . "WHERE idUsuario = :idUsuario", 
                 ['idUsuario' => $this->getIdUsuario()]);
         return $object;
-    }
+    } */
     
-    public function deleteUsuario() {
+    /* public function deleteUsuario() {
         $filas = $this->delete("DELETE FROM $this->tabla "
-                . "WHERE `idUsuario` = :idUsuario", 
+                . "WHERE idUsuario = :idUsuario", 
                 ['idUsuario' => $this->getIdUsuario()]);
         return $filas;
-    }
+    } */
     
-    public function updateUsuario() {
+    /* public function updateUsuario() {
         $filas = $this->update("UPDATE $this->tabla "
-                . "SET `nombre` = :nombre, "
-                . "`apellidos` = :apellidos, "
-                . "`tipo` = :tipo, "
-                . "`username` = :username, "
-                . "`password` = :password, "
-                . "`correo` = :correo, "
-                . "`telefono` = :telefono "
-                . "WHERE `idUsuario` = :idUsuario", 
-                ['nombre']);
+                . "SET nombre = :nombre, "
+                . "apellidos = :apellidos, "
+                . "username = :username, "
+                . "password = :password, "
+                . "correo = :correo, "
+                . "telefono = :telefono "
+                . "WHERE idUsuario = :idUsuario", 
+                ['nombre' => $this->getNombre(), 
+                    'apellidos' => $this->getApellidos(), 
+                    'username' => $this->getUsername(), 
+                    'password' => $this->getPassword(), 
+                    'correo' => $this->getCorreo(), 
+                    'telefono' => $this->getTelefono(), 
+                    'idUsuario' => $this->getIdUsuario()]);
         return $filas;
-    }
+    } */
     
 }

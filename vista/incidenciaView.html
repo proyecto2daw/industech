@@ -9,7 +9,7 @@
                 <h4 class="col-sm-6">Incidencia</h4>
                 <input type="hidden" id="idIncidencia" name="incidencia" value="{{datos.incidencia.idIncidencia}}" />
                 <button type="button" class="btn btn-primary offset-4" id="cerrarIncidencia"  data-toggle="modal" data-target="#confirmarCerrar" title="cerrar incidencia"><i class="fas fa-lock"></i></button>
-                <button type="button" class="btn btn-secondary offset-4" id="btnCancelarModificar" title="cancelar modificar" hidden><i class="fas fa-times"></i></button>
+                <a href="index.php?controller=incidencia&action=ver&id={{datos.incidencia.idIncidencia}}" class="btn btn-secondary offset-4" id="btnCancelarModificar" title="cancelar modificar" hidden><i class="fas fa-times"></i></a>
                 &nbsp;&nbsp;
                 <button type="button" class="btn btn-warning" id="btnActivarModificar" title="modificar incidencia"><i class="fas fa-edit"></i></button>
                 <button type="submit" class="btn btn-success" id="btnGuardarModificar" title="guardar cambios" hidden><i class="fas fa-check"></i></button>

@@ -3,7 +3,12 @@ html,body{
 }
 
 body{
-    background: url("http://www.hdfondos.eu/preview/get_photo/83357/1920/1080") ;
+    /*background: url("http://www.hdfondos.eu/preview/get_photo/83357/1920/1080") ;*/
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#3b679e+0,207cca+18,207cca+18,207cca+19,207cca+21,207cca+24,207cca+24,207cca+26,207cca+29,207cca+32,207cca+39,2b88d9+43,2b88d9+43,2b88d9+50,7db9e8+62 */
+background: #3b679e; /* Old browsers */
+
+background: linear-gradient(45deg, #3b679e 0%,#207cca 18%,#207cca 18%,#207cca 19%,#207cca 21%,#207cca 24%,#207cca 24%,#207cca 26%,#207cca 29%,#207cca 32%,#207cca 39%,#2b88d9 43%,#2b88d9 43%,#2b88d9 50%,#7db9e8 62%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b679e', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
     width: 80%;
     margin: 0 auto;
     height: 100%;
@@ -24,4 +29,9 @@ aside{
     padding-top: 65px;
     height: 100%;
     background-color: #F0F1FF;
+}
+.bcancelar{
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
 }
