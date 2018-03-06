@@ -4,6 +4,8 @@
 {% block content %}
 
 
+
+
 <section class="col-10">
     <div>
         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#filtro" aria-expanded="false" aria-controls="filtro">
@@ -87,22 +89,23 @@
 
     </div>
     <div class="row">
-   
+        
+        <div class='offset-1'></div>
     <table class="table table-hover table-responsive col-10"  id="todasIncidenciasTable" style="margin:0 auto;" >
         <thead class="thead-dark colorfondo">
             <tr>
                 <th scope="col">Titulo</th>
-                <th scope="col">Descripcion</th>
+                <th scope="col" class="hidden-sm">Descripcion</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Categoria</th>
                 <th scope="col"></th>
             </tr>
         </thead>
-        <tbody>
-            {% for incidencia in datos.incidencias %}
+        <tbody >
+         {% for incidencia in datos.incidencias %}
             <tr>
                 <th scope="row">{{incidencia.titulo}}</th>
-                <td>{{incidencia.descripcion}}</td>
+                <td class="hidden-sm">{{incidencia.descripcion}}</td>
                 <td>{{incidencia.fecha}}</td>
                 <td>{{incidencia.nombreCategoria}}</td>
                 <td class="d-flex justify-content-end">
@@ -137,4 +140,18 @@
     </div>
 </section>
 
+<script type="text/javascript">
+
+    $(document).ready(function(){    
+       
+    $('#todasIncidenciasTable').DataTable(
+            {
+                responsive:true,
+        
+  "lengthMenu": [ 5,10,15]
+
+        
+            });
+});
+</script>
 {%endblock%}

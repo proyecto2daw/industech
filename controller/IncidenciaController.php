@@ -273,7 +273,8 @@ class IncidenciaController extends Controller {
         $this->view('todasIncidencias', ['incidencias' => $listaIncidenciasFiltrada,
             'categorias' => $listaCategorias,
             'tecnicos' => $listaUsuarios,
-            'empresas' => $listaEmpresas
+            'empresas' => $listaEmpresas,
+            'yo'=>$_SESSION['idusuario']
         ]);
         
     }
