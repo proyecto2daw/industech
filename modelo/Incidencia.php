@@ -275,7 +275,7 @@ class Incidencia extends BD{
         return $filas;
     }
     
-    public function updateCerrarIncidencia() {
+    public function updateEstadoIncidencia() {
         $filas = $this->update("UPDATE $this->tabla "
                 . "SET estado = :estado "
                 . "WHERE idIncidencia = :idIncidencia", 

@@ -53,9 +53,10 @@ $(document).ready(function () {
     $('#btnActivarModificar').click(function() {
         $('.camposFormModificar').prop("disabled", false);
         $('#btnActivarModificar').prop("hidden", true);
+    
         $('#cerrarIncidencia').prop("hidden", true);
         $('#btnGuardarModificar').prop("hidden", false);        
-        $('#btnCancelarModificar').prop("hidden", false);
+        $('#btnCancelarModificar').prop("hidden", false);    $('#btnCancelarModificar').addClass('bcancelar');
     });    
     
     $('#inputContactoModificar').change(function() {
@@ -72,15 +73,7 @@ $(document).ready(function () {
         });
     });   
     
-    $('#btnCancelarModificar').click(function() {
-        $('#editarIncidenciaForm')[0].reset();        
-        $('.camposFormModificar').prop("disabled", true);
-        $('#btnCancelarModificar').prop("hidden", true);
-        $('#btnGuardarModificar').prop("hidden", true);
-        $('#cerrarIncidencia').prop("hidden", false);        
-        $('#btnActivarModificar').prop("hidden", false);        
-    });
-    
+
     $('#formSeguimiento').validetta({
         realTime: true,
         display: 'bubble',

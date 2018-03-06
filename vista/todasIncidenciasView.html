@@ -103,7 +103,13 @@
                 <td>{{incidencia.descripcion}}</td>
                 <td>{{incidencia.fecha}}</td>
                 <td>{{incidencia.nombreCategoria}}</td>
-                <td><a class="btn btn-primary" href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" ><i class="fa fa-eye"></i></a></td>
+                <td class="d-flex justify-content-end">
+                <a  href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" ><button class="btn btn-info"><i class="fa fa-eye"></i></button></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-primary borrar" title="cerrar incidencia" value="{{incidencia.idIncidencia}}"><i class="fas fa-lock"></i></button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-danger borrar" title="borrar incidencia" value="{{incidencia.idIncidencia}}"><i class="fas fa-trash-alt"></i></button>               
+            </td> 
             </tr>
             {%endfor%}
         </tbody>
