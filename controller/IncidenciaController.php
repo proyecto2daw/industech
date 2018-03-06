@@ -122,7 +122,8 @@ class IncidenciaController extends Controller {
         $this->view('incidencia', ['incidencia' => $incidenciaDetail,
             'seguimientos' => $seguimientoIncidencia,
             'empleados' => $listaEmpleadosEmpresa,
-            'nombrePrioridad' => $nombrePrioridad]);
+            'nombrePrioridad' => $nombrePrioridad,
+            'yo'=>$_SESSION['idusuario']]);
     }
 
     function obtenerDatosParaRellenarCombosModalCategoria() {
@@ -183,7 +184,8 @@ class IncidenciaController extends Controller {
         $this->view('todasIncidencias', ['incidencias' => $incidencias,
             'categorias' => $listaCategorias,
             'tecnicos' => $listaUsuarios,
-            'empresas' => $listaEmpresas
+            'empresas' => $listaEmpresas,
+            'yo'=>$_SESSION['idusuario']
         ]);
     }
 

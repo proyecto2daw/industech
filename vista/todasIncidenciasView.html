@@ -86,7 +86,9 @@
 
 
     </div>
-    <table class="table table-hover"  id="todasIncidenciasTable" style="margin-top:10px;" >
+    <div class="row">
+   
+    <table class="table table-hover table-responsive col-10"  id="todasIncidenciasTable" style="margin:0 auto;" >
         <thead class="thead-dark colorfondo">
             <tr>
                 <th scope="col">Titulo</th>
@@ -104,16 +106,35 @@
                 <td>{{incidencia.fecha}}</td>
                 <td>{{incidencia.nombreCategoria}}</td>
                 <td class="d-flex justify-content-end">
-                <a  href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" ><button class="btn btn-info"><i class="fa fa-eye"></i></button></a>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <button class="btn btn-primary borrar" title="cerrar incidencia" value="{{incidencia.idIncidencia}}"><i class="fas fa-lock"></i></button>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <button class="btn btn-danger borrar" title="borrar incidencia" value="{{incidencia.idIncidencia}}"><i class="fas fa-trash-alt"></i></button>               
-            </td> 
+                    <a  href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" >
+                        <button class="btn btn-info">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                    </a>
+                    &nbsp;
+                    {%if incidencia.tecnico==datos.yo%}
+                    <button class="btn btn-primary borrar" title="cerrar incidencia" value="{{incidencia.idIncidencia}}">
+                        <i class="fas fa-lock"></i>
+                    </button>
+                   &nbsp;
+                    <button class="btn btn-danger borrar" title="borrar incidencia" value="{{incidencia.idIncidencia}}">
+                        <i class="fas fa-trash-alt"></i>
+                    </button> 
+                    {%else%}
+                    <button class="btn btn-secondary borrar" title="cerrar incidencia" value="{{incidencia.idIncidencia}}" disabled="disabled">
+                        <i class="fas fa-lock"></i>
+                    </button>
+                   &nbsp;
+                    <button class="btn btn-secondary borrar" title="borrar incidencia" value="{{incidencia.idIncidencia}}" disabled="disabled">
+                        <i class="fas fa-trash-alt"></i>
+                    </button> 
+                    {%endif%}
+                </td> 
             </tr>
             {%endfor%}
         </tbody>
     </table>
+    </div>
 </section>
 
 {%endblock%}
