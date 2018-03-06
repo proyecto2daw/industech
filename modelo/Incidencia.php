@@ -274,6 +274,15 @@ class Incidencia extends BD{
                     'idIncidencia' => $this->getIdIncidencia()]);
         return $filas;
     }
+    
+    public function updateCerrarIncidencia() {
+        $filas = $this->update("UPDATE $this->tabla "
+                . "SET estado = :estado "
+                . "WHERE idIncidencia = :idIncidencia", 
+                ['estado' => $this->getEstado(), 
+                    'idIncidencia' => $this->getIdIncidencia()]);
+        return $filas;
+    }
    
     function getEstadisticaByCategoria() {
         $stat= $this->fSelectN("SELECT nombre, COUNT(idIncidencia) as numero FROM $this->tabla, categorias WHERE categoria=categorias.idCategoria GROUP by categoria", []);
@@ -306,12 +315,8 @@ class Incidencia extends BD{
         
         echo $query.$where;
         
-       // $stat= $this->fSelectN($query.$where, []);
-        
-        
-    }
-
-    
+       // $stat= $this->fSelectN($query.$where, []);       
+    }    
     
     function statEmpresaByPrioridad(){
         $stat= $this->fSelectN("SELECT COUNT(idIncidencia) as numero ,empresas.nombre,prioridad FROM incidencias, empresas WHERE empresa=empresas.idEmpresa and prioridad =:prioridad GROUP by empresa", ['prioridad'=> $this->getPrioridad()]);

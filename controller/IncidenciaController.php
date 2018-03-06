@@ -49,6 +49,9 @@ class IncidenciaController extends Controller {
             case 'filtroIncidencias' :
                 $this->filtroIncidencias();
                 break;
+            case 'cerrar' :
+                $this->cerrarIncidencia();
+                break;
         }
     }
 
@@ -193,7 +196,7 @@ class IncidenciaController extends Controller {
         
         $incidencia = new Incidencia();
         $incidencia->setIdIncidencia($_GET['id']);
-        $incidencia->setTitulo($_POST['titulo']);
+        $incidencia->setTitulo($_POST['tituloIncidencia']);
         $incidencia->setDescripcion($descripcion);
         $incidencia->setFecha($_POST['fecha']);
         $incidencia->setPrioridad($_POST['prioridad']);
@@ -229,9 +232,17 @@ class IncidenciaController extends Controller {
         $incidencia->setContacto($_POST['contacto']);
         $incidencia->setEstado($_POST['estado']);
         
-        $listaIncidenciasFiltrada = $incidencia->filtrarDatosIncidencias($_POST['fechaInicial'],$_POST['fechaFinal']);
-        
+        $listaIncidenciasFiltrada = $incidencia->filtrarDatosIncidencias($_POST['fechaInicial'],$_POST['fechaFinal']);        
         
     } 
+    
+    function cerrarIncidencia() {
+        $incidencia = new Incidencia();
+        $incidencia->setEstado($_GET['es']);
+        $incidencia->setIdIncidencia($_GET['id']);
+        $incidenciaCerrar = $incidencia->updateCerrarIncidencia();
+        
+        echo json_encode($incidenciaCerrar);
+    }
 
 }
