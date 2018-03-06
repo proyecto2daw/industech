@@ -98,6 +98,8 @@ $(document).ready(function () {
                     console.log(data)
                     if (data != 0) {
                         alertify.success("insertado con exito");
+                        $('#bodySeguimientos').prepend('<tr><th scope="row">ahora</th><td>'+$('[name="descripcionSeguimiento"]').val()+'</td><td>yo</td></tr>')
+                        $('#anadirSeguimiento').modal('hide');
                     } else {
                         alertify.error("error");
                     }

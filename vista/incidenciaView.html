@@ -95,9 +95,9 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>                        
+                <tbody id="bodySeguimientos">                        
                     {% for seguimiento in datos.seguimientos %}
-                    <tr style="margin-top: 10px;">
+                    <tr>
                         <th scope="row">{{seguimiento.fecha}}</th>
                         <td>{{seguimiento.descripcion}}</td>
                         <td>{{seguimiento.nombreTecnico}} {{seguimiento.apellidosTecnico}}</td>                                  
