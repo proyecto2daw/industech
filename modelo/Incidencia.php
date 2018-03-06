@@ -304,18 +304,44 @@ class Incidencia extends BD{
         return $stat;
     }
     
-    function  filtrarDatosIncidencias($fechaInicio,$fechaFinal){
+    function  filtrarDatosIncidencias($fechas){
         $query="SELECT * FROM $this->tabla where 1 = 1 ";
-        $where;
+        $where="";
         
-        if($this->getEstado()!= ''){
-            $where="and estado = ".$this->getEstado();
+        if($this->getPrioridad()!= ''){
+            $where .=" and prioridad = ".$this->getPrioridad();
             
         }
+        if($this->categoria!= ''){
+            $where .=" and categoria = ".$this->getCategoria();     
+        }
+        if($this->empresa!= ''){
+            $where .=" and empresa = ".$this->getEmpresa();
+            
+        }
+        if($this->getTecnico()!= ''){
+            $where .=" and tecnico = ".$this->getTecnico();
+            
+            
+        }
+        if($this->getContacto()!= ''){
+            $where .=" and contacto = ".$this->getContacto();
+            
+        }
+        if($this->getEstado()!= ''){
+            $where .=" and estado = ".$this->getEstado();
+            
+        } 
         
-        echo $query.$where;
-        
-       // $stat= $this->fSelectN($query.$where, []);       
+        if(sizeof($fechas)==1){
+           if(array_key_exists('fechaInicial', $fechas)){
+               $where.=" and fecha = (   SELECT MIN(".$fechas['fechaInicial'].")FROM incidencias AS b)";
+           }
+            
+        }
+   echo $query.$where;
+        $stat= $this->fSelectN($query.$where, []); 
+        return $stat;
     }    
     
     function statEmpresaByPrioridad(){
