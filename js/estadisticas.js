@@ -2,29 +2,49 @@ var empresas = [];
 var categorias = [];
 var prioridades = [];
 var fechas = [];
-
-
+todas();
+function todas(){
+    reset();
+    mostrar();
 $.getJSON(
         'index.php?controller=incidencia&action=getEstadisticas',
         function (data) {
-            console.log(data);
+
             datos = data;
 
             parseData(data);
         }
-);
-$(document).ready(function(){
-    $('.filtro').change(function(){
-        
-    var  datos=  $(this).serialize(); 
-  
-    $.getJSON('index.php?controller=incidencia&action=getEstadisticasFiltro',datos,function(data){
-        
-        reset();
-        parseData(data);
-        console.log(data);
+);}
+$(document).ready(function () {
+    $('#todas').click(function(){
+       todas(); 
     });
+    $('.filtro').change(function () {
+
+        var datos = $(this).serialize();
+
+        $.getJSON('index.php?controller=incidencia&action=getEstadisticasFiltro', datos, function (data) {
+
+            reset();
+            parseData(data);
+
+        });
+
     });
+    $('[name="categoria"]').change(function () {
+        mostrar();
+        $('#estadistica1,#estadistica4').hide();
+    });
+    $('[name="empresa"]').change(function () {
+        mostrar();
+        $('#estadistica1,#estadistica3').hide();
+    });
+    $('[name="prioridad"]').change(function () {
+        mostrar();
+        $('#estadistica1,#estadistica2').hide();
+    });
+
+
 });
 function parseData(datos) {
     parseEmpresa(datos);
@@ -260,9 +280,12 @@ function estadisticaCategoria(datos) {
     });
 }
 
-function reset(){
-     empresas = [];
- categorias = [];
- prioridades = [];
- fechas = [];
+function reset() {
+    empresas = [];
+    categorias = [];
+    prioridades = [];
+    fechas = [];
+}
+function mostrar() {
+    $('[id^="estadistica"]').show();
 }
