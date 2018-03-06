@@ -52,7 +52,10 @@ class IncidenciaController extends Controller {
                 $this->filtroStats();
                 break;
             case 'cerrar' :
-                $this->cerrarIncidencia();
+                $this->cambiarEstadoIncidencia();
+                break;
+            case 'borradoLogico' :
+                $this->cambiarEstadoIncidencia();
                 break;
         }
     }
@@ -119,7 +122,8 @@ class IncidenciaController extends Controller {
         $this->view('incidencia', ['incidencia' => $incidenciaDetail,
             'seguimientos' => $seguimientoIncidencia,
             'empleados' => $listaEmpleadosEmpresa,
-            'nombrePrioridad' => $nombrePrioridad]);
+            'nombrePrioridad' => $nombrePrioridad,
+            'yo'=>$_SESSION['idusuario']]);
     }
 
     function obtenerDatosParaRellenarCombosModalCategoria() {
@@ -180,7 +184,8 @@ class IncidenciaController extends Controller {
         $this->view('todasIncidencias', ['incidencias' => $incidencias,
             'categorias' => $listaCategorias,
             'tecnicos' => $listaUsuarios,
-            'empresas' => $listaEmpresas
+            'empresas' => $listaEmpresas,
+            'yo'=>$_SESSION['idusuario']
         ]);
     }
 
@@ -292,14 +297,20 @@ class IncidenciaController extends Controller {
             echo json_encode(['categoria' => $categoria, 'prioridad' => $prioridad]);
         }
     }
-
-    function cerrarIncidencia() {
+    
+    function cambiarEstadoIncidencia() {
         $incidencia = new Incidencia();
         $incidencia->setEstado($_GET['es']);
         $incidencia->setIdIncidencia($_GET['id']);
-        $incidenciaCerrar = $incidencia->updateCerrarIncidencia();
-
-        echo json_encode($incidenciaCerrar);
+        $incidenciaCambioEstado = $incidencia->updateEstadoIncidencia();
+        
+        echo json_encode($incidenciaCambioEstado);
     }
+    
+    /*function borradoLogicoIncidencia() {
+        $incidencia = new Incidencia();
+        $incidencia->setEstado($_GET['es']);
+        $incidencia->setIdIncidencia($_GET['id']);
+    }*/
 
 }

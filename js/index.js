@@ -101,6 +101,27 @@ $(document).ready(function () {
             });
         }
     });
+    
+    $('.borrar').click(function(){
+        var estado = 2;
+        var idIncidencia = $(this).val();
+        
+        var url='index.php?controller=incidencia&action=borradoLogico&id=' + idIncidencia + '&es=' + estado;
+        
+        $.ajax({
+            url: url,            
+            success: function (data) {
+                resultado=data;
+                if(resultado == 1) {
+                    location.replace('index.php');
+                }
+                else {
+                    alert('No se ha podido borrar la Incidencia');
+                }
+            }
+        });
+    });
+    
     $('#todasIncidenciasTable').tablesorter(); 
 
 });
