@@ -30,14 +30,15 @@
 
    
     {% for incidencia in datos.incidencias %}
-    <tr>
-        <th scope="row">{{incidencia.titulo}}</th>
-        <td>{{incidencia.descripcion}}</td>
-        <td>{{incidencia.fecha}}</td>
-        <td>{{incidencia.nombreCategoria}}</td>
-        <td><a class="btn btn-primary" href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" ><i class="fa fa-eye"></i></a></td>
-        
-    </tr>
+        {% if incidencia.estado == 0 %}
+        <tr>
+            <th scope="row">{{incidencia.titulo}}</th>
+            <td>{{incidencia.descripcion}}</td>
+            <td>{{incidencia.fecha}}</td>
+            <td>{{incidencia.nombreCategoria}}</td>
+            <td><a class="btn btn-primary" href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" ><i class="fa fa-eye"></i></a></td>
+        </tr>
+        {% endif %}
     {%endfor%}
   </tbody>
 </table>

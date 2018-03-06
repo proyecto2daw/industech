@@ -8,7 +8,6 @@ require_once 'modelo/Empresa.php';
 require_once 'modelo/Usuario.php';
 require_once 'modelo/Empleado.php';
 
-
 class IncidenciaController extends Controller {
 
     function run($action) {
@@ -17,7 +16,7 @@ class IncidenciaController extends Controller {
                 $this->crearIncidencia();
                 break;
             case 'datosModalCategoria':
-                $this->obtenerDatosParaRellenarCombosModalCategoria();        
+                $this->obtenerDatosParaRellenarCombosModalCategoria();
                 break;
             case 'datosModalTecnico':
                 $this->obtenerDatosParaRellenarCombosModalTecnico();
@@ -52,6 +51,9 @@ class IncidenciaController extends Controller {
             case 'getEstadisticasFiltro':
                 $this->filtroStats();
                 break;
+            case 'cerrar' :
+                $this->cerrarIncidencia();
+                break;
         }
     }
 
@@ -68,15 +70,12 @@ class IncidenciaController extends Controller {
         $incidencia->setTecnico($_POST['tecnico']);
         $incidencia->setContacto($_POST['contacto']);
         $id = $incidencia->nuevaIncidencia();
-        
-        if($_POST['tecnico'] == $_SESSION['idusuario']){
-            echo $id; 
-            
-        }else{
+
+        if ($_POST['tecnico'] == $_SESSION['idusuario']) {
+            echo $id;
+        } else {
             echo 'ok';
-           
         }
-        
     }
 
     function getMisIncidencias() {
@@ -86,21 +85,21 @@ class IncidenciaController extends Controller {
         return $misIncidencias;
     }
 
-    function  verIncidencia(){
-        $incidencia =new Incidencia();
+    function verIncidencia() {
+        $incidencia = new Incidencia();
         $incidencia->setIdIncidencia($_GET['id']);
         $incidenciaDetail = $incidencia->getIncidenciaById();
-        
+
         //Buscamos los datos del Seguimiento de la Incidencia
         $seguimiento = new Seguimiento();
         $seguimiento->setIncidencia($_GET['id']);
         $seguimientoIncidencia = $seguimiento->getSeguimientosByIncidencia();
-        
+
         //buscamos los empleados de contacto en esa empresa
         $empleado = new Empleado();
         $empleado->setEmpresa($incidencia->getEmpresa());
         $listaEmpleadosEmpresa = $empleado->getEmpleadosByEmpresa();
-        
+
         $prioridad = $incidenciaDetail->prioridad;
         switch ($prioridad) {
             case 0 :
@@ -117,9 +116,9 @@ class IncidenciaController extends Controller {
                 break;
         }
 
-        $this->view('incidencia',['incidencia'=>$incidenciaDetail, 
-            'seguimientos'=>$seguimientoIncidencia, 
-            'empleados'=>$listaEmpleadosEmpresa, 
+        $this->view('incidencia', ['incidencia' => $incidenciaDetail,
+            'seguimientos' => $seguimientoIncidencia,
+            'empleados' => $listaEmpleadosEmpresa,
             'nombrePrioridad' => $nombrePrioridad]);
     }
 
@@ -147,56 +146,54 @@ class IncidenciaController extends Controller {
         $listaEmpleados = $empleado->getEmpleadosByEmpresa();
         echo json_encode($listaEmpleados);
     }
-    
+
     function estadisticas() {
-        $empresa=new Empresa();
-        $categoria=new Categoria();
-        $categorias=$categoria->getAllCategorias();
-        $empresas=$empresa->getAllEmpresas();
-        $this->view('estadisticas',["empresas"=>$empresas,"categorias"=>$categorias]);
+        $empresa = new Empresa();
+        $categoria = new Categoria();
+        $categorias = $categoria->getAllCategorias();
+        $empresas = $empresa->getAllEmpresas();
+        $this->view('estadisticas', ["empresas" => $empresas, "categorias" => $categorias]);
     }
-    
-    function getEstadisticas(){
-         $incidencia = new Incidencia();
-        $statsCategoria=$incidencia->getEstadisticaByCategoria();
-        $statsEmpresa=$incidencia->getEstadisticaByEmpresa();
-        $statsPrioridad=$incidencia->getEstadisticaByPrioridad();
-       $stasFecha=$incidencia->getEstadisticasByFecha();
-        
-        echo json_encode(["categoria"=>$statsCategoria,"empresa"=>$statsEmpresa,"prioridad"=>$statsPrioridad,"fecha"=>$stasFecha]);
+
+    function getEstadisticas() {
+        $incidencia = new Incidencia();
+        $statsCategoria = $incidencia->getEstadisticaByCategoria();
+        $statsEmpresa = $incidencia->getEstadisticaByEmpresa();
+        $statsPrioridad = $incidencia->getEstadisticaByPrioridad();
+        $stasFecha = $incidencia->getEstadisticasByFecha();
+
+        echo json_encode(["categoria" => $statsCategoria, "empresa" => $statsEmpresa, "prioridad" => $statsPrioridad, "fecha" => $stasFecha]);
     }
-    
-    function verTodas(){
+
+    function verTodas() {
         $categoria = new Categoria();
         $listaCategorias = $categoria->getAllCategorias();
-        
+
         $usuario = new Usuario();
         $listaUsuarios = $usuario->getAllUsuarios();
-        
+
         $empresa = new Empresa();
         $listaEmpresas = $empresa->getAllEmpresas();
-        
-         $incidencia = new Incidencia();
-         $incidencias=$incidencia->getAllIncidencias();
-         $this->view('todasIncidencias', ['incidencias'=>$incidencias,
-                                          'categorias'=>$listaCategorias,
-                                          'tecnicos'=>$listaUsuarios,
-                                          'empresas'=>$listaEmpresas
-                 ]);
-         
+
+        $incidencia = new Incidencia();
+        $incidencias = $incidencia->getAllIncidencias();
+        $this->view('todasIncidencias', ['incidencias' => $incidencias,
+            'categorias' => $listaCategorias,
+            'tecnicos' => $listaUsuarios,
+            'empresas' => $listaEmpresas
+        ]);
     }
-    
-    function modificarIncidencia(){
-        if($_POST['descripcion'] == '' || $_POST['descripcion'] == ' ') {
+
+    function modificarIncidencia() {
+        if ($_POST['descripcion'] == '' || $_POST['descripcion'] == ' ') {
             $descripcion = $_POST['viejoDescripcion'];
-        }
-        else {
+        } else {
             $descripcion = $_POST['descripcion'];
         }
-        
+
         $incidencia = new Incidencia();
         $incidencia->setIdIncidencia($_GET['id']);
-        $incidencia->setTitulo($_POST['titulo']);
+        $incidencia->setTitulo($_POST['tituloIncidencia']);
         $incidencia->setDescripcion($descripcion);
         $incidencia->setFecha($_POST['fecha']);
         $incidencia->setPrioridad($_POST['prioridad']);
@@ -204,12 +201,12 @@ class IncidenciaController extends Controller {
         $incidencia->setCategoria($_POST['categoria']);
         $incidencia->setEmpresa($_POST['empresa']);
         $incidencia->setTecnico($_POST['tecnico']);
-        $incidencia->setContacto($_POST['contacto']);        
+        $incidencia->setContacto($_POST['contacto']);
         $updateIncidencia = $incidencia->updateIncidencia();
-        
-        header('Location: index.php?controller=incidencia&action=ver&id='. $incidencia->getIdIncidencia());
+
+        header('Location: index.php?controller=incidencia&action=ver&id=' . $incidencia->getIdIncidencia());
     }
-    
+
     function nuevoSeguimientoIncidencia() {
         $fecha = date('Y-m-d h:i:s');
         $seguimiento = new Seguimiento();
@@ -218,41 +215,91 @@ class IncidenciaController extends Controller {
         $seguimiento->setIncidencia($_POST['incidenciaSeguimiento']);
         $seguimiento->setFecha($fecha);
         $nuevoSeguimiento = $seguimiento->nuevoSeguimiento();
-        
-      echo $nuevoSeguimiento;
+
+        echo $nuevoSeguimiento;
     }
-    
-    function filtroIncidencias(){
+
+    function filtroIncidencias() {
+        $categoria = new Categoria();
+        $listaCategorias = $categoria->getAllCategorias();
+
+        $usuario = new Usuario();
+        $listaUsuarios = $usuario->getAllUsuarios();
+
+        $empresa = new Empresa();
+        $listaEmpresas = $empresa->getAllEmpresas();
+        
         $incidencia = new Incidencia();
-   
-        $incidencia->setPrioridad($_POST['prioridad']);
-        $incidencia->setCategoria($_POST['categoria']);
-        $incidencia->setEmpresa($_POST['empresa']);
-        $incidencia->setTecnico($_POST['tecnico']);
-        $incidencia->setContacto($_POST['contacto']);
-        $incidencia->setEstado($_POST['estado']);
+        $arrayFechas=[];
+
+        if (isset($_POST['prioridad'])) {
+            $incidencia->setPrioridad($_POST['prioridad']);
+        }
+        if (isset($_POST['categoria'])) {
+            $incidencia->setCategoria($_POST['categoria']);
+        }
+        if (isset($_POST['empresa'])) {
+            $incidencia->setEmpresa($_POST['empresa']);
+        }
+        if (isset($_POST['tecnico'])) {
+            $incidencia->setTecnico($_POST['tecnico']);
+        }
+        if (isset($_POST['contacto'])) {
+            $incidencia->setContacto($_POST['contacto']);
+        }
+        if (isset($_POST['estado'])) {
+            $incidencia->setEstado($_POST['estado']);
+        }
         
-        $listaIncidenciasFiltrada = $incidencia->filtrarDatosIncidencias($_POST['fechaInicial'],$_POST['fechaFinal']);
+         if (isset($_POST['fechaInicial'])&&$_POST['fechaInicial'] !=NULL ) {
+             print_r($_POST);
+             if (isset($_POST['fechaFinal'])&& $_POST['fechaFinal'] !=NULL) {
+                 echo 'llego aqui';
+                 $arrayFechas=["fechaInicial" => $_POST['fechaInicial'], "fechaFin" => $_POST['fechaFin']];
+             }else{
+                $arrayFechas=["fechaInicial" => $_POST['fechaInicial']];
+            }
+        }else if(isset($_POST['fechaFinal'])){
+            $arrayFechas=["fechaFin" => $_POST['fechaFin']];
+        }
         
+        $listaIncidenciasFiltrada = $incidencia->filtrarDatosIncidencias($arrayFechas);
+
+        $this->view('todasIncidencias', ['incidencias' => $listaIncidenciasFiltrada,
+            'categorias' => $listaCategorias,
+            'tecnicos' => $listaUsuarios,
+            'empresas' => $listaEmpresas
+        ]);
         
-    } 
-    function filtroStats(){
-        $i=new Incidencia();
-        if(isset($_GET['categoria'])){
+    }
+
+    function filtroStats() {
+        $i = new Incidencia();
+        if (isset($_GET['categoria'])) {
             $i->setCategoria($_GET['categoria']);
-            $empresa=$i->statEmpresaByCategoria();
-            $prioridad=$i->statPrioridadByCategoria();
-            echo json_encode(['empresa'=>$empresa,'prioridad'=>$prioridad]);
-        }else if(isset($_GET['prioridad'])){
+            $empresa = $i->statEmpresaByCategoria();
+            $prioridad = $i->statPrioridadByCategoria();
+            echo json_encode(['empresa' => $empresa, 'prioridad' => $prioridad]);
+        } else if (isset($_GET['prioridad'])) {
             $i->setPrioridad($_GET['prioridad']);
-            $empresa=$i->statEmpresaByPrioridad();
-            $categoria=$i->statCategoriaByPrioridad();
-            echo json_encode(['empresa'=>$empresa,'categoria'=>$categoria]);
-        }else if(isset($_GET['empresa'])){
+            $empresa = $i->statEmpresaByPrioridad();
+            $categoria = $i->statCategoriaByPrioridad();
+            echo json_encode(['empresa' => $empresa, 'categoria' => $categoria]);
+        } else if (isset($_GET['empresa'])) {
             $i->setEmpresa($_GET['empresa']);
-            $categoria=$i->statCategoriaByEmpresa();
-            $prioridad=$i->statPrioridadByEmpresa();
-            echo json_encode(['categoria'=>$categoria,'prioridad'=>$prioridad]);
+            $categoria = $i->statCategoriaByEmpresa();
+            $prioridad = $i->statPrioridadByEmpresa();
+            echo json_encode(['categoria' => $categoria, 'prioridad' => $prioridad]);
         }
     }
+
+    function cerrarIncidencia() {
+        $incidencia = new Incidencia();
+        $incidencia->setEstado($_GET['es']);
+        $incidencia->setIdIncidencia($_GET['id']);
+        $incidenciaCerrar = $incidencia->updateCerrarIncidencia();
+
+        echo json_encode($incidenciaCerrar);
+    }
+
 }

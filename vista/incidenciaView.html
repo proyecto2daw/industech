@@ -4,11 +4,12 @@
 
 <section class="col-10">
     <div>      
-        <form action="" id="editarIncidenciaForm" method="post"> 
+        <form id="editarIncidenciaForm" method="post"> 
             <div class="row" style="margin-bottom: 3%;">
                 <h4 class="col-sm-6">Incidencia</h4>
-                <button type="button" class="btn btn-primary offset-4" id="btnCerrarIncidencia" title="cerrar incidencia"><i class="fas fa-lock"></i></button>
-                <button type="button" class="btn btn-secondary offset-4" id="btnCancelarModificar" title="cancelar modificar" hidden><i class="fas fa-times"></i></i></button>
+                <input type="hidden" id="idIncidencia" name="incidencia" value="{{datos.incidencia.idIncidencia}}" />
+                <button type="button" class="btn btn-primary offset-4" id="cerrarIncidencia"  data-toggle="modal" data-target="#confirmarCerrar" title="cerrar incidencia"><i class="fas fa-lock"></i></button>
+                <button type="button" class="btn btn-secondary offset-4" id="btnCancelarModificar" title="cancelar modificar" hidden><i class="fas fa-times"></i></button>
                 &nbsp;&nbsp;
                 <button type="button" class="btn btn-warning" id="btnActivarModificar" title="modificar incidencia"><i class="fas fa-edit"></i></button>
                 <button type="submit" class="btn btn-success" id="btnGuardarModificar" title="guardar cambios" hidden><i class="fas fa-check"></i></button>
@@ -21,7 +22,8 @@
                 </div>
                 <label for="tit" class="col-sm-1 offset-1 col-form-label">Título</label>
                 <div class="col col-sm-3">
-                    <input type="text" class="form-control" id="tit" name="titulo" value="{{datos.incidencia.titulo}}" placeholder="{{datos.incidencia.titulo}}" disabled>
+                    <input type="hidden" id="tituloActual" name="tituloIncidencia" value="{{datos.incidencia.titulo}}" />
+                    <input type="text" class="form-control" id="tit" name="titulo" value="{{datos.incidencia.titulo}}" disabled />
                 </div>
             </div>
             <div class="form-group row">
@@ -80,7 +82,7 @@
     <div class="tab-content" id="myTabContent2">
         <div class="row" style="margin-bottom: 3%;">
             <h4 class="col-sm-6">Seguimiento</h4>
-            <a class="btn btn-success offset-4" href="#" data-toggle="modal" data-target="#añadirSeguimiento" title="añadir seguimiento"><i class="fas fa-plus" style="margin-top: 3px;"></i></a>
+            <a class="btn btn-success offset-4" href="#" data-toggle="modal" data-target="#anadirSeguimiento" title="añadir seguimiento"><i class="fas fa-plus" style="margin-top: 3px;"></i></a>
         </div>
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <table class="table table-hover table-responsive-lg">
@@ -93,9 +95,9 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>                        
+                <tbody id="bodySeguimientos">                        
                     {% for seguimiento in datos.seguimientos %}
-                    <tr style="margin-top: 10px;">
+                    <tr>
                         <th scope="row">{{seguimiento.fecha}}</th>
                         <td>{{seguimiento.descripcion}}</td>
                         <td>{{seguimiento.nombreTecnico}} {{seguimiento.apellidosTecnico}}</td>                                  
@@ -106,8 +108,8 @@
         </div>  
 </section>
 
-<!-- Modal -->
-<div class="modal fade" id="añadirSeguimiento" tabindex="-1" role="dialog" aria-labelledby="incidenciaModalLabel" aria-hidden="true">
+<!-- Modal formulario Nuevo Seguimiento -->
+<div class="modal fade" id="anadirSeguimiento" tabindex="-1" role="dialog" aria-labelledby="seguimientoModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -129,13 +131,34 @@
                     </div>                                
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal" title="cerrar"><i class="fas fa-times"></i></button>
-                    <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-check" title="guardar"></i></button>
+                    <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal" title="cancelar"><i class="fas fa-times"></i></button>
+                    <button type="submit" class="btn btn-success btn-lg" title="guardar"><i class="fas fa-check"></i></button>
                 </div>
             </form>
 
         </div>
     </div>
+</div>
+
+<!-- Modal confirmación Cerrar Incidencia -->
+<div class="modal fade" id="confirmarCerrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cerrar Incidencia</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Confirme si desea cerrar la Incidencia
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" title="cancelar"><i class="fas fa-times"></i></button>
+        <button type="button" class="btn btn-success" id="btnCerrarIncidencia" title="confirmar cerrar"><i class="fas fa-check"></i></button>
+      </div>
+    </div>
+  </div>
 </div>
 
 

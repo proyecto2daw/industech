@@ -1,6 +1,5 @@
 
-$(document).ready(function () {
-    
+$(document).ready(function () {    
     
     $.ajax({
         url: 'index.php?controller=incidencia&action=datosModalCategoria',
@@ -54,53 +53,31 @@ $(document).ready(function () {
     $('#btnActivarModificar').click(function() {
         $('.camposFormModificar').prop("disabled", false);
         $('#btnActivarModificar').prop("hidden", true);
-        $('#btnGuardarModificar').prop("hidden", false);
-        $('#btnCerrarIncidencia').prop("hidden", true);
+        $('#cerrarIncidencia').prop("hidden", true);
+        $('#btnGuardarModificar').prop("hidden", false);        
         $('#btnCancelarModificar').prop("hidden", false);
-    });
-    
+    });    
     
     $('#inputContactoModificar').change(function() {
         var url='index.php?controller=empleado&action=datosEmpleado&id=' +$("#inputContactoModificar").val();
-       
+        
         $.ajax({
-            url: url,
-            
+            url: url,            
             success: function (data) {
                 console.log(data);
-              var jsonData=JSON.parse(data);
-                
+                var jsonData=JSON.parse(data);                
                 var telefonoContacto =jsonData.telefono;          
-                $('#telContacto').attr('value', telefonoContacto);
-                
-                /*var datosModal = jQuery.parseJSON(data);
-                $.each(datosModal, function (key, item) {
-                    if (item.idEmpleado == $('#contactoActual').val()) {
-                        $('#inputContactoModificar').append('<option value="' + item.idEmpleado + '" selected>' + item.nombre + '</option>');
-                    }
-                    if (item.idEmpleado != $('#contactoActual').val()) {
-                        $('#inputContactoModificar').append('<option value="' + item.idEmpleado + '">' + item.nombre + '</option>');
-                    }
-                });*/
-                
+                $('#telContacto').attr('value', telefonoContacto);                
             }
         });
-        
-        //$('#telContacto').attr('value', item.telefono); 
-        //$('#telContacto').attr('placeholder', item.telefono); 
-        
-        
-        /*contactoActual
-        
-        Object.keys(jsonData['telefono'])*/
-    });
+    });   
     
-    $('#btnCancelarModificar').click(function(event) {
+    $('#btnCancelarModificar').click(function() {
         $('#editarIncidenciaForm')[0].reset();        
         $('.camposFormModificar').prop("disabled", true);
         $('#btnCancelarModificar').prop("hidden", true);
-        $('#btnCerrarIncidencia').prop("hidden", false);
         $('#btnGuardarModificar').prop("hidden", true);
+        $('#cerrarIncidencia').prop("hidden", false);        
         $('#btnActivarModificar').prop("hidden", false);        
     });
     
@@ -121,12 +98,37 @@ $(document).ready(function () {
                     console.log(data)
                     if (data != 0) {
                         alertify.success("insertado con exito");
+                        $('#bodySeguimientos').prepend('<tr><th scope="row">ahora</th><td>'+$('[name="descripcionSeguimiento"]').val()+'</td><td>yo</td></tr>')
+                        $('#anadirSeguimiento').modal('hide');
                     } else {
                         alertify.error("error");
                     }
                 }
             });
         }
+    });    
+    
+    $('#btnCerrarIncidencia').click(function() {
+        var estado = 1;
+        var idIncidencia = $('#idIncidencia').val();
+        var url='index.php?controller=incidencia&action=cerrar&id=' + idIncidencia + '&es=' + estado;
+        
+        $.ajax({
+            url: url,            
+            success: function (data) {
+                resultado=data;
+                if(resultado == 1) {
+                    location.replace('index.php');
+                }
+                else {
+                    alert('No se ha podido cerrar la Incidencia');
+                }
+            }
+        });
+    });
+    
+    $('#btnGuardarModificar').click(function() {
+        $('#editarIncidenciaForm').attr('action', 'index.php?controller=incidencia&action=update&id=' + $('#idIncidencia').val());
     });
 
 });
