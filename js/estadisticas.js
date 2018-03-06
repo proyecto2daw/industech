@@ -2,6 +2,8 @@ var empresas = [];
 var categorias = [];
 var prioridades = [];
 var fechas = [];
+
+
 $.getJSON(
         'index.php?controller=incidencia&action=getEstadisticas',
         function (data) {
@@ -12,11 +14,19 @@ $.getJSON(
         }
 );
 $(document).ready(function(){
-    
+    $('.filtro').change(function(){
+        
+    var  datos=  $(this).serialize(); 
+  
+    $.getJSON('index.php?controller=incidencia&action=getEstadisticasFiltro',datos,function(data){
+        
+        reset();
+        parseData(data);
+        console.log(data);
+    });
+    });
 });
 function parseData(datos) {
-//    console.log('datos');
-//    console.log(datos.empresas);
     parseEmpresa(datos);
     parseCategoria(datos);
     parsePrioridad(datos);
@@ -248,4 +258,11 @@ function estadisticaCategoria(datos) {
                 data: datos
             }]
     });
+}
+
+function reset(){
+     empresas = [];
+ categorias = [];
+ prioridades = [];
+ fechas = [];
 }

@@ -3,21 +3,21 @@
 {% block content %}
 
 
-<select>
+<select class="filtro" name="categoria">
     {% for categoria in datos.categorias%}
-    <option>{{categoria.nombre}}</option>
+    <option value="{{categoria.idCategoria}}">{{categoria.nombre}}</option>
     {%endfor%}
 </select>
-<select>
+<select class="filtro" name="empresa">
     {% for empresa in datos.empresas%}
-    <option>{{empresa.nombre}}</option>
+    <option value="{{empresa.idEmpresa}}">{{empresa.nombre}}</option>
     {%endfor%}
 </select>
-<select>
-    <option>baja</option>
-    <option>media</option>
-    <option>alta</option>
-    <option>urgente</option>
+<select class="filtro" name="prioridad">
+    <option value="0">baja</option>
+    <option value="1">media</option>
+    <option value="2">alta</option>
+    <option value="3">urgente</option>
     
 </select>
     <section class="col-10">
@@ -39,10 +39,11 @@
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div id="estadistica1"></div>
                 <div id="estadistica2"></div>
+                 <div id="estadistica3"></div>
+                <div id="estadistica4"></div>
             </div>
             <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div id="estadistica3"></div>
-                <div id="estadistica4"></div>
+               
             </div>
             <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab"></div>
             <div class="tab-pane fade " id="prueba" role="tabpanel" aria-labelledby="prueba-tab"></div>

@@ -49,6 +49,9 @@ class IncidenciaController extends Controller {
             case 'filtroIncidencias' :
                 $this->filtroIncidencias();
                 break;
+            case 'getEstadisticasFiltro':
+                $this->filtroStats();
+                break;
             case 'cerrar' :
                 $this->cerrarIncidencia();
                 break;
@@ -235,6 +238,25 @@ class IncidenciaController extends Controller {
         $listaIncidenciasFiltrada = $incidencia->filtrarDatosIncidencias($_POST['fechaInicial'],$_POST['fechaFinal']);        
         
     } 
+    function filtroStats(){
+        $i=new Incidencia();
+        if(isset($_GET['categoria'])){
+            $i->setCategoria($_GET['categoria']);
+            $empresa=$i->statEmpresaByCategoria();
+            $prioridad=$i->statPrioridadByCategoria();
+            echo json_encode(['empresa'=>$empresa,'prioridad'=>$prioridad]);
+        }else if(isset($_GET['prioridad'])){
+            $i->setPrioridad($_GET['prioridad']);
+            $empresa=$i->statEmpresaByPrioridad();
+            $categoria=$i->statCategoriaByPrioridad();
+            echo json_encode(['empresa'=>$empresa,'categoria'=>$categoria]);
+        }else if(isset($_GET['empresa'])){
+            $i->setEmpresa($_GET['empresa']);
+            $categoria=$i->statCategoriaByEmpresa();
+            $prioridad=$i->statPrioridadByEmpresa();
+            echo json_encode(['categoria'=>$categoria,'prioridad'=>$prioridad]);
+        }
+    }
     
     function cerrarIncidencia() {
         $incidencia = new Incidencia();
