@@ -59,7 +59,7 @@
         </header>
         <div id="contenedor-general">   
 
-            <!-- Modal -->
+            <!-- Modal nueva Incidencia -->
             <div class="modal fade" id="añadirIncidencia" tabindex="-1" role="dialog" aria-labelledby="incidenciaModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -129,6 +129,61 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Modal formulario Nuevo Seguimiento -->
+            <div class="modal fade" id="anadirSeguimiento" tabindex="-1" role="dialog" aria-labelledby="seguimientoModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Registro de Seguimiento</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="index.php?controller=incidencia&action=seguimientoIncidencia" method="POST" id="formSeguimiento">
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label for="desSeg" class="col-sm-3 col-form-label">Descripción</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" id="desSeg" rows="3" name="descripcionSeguimiento" placeholder="descripción" data-validetta="required"></textarea>
+                                    </div>
+                                    <input type="hidden" name="usuarioSeguimiento" value="{{datos.incidencia.tecnico}}" />
+                                    <input type="hidden" name="incidenciaSeguimiento" value="{{datos.incidencia.idIncidencia}}" />
+                                    <input type="hidden" name="empresaSeguimiento" value="{{datos.incidencia.empresa}}" />
+                                </div>                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal" title="cancelar"><i class="fas fa-times"></i></button>
+                                <button type="submit" class="btn btn-success btn-lg" title="guardar"><i class="fas fa-check"></i></button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal confirmación Cerrar Incidencia -->
+            <div class="modal fade" id="confirmarCerrar" tabindex="-1" role="dialog" aria-labelledby="cerrarIncidenciaModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Cerrar Incidencia:</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Confirme si desea cerrar la Incidencia
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" title="cancelar"><i class="fas fa-times"></i></button>
+                            <button type="button" class="btn btn-success" id="btnCerrarIncidencia" title="confirmar cerrar"><i class="fas fa-check"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>           
+
+
             <div  id="contenedor" class="row">
                 {% block content %}
                 
