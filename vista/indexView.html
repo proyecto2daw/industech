@@ -21,7 +21,7 @@
                 <td class="d-flex justify-content-end">
                     <a  href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" ><button class="btn btn-info"><i class="fa fa-eye"></i></button></a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button class="btn btn-primary borrar" title="cerrar incidencia" value="{{incidencia.idIncidencia}}"><i class="fas fa-lock"></i></button>
+                    <button class="btn btn-primary cerrar" title="cerrar incidencia" value="{{incidencia.idIncidencia}}"><i class="fas fa-lock"></i></button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <button class="btn btn-danger borrar" title="borrar incidencia" value="{{incidencia.idIncidencia}}"><i class="fas fa-trash-alt"></i></button>               
                 </td>            
@@ -31,5 +31,32 @@
         </tbody>
     </table>
 </section>
+
+<!-- Modal confirmación Borrado Lógico Incidencia -->
+<div class="modal fade" id="confirmarBorradoLogico" tabindex="-1" role="dialog" aria-labelledby="borradoLogicoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Borrar Incidencia:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" id="formConfirmarBorrar">
+                <input type="hidden" id="borrarId" value="{{incidencia.idIncidencia}}" />
+            </form>
+            <div class="modal-body">
+                Confirme si desea borrar la Incidencia
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" title="cancelar"><i class="fas fa-times"></i></button>
+                <button type="button" class="btn btn-success borrar" id="btnBorrarIncidencia" title="confirmar borrar"><i class="fas fa-check"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PARA PROBAR EL MODAL ESTO PARA PONER EN EL BOTON:  value="{{incidencia.idIncidencia}}" -->
+
 
 {%endblock%}

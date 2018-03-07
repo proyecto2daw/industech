@@ -89,7 +89,7 @@ $(document).ready(function () {
                 data: datos,
                 success: function (data) {
                     console.log(data)
-                    if (data != 0) {
+                    if (data!=0 && !isNaN(data)) {
                         alertify.success("insertado con exito");
                         $('#bodySeguimientos').prepend('<tr><th scope="row">ahora</th><td>'+$('[name="descripcionSeguimiento"]').val()+'</td><td>yo</td></tr>')
                         $('#anadirSeguimiento').modal('hide');

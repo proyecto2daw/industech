@@ -121,6 +121,7 @@ class Incidencia extends BD{
                 . "AND incidencias.empresa = empresas.idEmpresa "
                 . "AND incidencias.tecnico = usuarios.idUsuario "
                 . "AND incidencias.contacto = empleados.idEmpleado "
+                . "AND estado in(0,1)"
                 . "ORDER BY fecha DESC", []);                
         return $results;
     }
@@ -254,7 +255,7 @@ class Incidencia extends BD{
         $filas = $this->update("UPDATE $this->tabla "
                 . "SET titulo = :titulo, "
                 . "descripcion = :descripcion, "
-                . "fecha = :fecha, "
+                
                 . "prioridad = :prioridad, "
                 . "estado = :estado, "
                 . "categoria = :categoria, "
@@ -264,7 +265,7 @@ class Incidencia extends BD{
                 . "WHERE idIncidencia = :idIncidencia", 
                 ['titulo' => $this->getTitulo(), 
                     'descripcion' => $this->getDescripcion(), 
-                    'fecha' => $this->getFecha(),
+                   
                     'prioridad' => $this->getPrioridad(),
                     'estado' => $this->getEstado(), 
                     'categoria' => $this->getCategoria(), 
@@ -300,7 +301,7 @@ class Incidencia extends BD{
     }    
     
     function getEstadisticasByFecha() {
-        $stat= $this->fSelectN("SELECT COUNT(*) as numero, DATE_FORMAT(fecha, '%m') as numeroMes FROM $this->tabla GROUP BY DATE_FORMAT(fecha, '%m')", []);
+        $stat= $this->fSelectN("SELECT COUNT(*) as numero, DATE_FORMAT(fecha, '%m') as numeroMes FROM $this->tabla GROUP BY DATE_FORMAT(fecha, '%%m')", []);
         return $stat;
     }
     
