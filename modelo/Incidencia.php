@@ -73,6 +73,9 @@ class Incidencia extends BD{
     function setFecha() {
         $this->fecha = date("Y-m-d H:i:sa");
     }
+    function ponerFecha($fecha) {
+        $this->fecha = $fecha;
+    }
 
     function setPrioridad($prioridad) {
         $this->prioridad = $prioridad;
