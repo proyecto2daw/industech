@@ -16,6 +16,10 @@ body{
     background-size: cover;
 }
 
+#todasIncidenciasTable_wrapper{
+    margin:0 auto;
+/*    width: 80%;*/
+}
 
 section{
     border-left: 2px solid black;

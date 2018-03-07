@@ -8,11 +8,13 @@
             <div class="row" style="margin-bottom: 3%;">
                 <h4 class="col-sm-6">Incidencia</h4>
                 <input type="hidden" id="idIncidencia" name="incidenciaSeguimiento" value="{{datos.incidencia.idIncidencia}}" />
+                {%if datos.incidencia.tecnico==datos.yo%}
                 <button type="button" class="btn btn-primary offset-4" id="cerrarIncidencia"  data-toggle="modal" data-target="#confirmarCerrar" title="cerrar incidencia"><i class="fas fa-lock"></i></button>
                 <a href="index.php?controller=incidencia&action=ver&id={{datos.incidencia.idIncidencia}}" class="btn btn-secondary offset-4" id="btnCancelarModificar" title="cancelar modificar" hidden><i class="fas fa-times"></i></a>
                 &nbsp;&nbsp;
                 <button type="button" class="btn btn-warning" id="btnActivarModificar" title="modificar incidencia"><i class="fas fa-edit"></i></button>
                 <button type="submit" class="btn btn-success" id="btnGuardarModificar" title="guardar cambios" hidden><i class="fas fa-check"></i></button>
+                {%endif%}
             </div>
             <div class="form-group row">                    
                 <label for="nombreEmpresaModificar" class="col-sm-1 offset-1 col-form-label">Empresa</label>
@@ -82,7 +84,9 @@
     <div class="tab-content" id="myTabContent2">
         <div class="row" style="margin-bottom: 3%;">
             <h4 class="col-sm-6">Seguimiento</h4>
+             {%if datos.incidencia.tecnico==datos.yo%}
             <a class="btn btn-success offset-4" href="#" data-toggle="modal" data-target="#anadirSeguimiento" title="añadir seguimiento"><i class="fas fa-plus" style="margin-top: 3px;"></i></a>
+            {%endif%}
         </div>
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <table class="table table-hover table-responsive-lg" id="pruebatabla">

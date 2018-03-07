@@ -284,17 +284,17 @@ class IncidenciaController extends Controller {
             $incidencia->setEstado($_POST['estado']);
         }
 
-        if (isset($_POST['fechaInicial']) && $_POST['fechaInicial'] != NULL) {
-            print_r($_POST);
-            if (isset($_POST['fechaFinal']) && $_POST['fechaFinal'] != NULL) {
-                echo 'llego aqui';
-                $arrayFechas = ["fechaInicial" => $_POST['fechaInicial'], "fechaFin" => $_POST['fechaFin']];
-            } else {
-                $arrayFechas = ["fechaInicial" => $_POST['fechaInicial']];
-            }
-        } else if (isset($_POST['fechaFinal'])) {
-            $arrayFechas = ["fechaFin" => $_POST['fechaFin']];
-        }
+//        if (isset($_POST['fechaInicial']) && $_POST['fechaInicial'] != NULL) {
+//            print_r($_POST);
+//            if (isset($_POST['fechaFinal']) && $_POST['fechaFinal'] != NULL) {
+//                echo 'llego aqui';
+//                $arrayFechas = ["fechaInicial" => $_POST['fechaInicial'], "fechaFin" => $_POST['fechaFin']];
+//            } else {
+//                $arrayFechas = ["fechaInicial" => $_POST['fechaInicial']];
+//            }
+//        } else if (isset($_POST['fechaFinal'])) {
+//            $arrayFechas = ["fechaFin" => $_POST['fechaFin']];
+//        }
 
         $listaIncidenciasFiltrada = $incidencia->filtrarDatosIncidencias($arrayFechas);
 

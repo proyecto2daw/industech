@@ -73,6 +73,9 @@ class Incidencia extends BD{
     function setFecha() {
         $this->fecha = date("Y-m-d H:i:sa");
     }
+    function ponerFecha($fecha) {
+        $this->fecha = $fecha;
+    }
 
     function setPrioridad($prioridad) {
         $this->prioridad = $prioridad;
@@ -306,7 +309,7 @@ class Incidencia extends BD{
     }
     
     function  filtrarDatosIncidencias($fechas){
-        $query="SELECT * FROM $this->tabla where 1 = 1 ";
+        $query="SELECT $this->tabla.*,categorias.nombre as nombreCategoria FROM $this->tabla,categorias where 1 = 1 and incidencias.categoria=categorias.idCategoria ";
         $where="";
         
         if($this->getPrioridad()!= ''){
@@ -334,13 +337,13 @@ class Incidencia extends BD{
             
         } 
         
-        if(sizeof($fechas)==1){
-           if(array_key_exists('fechaInicial', $fechas)){
-               $where.=" and fecha = (   SELECT MIN(".$fechas['fechaInicial'].")FROM incidencias AS b)";
-           }
+//        if(sizeof($fechas)==1){
+//           if(array_key_exists('fechaInicial', $fechas)){
+//               $where.=" and fecha = (   SELECT MIN(".$fechas['fechaInicial'].")FROM incidencias AS b)";
+//           }
             
-        }
-   echo $query.$where;
+        //}
+   
         $stat= $this->fSelectN($query.$where, []); 
         return $stat;
     }    
