@@ -89,23 +89,69 @@ $(document).ready(function () {
                         alertify.success("insertado con exito");
                         $('#tablaIncidencias').prepend('<tr>\n\
                                                             <th scope="row">' + $('[name="titulo"]').val() + '</th>\n\
-                                                            <td>{{incidencia.descripcion}}</td><td>{{incidencia.fecha}}</td>\n\
-                                                            <td>{{incidencia.nombreCategoria}}</td> \n\
-                                                            <td><a class="btn btn-primary" href="index.php?controller=incidencia&action=ver&id=' + data + '" title="ver incidencia" ><i class="fa fa-eye"></i></a></td>\n\
-                                                        </tr>');
+                                                            <td>ahora</td>\n\
+                                                            <td>'+ $('[name="categoria"]').val()+'</td>\n\
+                                                             \n\
+                                                            <td class="d-flex justify-content-end">\n\
+                                                                <a class="btn btn-info" href="index.php?controller=incidencia&action=ver&id=' + data + '" title="ver incidencia" ><i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;'+
+                                                                '<button class="btn btn-primary bcerrar" title="cerrar incidencia" value="' + data + '"><i class="fas fa-lock"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;'+                                                                
+                                                                '<button class="btn btn-danger borrar" title="borrar incidencia" value="' + data + '"><i class="fas fa-trash-alt"></i></button>'+         
+                                                           ' </td></tr>');
                     }
-//                    else {
-//                        alertify.error("error");
-//                    }
+                    else if(data=='ok'){
+                        alertify.success("insertado con exito");
                 }
-            });
+            }});
         }
     });
     
-    $('.cerrar').click(function(){
+    
+    $('body').on('click','.borrar',function(){
+        var estado = 2;
+        var idIncidencia = $(this).val();
+        var boton=$(this);
+        var url='index.php?controller=incidencia&action=borradoLogico&id=' + idIncidencia + '&es=' + estado;
+        
+        $.ajax({
+            url: url,            
+            success: function (data) {
+                resultado=data;
+                if(resultado == 1) {
+                    boton.parent().parent().remove();
+                }
+                else {
+                    alertify.error('No se ha podido cerrar la Incidencia');
+                }
+            }
+        });
+    });
+    
+    $('body').on('click','.bcerrar',function(){
         var estado = 1;
-        var idIncidencia = $(this).val();       
-        var url='index.php?controller=incidencia&action=cerrar&id=' + idIncidencia + '&es=' + estado;
+        var idIncidencia = $(this).val();
+        var boton=$(this);
+        var url='index.php?controller=incidencia&action=borradoLogico&id=' + idIncidencia + '&es=' + estado;
+        
+        $.ajax({
+            url: url,            
+            success: function (data) {
+                console.log(data);
+                resultado=data;
+                if(resultado == 1) {
+                 boton.toggleClass('btn-primary btn-secondary');
+                       boton.attr('disabled','disabled');
+                }
+                else {
+                    alertify.error('No se ha podido borrar la Incidencia2');
+                }
+            }
+        });
+    });
+    $('body').on('click','.cerrar',function(){
+        var estado = 1;
+        var idIncidencia = $(this).val();
+        
+        var url='index.php?controller=incidencia&action=borradoLogico&id=' + idIncidencia + '&es=' + estado;
         
         $.ajax({
             url: url,            
@@ -120,29 +166,4 @@ $(document).ready(function () {
             }
         });
     });
-    
-    $('.borrar').click(function(){
-        var estado = 2;
-        var idIncidencia = $(this).val();
-        
-        //alert('idIncidencia---> ' + idIncidencia);
-        
-        var url='index.php?controller=incidencia&action=borradoLogico&id=' + idIncidencia + '&es=' + estado;
-        
-        $.ajax({
-            url: url,            
-            success: function (data) {
-                resultado=data;
-                if(resultado == 1) {
-                    location.replace('index.php');
-                }
-                else {
-                    alert('No se ha podido borrar la Incidencia');
-                }
-            }
-        });
-    });
-    
-  
-
 });

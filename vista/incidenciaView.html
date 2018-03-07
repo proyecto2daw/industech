@@ -9,13 +9,14 @@
                 <h4 class="col-sm-6">Incidencia</h4>
                 <div class="d-flex">
                 <input type="hidden" id="idIncidencia" name="incidenciaSeguimiento" value="{{datos.incidencia.idIncidencia}}" />
-                <button type="button" class="btn btn-primary offset-2" id="cerrarIncidencia"  data-toggle="modal" data-target="#confirmarCerrar" title="cerrar incidencia"><i class="fas fa-lock"></i></button>
+                {%if datos.incidencia.tecnico==datos.yo%}
+                <button type="button" class="btn btn-primary offset-4" id="cerrarIncidencia"  data-toggle="modal" data-target="#confirmarCerrar" title="cerrar incidencia"><i class="fas fa-lock"></i></button>
                 <a href="index.php?controller=incidencia&action=ver&id={{datos.incidencia.idIncidencia}}" class="btn btn-secondary offset-4" id="btnCancelarModificar" title="cancelar modificar" hidden><i class="fas fa-times"></i></a>
                 
                 &nbsp;&nbsp;
                 <button type="button" class="btn btn-warning" id="btnActivarModificar" title="modificar incidencia"><i class="fas fa-edit"></i></button>
                 <button type="submit" class="btn btn-success" id="btnGuardarModificar" title="guardar cambios" hidden><i class="fas fa-check"></i></button>
-                </div>
+                {%endif%}
             </div>
             
             <div class="form-row">
@@ -83,7 +84,9 @@
     <div class="tab-content" id="myTabContent2">
         <div class="row d-flex justify-content-between" style="margin-bottom: 3%; margin-right: 2%;">
             <h4 class="col-sm-6">Seguimiento</h4>
-            <a class="btn btn-success" href="#" data-toggle="modal" data-target="#anadirSeguimiento" title="añadir seguimiento"><i class="fas fa-plus" style="margin-top: 3px;"></i></a>
+             {%if datos.incidencia.tecnico==datos.yo%}
+            <a class="btn btn-success offset-4" href="#" data-toggle="modal" data-target="#anadirSeguimiento" title="añadir seguimiento"><i class="fas fa-plus" style="margin-top: 3px;"></i></a>
+            {%endif%}
         </div>
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <table class="table table-hover table-responsive-lg" id="pruebatabla">

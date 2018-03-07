@@ -52,8 +52,14 @@
                             <a class="nav-link" href="#" data-toggle="modal" data-target="#añadirIncidencia">Añadir Incidencia</a>
                         </li><!-- Fin: Link modal -->
                         <li class="nav-item active">
+                            <a class="nav-link responAside" href="index.php?controller=incidencia&action=estadisticas" >Estadisticas</a>
+                        </li>           
+                        <li class="nav-item active">
+                            <a class="nav-link responAside" href="index.php?controller=incidencia&action=todas" >Mantenimientos</a>
+                        </li>
+                        <li class="nav-item active ">
                             <a class="nav-link " href="index.php?controller=usuario&action=logout">Cerrar Sesion</a>
-                        </li>                        
+                        </li> 
                 </div>
             </nav>
         </header>
@@ -185,16 +191,17 @@
 
 
             <div  id="contenedor" class="row">
-                {% block content %}
-                
-                {% endblock %}
-                <aside class="col-xl-2 hidden-sm-down">  
+               
+                <aside class="col-xl-2">  
                     <div class="list-group">
                         <span class="list-group-item list-group-item-action active">OPCIONES</span>
                         <a href="index.php?controller=incidencia&action=estadisticas" class="list-group-item list-group-item-action">Estadisticas</a>
                         <a href="index.php?controller=incidencia&action=todas" class="list-group-item list-group-item-action">Mantenimientos</a>
                     </div>
-                </aside>
+                </aside> 
+                {% block content %}
+                
+                {% endblock %}
             </div>
 
         </div>
