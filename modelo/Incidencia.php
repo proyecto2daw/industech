@@ -121,6 +121,7 @@ class Incidencia extends BD{
                 . "AND incidencias.empresa = empresas.idEmpresa "
                 . "AND incidencias.tecnico = usuarios.idUsuario "
                 . "AND incidencias.contacto = empleados.idEmpleado "
+                . "AND estado in(0,1)"
                 . "ORDER BY fecha DESC", []);                
         return $results;
     }
@@ -300,7 +301,7 @@ class Incidencia extends BD{
     }    
     
     function getEstadisticasByFecha() {
-        $stat= $this->fSelectN("SELECT COUNT(*) as numero, DATE_FORMAT(fecha, '%m') as numeroMes FROM $this->tabla GROUP BY DATE_FORMAT(fecha, '%m')", []);
+        $stat= $this->fSelectN("SELECT COUNT(*) as numero, DATE_FORMAT(fecha, '%m') as numeroMes FROM $this->tabla GROUP BY DATE_FORMAT(fecha, '%%m')", []);
         return $stat;
     }
     

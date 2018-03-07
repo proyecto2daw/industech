@@ -305,7 +305,7 @@ class IncidenciaController extends Controller {
         $incidencia->setIdIncidencia($_GET['id']);
         $incidenciaCambioEstado = $incidencia->updateEstadoIncidencia();
         
-        echo json_encode($incidenciaCambioEstado);
+        echo $incidenciaCambioEstado;
     }
     
     /*function borradoLogicoIncidencia() {

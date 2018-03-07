@@ -89,69 +89,75 @@
 
     </div>
     <div class="row">
-        
+
         <div class='offset-1'></div>
-    <table class="table table-hover table-responsive col-10"  id="todasIncidenciasTable" style="margin:0 auto;" >
-        <thead class="thead-dark colorfondo">
-            <tr>
-                <th scope="col">Titulo</th>
-                <th scope="col" class="hidden-sm">Descripcion</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Categoria</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody >
-         {% for incidencia in datos.incidencias %}
-            <tr>
-                <th scope="row">{{incidencia.titulo}}</th>
-                <td class="hidden-sm">{{incidencia.descripcion}}</td>
-                <td>{{incidencia.fecha}}</td>
-                <td>{{incidencia.nombreCategoria}}</td>
-                <td class="d-flex justify-content-end">
-                    <a  href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" >
-                        <button class="btn btn-info">
-                            <i class="fa fa-eye"></i>
+        <table class="table table-hover table-responsive col-10"  id="todasIncidenciasTable" style="margin:0 auto;" >
+            <thead class="thead-dark colorfondo">
+                <tr>
+                    <th scope="col">Titulo</th>
+                    <th scope="col" class="hidden-sm">Descripcion</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody >
+                {% for incidencia in datos.incidencias %}
+                <tr>
+                    <th scope="row">{{incidencia.titulo}}</th>
+                    <td class="hidden-sm">{{incidencia.descripcion}}</td>
+                    <td>{{incidencia.fecha}}</td>
+                    <td>{{incidencia.nombreCategoria}}</td>
+                    <td class="d-flex justify-content-end">
+                        <a  href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" >
+                            <button class="btn btn-info">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </a>
+                        &nbsp;
+                        {%if incidencia.tecnico==datos.yo%}
+                        {%if incidencia.estado==1%}
+                        <button class="btn btn-secondary bcerrar" title="cerrar incidencia"  disabled="disabled"   value="{{incidencia.idIncidencia}}">
+                            <i class="fas fa-lock"></i>
                         </button>
-                    </a>
-                    &nbsp;
-                    {%if incidencia.tecnico==datos.yo%}
-                    <button class="btn btn-primary borrar" title="cerrar incidencia" value="{{incidencia.idIncidencia}}">
-                        <i class="fas fa-lock"></i>
-                    </button>
-                   &nbsp;
-                    <button class="btn btn-danger borrar" title="borrar incidencia" value="{{incidencia.idIncidencia}}">
-                        <i class="fas fa-trash-alt"></i>
-                    </button> 
-                    {%else%}
-                    <button class="btn btn-secondary borrar" title="cerrar incidencia" value="{{incidencia.idIncidencia}}" disabled="disabled">
-                        <i class="fas fa-lock"></i>
-                    </button>
-                   &nbsp;
-                    <button class="btn btn-secondary borrar" title="borrar incidencia" value="{{incidencia.idIncidencia}}" disabled="disabled">
-                        <i class="fas fa-trash-alt"></i>
-                    </button> 
-                    {%endif%}
-                </td> 
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
+                        {%else%}
+                        <button class="btn btn-primary bcerrar" title="cerrar incidencia"     value="{{incidencia.idIncidencia}}">
+                            <i class="fas fa-lock"></i>
+                        </button>
+                        {%endif%}
+                        &nbsp;
+                        <button class="btn btn-danger borrar" title="borrar incidencia" value="{{incidencia.idIncidencia}}">
+                            <i class="fas fa-trash-alt"></i>
+                        </button> 
+                        {%else%}
+                        <button class="btn btn-secondary bcerrar" title="cerrar incidencia" value="{{incidencia.idIncidencia}}" disabled="disabled">
+                            <i class="fas fa-lock"></i>
+                        </button>
+                        &nbsp;
+                        <button class="btn btn-secondary borrar" title="borrar incidencia" value="{{incidencia.idIncidencia}}" disabled="disabled">
+                            <i class="fas fa-trash-alt"></i>
+                        </button> 
+                        {%endif%}
+                    </td> 
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
     </div>
 </section>
 
 <script type="text/javascript">
 
-    $(document).ready(function(){    
-       
-    $('#todasIncidenciasTable').DataTable(
-            {
-                responsive:true,
-        
-  "lengthMenu": [ 15,10,5]
+    $(document).ready(function () {
 
-        
-            });
-});
+        $('#todasIncidenciasTable').DataTable(
+                {
+                    responsive: true,
+
+                    "lengthMenu": [15, 10, 5]
+
+
+                });
+    });
 </script>
 {%endblock%}

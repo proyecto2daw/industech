@@ -105,18 +105,40 @@ $(document).ready(function () {
     $('.borrar').click(function(){
         var estado = 2;
         var idIncidencia = $(this).val();
-        
+        var boton=$(this);
         var url='index.php?controller=incidencia&action=borradoLogico&id=' + idIncidencia + '&es=' + estado;
         
         $.ajax({
             url: url,            
             success: function (data) {
+                console.log(data);
                 resultado=data;
                 if(resultado == 1) {
-                    location.replace('index.php');
+                 boton.parent().parent().remove();
                 }
                 else {
-                    alert('No se ha podido borrar la Incidencia');
+                    alertify.error('No se ha podido borrar la Incidencia2');
+                }
+            }
+        });
+    });
+    $('.bcerrar').click(function(){
+        var estado = 1;
+        var idIncidencia = $(this).val();
+        var boton=$(this);
+        var url='index.php?controller=incidencia&action=borradoLogico&id=' + idIncidencia + '&es=' + estado;
+        
+        $.ajax({
+            url: url,            
+            success: function (data) {
+                console.log(data);
+                resultado=data;
+                if(resultado == 1) {
+                 boton.toggleClass('btn-primary btn-secondary');
+                       boton.attr('disabled','disabled');
+                }
+                else {
+                    alertify.error('No se ha podido borrar la Incidencia2');
                 }
             }
         });
