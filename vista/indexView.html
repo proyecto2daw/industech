@@ -8,6 +8,7 @@
                 <th scope="col">Titulo</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Categoria</th>
+                <th scope="col">Prioridad</th>
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -18,6 +19,8 @@
                 <th scope="row">{{incidencia.titulo}}</th>
                 <td>{{incidencia.fecha}}</td>
                 <td>{{incidencia.nombreCategoria}}</td>
+               
+                <td> <img src="img/{{incidencia.prioridad}}.png" alt="prioridad"></td>
                 <td class="d-flex justify-content-end">
                     <a  href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" ><button class="btn btn-info"><i class="fa fa-eye"></i></button></a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
