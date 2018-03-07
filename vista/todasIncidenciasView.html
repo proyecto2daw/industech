@@ -56,16 +56,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group row">                    
-                    <label for="fechaInicial" class="col-sm-1 offset-1 col-form-label" >Fecha Inicial</label>
-                    <div class="col-sm-3">
-                        <input type="date" class="form-control" id="fechaInicial" name="fechaInicial">
-                    </div>
-                    <label for="fechaFinal" class="col-sm-1 offset-1 col-form-label">Fecha Final</label>
-                    <div class="col-sm-3">
-                        <input type="date" class="form-control" id="fechaFinal" name="fechaFinal" >
-                    </div>
-                </div>
+
 
                 <div class="form-group row">                 
                     <label for="nombreEmpresaFiltro" class="col-sm-1 offset-1 col-form-label">Empresa</label>
@@ -78,7 +69,77 @@
                         </select>
                     </div>
                 </div>
-
+                
+                
+                
+                
+                
+                
+<div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="nombreEmpresaModificar" class="col-form-label">Empresa</label>
+                    <input type="hidden" id="empresaModificar" name="empresa" value="{{datos.incidencia.empresa}}" />
+                    <input type="text" class="form-control form-control-sm" id="nombreEmpresaModificar" name="empresaNombre" value="{{datos.incidencia.nombreEmpresa}}" disabled>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="tit" class="col-form-label">Título</label>
+                    <input type="hidden" id="tituloActual" name="tituloIncidencia" value="{{datos.incidencia.titulo}}" />
+                    <input type="text" class="form-control form-control-sm" id="tit" name="titulo" value="{{datos.incidencia.titulo}}" disabled />
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="fech" class="col-form-label">Fecha</label>
+                    <input type="date" class="form-control form-control-sm" id="fech" name="fecha" value="{{datos.incidencia.fechaFormateada}}" disabled>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputPrioridadModificar" class="col-form-label">Prioridad</label>
+                    <input type="hidden" id="prioridadActual" name="prioridad" value="{{datos.incidencia.prioridad}}" />
+                    <select name="prioridad" class="form-control form-control-sm camposFormModificar" id="inputPrioridadModificar" disabled>
+                        <option value="{{datos.incidencia.prioridad}}" selected>{{datos.nombrePrioridad}}</option>
+                        <option value="0">Baja</option>
+                        <option value="1">Media</option>
+                        <option value="2">Alta</option>
+                        <option value="3">Urgente</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">              
+                <div class="form-group col-sm-3">
+                    <label for="inputTecnicoModificar" class="col-form-label">Técnico</label>
+                    <input type="hidden" id="tecnicoActual" name="tecnico" value="{{datos.incidencia.tecnico}}" />
+                    <select name="tecnico" class="form-control form-control-sm camposFormModificar" id="inputTecnicoModificar" disabled></select>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="inputCategoriaModificar" class="col-form-label">Categoría</label>
+                    <input type="hidden" id="categoriaActual" name="categoria" value="{{datos.incidencia.categoria}}" />
+                    <select name="categoria" class="form-control form-control-sm camposFormModificar" id="inputCategoriaModificar" disabled></select>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="inputContactoModificar" class="col-form-label">Contacto</label>
+                    <input type="hidden" id="contactoActual" name="contacto" value="{{datos.incidencia.contacto}}" />
+                    <select name="contacto" class="form-control form-control-sm camposFormModificar" id="inputContactoModificar" disabled></select>  
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="telContacto" class="col-form-label">Teléfono</label>
+                    <input type="text" class="form-control form-control-sm" id="telContacto" name="telefonoContacto" value="{{datos.incidencia.telefonoContacto}}"  disabled>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group  col-xl-12 ">
+                    <label for="inputDescripcion" class="col-form-label">Descripción</label>    
+                    <input type="hidden" id="descripcionActual" name="viejoDescripcion" value="{{datos.incidencia.descripcion}}" />
+                    <textarea class="form-control form-control-sm camposFormModificar" id="inputDescripcion" rows="3" name="descripcion" disabled>{{datos.incidencia.descripcion}}</textarea>                    
+                </div>
+            </div>
+                
+                
+                
+                
+                
+                
+                
+                
                 <button type="submit" class="btn btn-primary">Buscar</button>
 
             </form>  <!-- fin: prueba -->

@@ -5,36 +5,38 @@
 <section class="col-10">
     <div>      
         <form id="editarIncidenciaForm" method="post"> 
-            <div class="row" style="margin-bottom: 3%;">
+            <div class="row d-flex justify-content-between" style="margin-bottom: 3%; margin-right: 3%;">
                 <h4 class="col-sm-6">Incidencia</h4>
+                <div class="d-flex">
                 <input type="hidden" id="idIncidencia" name="incidenciaSeguimiento" value="{{datos.incidencia.idIncidencia}}" />
-                <button type="button" class="btn btn-primary offset-4" id="cerrarIncidencia"  data-toggle="modal" data-target="#confirmarCerrar" title="cerrar incidencia"><i class="fas fa-lock"></i></button>
+                <button type="button" class="btn btn-primary offset-2" id="cerrarIncidencia"  data-toggle="modal" data-target="#confirmarCerrar" title="cerrar incidencia"><i class="fas fa-lock"></i></button>
                 <a href="index.php?controller=incidencia&action=ver&id={{datos.incidencia.idIncidencia}}" class="btn btn-secondary offset-4" id="btnCancelarModificar" title="cancelar modificar" hidden><i class="fas fa-times"></i></a>
+                
                 &nbsp;&nbsp;
                 <button type="button" class="btn btn-warning" id="btnActivarModificar" title="modificar incidencia"><i class="fas fa-edit"></i></button>
                 <button type="submit" class="btn btn-success" id="btnGuardarModificar" title="guardar cambios" hidden><i class="fas fa-check"></i></button>
+                </div>
             </div>
-            <div class="form-group row">                    
-                <label for="nombreEmpresaModificar" class="col-sm-1 offset-1 col-form-label">Empresa</label>
-                <div class="col col-sm-3">
+            
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="nombreEmpresaModificar" class="col-form-label">Empresa</label>
                     <input type="hidden" id="empresaModificar" name="empresa" value="{{datos.incidencia.empresa}}" />
-                    <input type="text" class="form-control" id="nombreEmpresaModificar" name="empresaNombre" value="{{datos.incidencia.nombreEmpresa}}" disabled>
+                    <input type="text" class="form-control form-control-sm" id="nombreEmpresaModificar" name="empresaNombre" value="{{datos.incidencia.nombreEmpresa}}" disabled>
                 </div>
-                <label for="tit" class="col-sm-1 offset-1 col-form-label">Título</label>
-                <div class="col col-sm-3">
+                <div class="form-group col-md-3">
+                    <label for="tit" class="col-form-label">Título</label>
                     <input type="hidden" id="tituloActual" name="tituloIncidencia" value="{{datos.incidencia.titulo}}" />
-                    <input type="text" class="form-control" id="tit" name="titulo" value="{{datos.incidencia.titulo}}" disabled />
+                    <input type="text" class="form-control form-control-sm" id="tit" name="titulo" value="{{datos.incidencia.titulo}}" disabled />
                 </div>
-            </div>
-            <div class="form-group row">
-                <label for="fech" class="col-sm-1 offset-1 col-form-label">Fecha</label>
-                <div class="col-sm-3">
-                    <input type="date" class="form-control" id="fech" name="fecha" value="{{datos.incidencia.fechaFormateada}}" disabled>
+                <div class="form-group col-md-3">
+                    <label for="fech" class="col-form-label">Fecha</label>
+                    <input type="date" class="form-control form-control-sm" id="fech" name="fecha" value="{{datos.incidencia.fechaFormateada}}" disabled>
                 </div>
-                <label for="inputPrioridadModificar" class="col-sm-1  offset-1 col-form-label">Prioridad</label>
-                <div class="col col-sm-3">
+                <div class="form-group col-md-3">
+                    <label for="inputPrioridadModificar" class="col-form-label">Prioridad</label>
                     <input type="hidden" id="prioridadActual" name="prioridad" value="{{datos.incidencia.prioridad}}" />
-                    <select name="prioridad" class="form-control camposFormModificar" id="inputPrioridadModificar" disabled>
+                    <select name="prioridad" class="form-control form-control-sm camposFormModificar" id="inputPrioridadModificar" disabled>
                         <option value="{{datos.incidencia.prioridad}}" selected>{{datos.nombrePrioridad}}</option>
                         <option value="0">Baja</option>
                         <option value="1">Media</option>
@@ -43,35 +45,34 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">                    
-                <label for="inputTecnicoModificar" class="col-sm-1 offset-1 col-form-label">Técnico</label>
-                <div class="col col-sm-3">
+            
+            <div class="form-row">              
+                <div class="form-group col-sm-3">
+                    <label for="inputTecnicoModificar" class="col-form-label">Técnico</label>
                     <input type="hidden" id="tecnicoActual" name="tecnico" value="{{datos.incidencia.tecnico}}" />
-                    <select name="tecnico" class="form-control camposFormModificar" id="inputTecnicoModificar" disabled></select>
+                    <select name="tecnico" class="form-control form-control-sm camposFormModificar" id="inputTecnicoModificar" disabled></select>
                 </div>
-                <label for="inputCategoriaModificar" class="col-sm-1 offset-1 col-form-label">Categoria</label>
-                <div class="col col-sm-3">
+                <div class="form-group col-sm-3">
+                    <label for="inputCategoriaModificar" class="col-form-label">Categoría</label>
                     <input type="hidden" id="categoriaActual" name="categoria" value="{{datos.incidencia.categoria}}" />
-                    <select name="categoria" class="form-control camposFormModificar" id="inputCategoriaModificar" disabled></select>
+                    <select name="categoria" class="form-control form-control-sm camposFormModificar" id="inputCategoriaModificar" disabled></select>
                 </div>
-            </div>                
-            <div class="form-group row">                
-                <label for="inputContactoModificar" class="col-sm-1 offset-1 col-form-label">Contacto</label>
-                <div class="col col-sm-3">
+                <div class="form-group col-sm-3">
+                    <label for="inputContactoModificar" class="col-form-label">Contacto</label>
                     <input type="hidden" id="contactoActual" name="contacto" value="{{datos.incidencia.contacto}}" />
-                    <select name="contacto" class="form-control camposFormModificar" id="inputContactoModificar" disabled></select>                    
+                    <select name="contacto" class="form-control form-control-sm camposFormModificar" id="inputContactoModificar" disabled></select>  
                 </div>
-                
-                <label for="telContacto" class="col-sm-1 offset-1 col-form-label">Teléfono</label>
-                <div class="col col-sm-3">
-                    <input type="text" class="form-control" id="telContacto" name="telefonoContacto" value="{{datos.incidencia.telefonoContacto}}"  disabled>
+                <div class="form-group col-sm-3">
+                    <label for="telContacto" class="col-form-label">Teléfono</label>
+                    <input type="text" class="form-control form-control-sm" id="telContacto" name="telefonoContacto" value="{{datos.incidencia.telefonoContacto}}"  disabled>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="inputDescripcion" class="col-sm-1 offset-1 col-form-label">Descripción</label>
-                <div class="col-sm-8">
-                    <textarea class="form-control camposFormModificar" id="inputDescripcion" rows="3" name="descripcion" disabled>{{datos.incidencia.descripcion}}</textarea>
+            
+            <div class="form-row">
+                <div class="form-group  col-xl-12 ">
+                    <label for="inputDescripcion" class="col-form-label">Descripción</label>    
                     <input type="hidden" id="descripcionActual" name="viejoDescripcion" value="{{datos.incidencia.descripcion}}" />
+                    <textarea class="form-control form-control-sm camposFormModificar" id="inputDescripcion" rows="3" name="descripcion" disabled>{{datos.incidencia.descripcion}}</textarea>                    
                 </div>
             </div>
         </form>            
@@ -80,9 +81,9 @@
     <hr style="border: 1px solid black;">
 
     <div class="tab-content" id="myTabContent2">
-        <div class="row" style="margin-bottom: 3%;">
+        <div class="row d-flex justify-content-between" style="margin-bottom: 3%; margin-right: 2%;">
             <h4 class="col-sm-6">Seguimiento</h4>
-            <a class="btn btn-success offset-4" href="#" data-toggle="modal" data-target="#anadirSeguimiento" title="añadir seguimiento"><i class="fas fa-plus" style="margin-top: 3px;"></i></a>
+            <a class="btn btn-success" href="#" data-toggle="modal" data-target="#anadirSeguimiento" title="añadir seguimiento"><i class="fas fa-plus" style="margin-top: 3px;"></i></a>
         </div>
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <table class="table table-hover table-responsive-lg" id="pruebatabla">
@@ -117,7 +118,7 @@
             {
                 responsive:true,
         
-                "lengthMenu": [ 8]
+                "lengthMenu": [ 7, 5, 3]
 
         
             });
