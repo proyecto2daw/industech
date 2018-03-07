@@ -7,7 +7,7 @@
         <form id="editarIncidenciaForm" method="post"> 
             <div class="row" style="margin-bottom: 3%;">
                 <h4 class="col-sm-6">Incidencia</h4>
-                <input type="hidden" id="idIncidencia" name="incidencia" value="{{datos.incidencia.idIncidencia}}" />
+                <input type="hidden" id="idIncidencia" name="incidenciaSeguimiento" value="{{datos.incidencia.idIncidencia}}" />
                 <button type="button" class="btn btn-primary offset-4" id="cerrarIncidencia"  data-toggle="modal" data-target="#confirmarCerrar" title="cerrar incidencia"><i class="fas fa-lock"></i></button>
                 <a href="index.php?controller=incidencia&action=ver&id={{datos.incidencia.idIncidencia}}" class="btn btn-secondary offset-4" id="btnCancelarModificar" title="cancelar modificar" hidden><i class="fas fa-times"></i></a>
                 &nbsp;&nbsp;
@@ -85,14 +85,13 @@
             <a class="btn btn-success offset-4" href="#" data-toggle="modal" data-target="#anadirSeguimiento" title="añadir seguimiento"><i class="fas fa-plus" style="margin-top: 3px;"></i></a>
         </div>
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <table class="table table-hover table-responsive-lg">
+            <table class="table table-hover table-responsive-lg" id="pruebatabla">
                 <thead class="thead-dark colorfondo">
                     <tr>
                         <th scope="col">Fecha y Hora</th>
                         <th scope="col">Descripcion</th>
                         <th scope="col">Técnico</th>
-                        <th></th>
-                        <th></th>
+                        
                     </tr>
                 </thead>
                 <tbody id="bodySeguimientos">                        
@@ -100,7 +99,8 @@
                     <tr>
                         <th scope="row">{{seguimiento.fecha}}</th>
                         <td>{{seguimiento.descripcion}}</td>
-                        <td>{{seguimiento.nombreTecnico}} {{seguimiento.apellidosTecnico}}</td>                                  
+                        <td>{{seguimiento.nombreTecnico}} {{seguimiento.apellidosTecnico}}</td>            
+                        
                     </tr>                        
                     {%endfor%}
                 </tbody>
@@ -109,8 +109,20 @@
 </section>
 
 
-
-
 <script src="js/incidencia.js"></script>
+<script>
+    $(document).ready(function(){    
+       
+    $('#pruebatabla').DataTable(
+            {
+                responsive:true,
+        
+                "lengthMenu": [ 8]
+
+        
+            });
+});
+
+</script>
 {%endblock%}
 

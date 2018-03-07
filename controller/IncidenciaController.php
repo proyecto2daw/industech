@@ -43,7 +43,7 @@ class IncidenciaController extends Controller {
                 $this->modificarIncidencia();
                 break;
             case 'seguimientoIncidencia' :
-                $this->nuevoSeguimientoIncidencia();
+                $this->nuevoSeguimientoIncidencia('');
                 break;
             case 'filtroIncidencias' :
                 $this->filtroIncidencias();
@@ -123,7 +123,7 @@ class IncidenciaController extends Controller {
             'seguimientos' => $seguimientoIncidencia,
             'empleados' => $listaEmpleadosEmpresa,
             'nombrePrioridad' => $nombrePrioridad,
-            'yo'=>$_SESSION['idusuario']]);
+            'yo' => $_SESSION['idusuario']]);
     }
 
     function obtenerDatosParaRellenarCombosModalCategoria() {
@@ -185,7 +185,7 @@ class IncidenciaController extends Controller {
             'categorias' => $listaCategorias,
             'tecnicos' => $listaUsuarios,
             'empresas' => $listaEmpresas,
-            'yo'=>$_SESSION['idusuario']
+            'yo' => $_SESSION['idusuario']
         ]);
     }
 
@@ -200,7 +200,7 @@ class IncidenciaController extends Controller {
         $incidencia->setIdIncidencia($_GET['id']);
         $incidencia->setTitulo($_POST['tituloIncidencia']);
         $incidencia->setDescripcion($descripcion);
-        $incidencia->setFecha($_POST['fecha']);
+
         $incidencia->setPrioridad($_POST['prioridad']);
         $incidencia->setEstado(0);
         $incidencia->setCategoria($_POST['categoria']);
@@ -209,19 +209,47 @@ class IncidenciaController extends Controller {
         $incidencia->setContacto($_POST['contacto']);
         $updateIncidencia = $incidencia->updateIncidencia();
 
+        //Creamos un nuevo Seguimiento informando de la modificación de la Incidencia
+        $descripcionSeguimiento = 'Incidencia modificada, revise los cambios';
+        $this->nuevoSeguimientoIncidencia($descripcionSeguimiento);
+
         header('Location: index.php?controller=incidencia&action=ver&id=' . $incidencia->getIdIncidencia());
     }
 
-    function nuevoSeguimientoIncidencia() {
+    function nuevoSeguimientoIncidencia($descripcionSeguimiento) {
         $fecha = date('Y-m-d h:i:s');
+
+        //echo 'descripciommnnn--> '. $descripcionSeguimiento;
         $seguimiento = new Seguimiento();
-        $seguimiento->setDescripcion($_POST['descripcionSeguimiento']);
-        $seguimiento->setUsuario($_POST['usuarioSeguimiento']);
+//        if(isset($_POST['descripcionSeguimiento'])) {
+//            //$seguimiento->setDescripcion($descripcion);
+//                        $seguimientodt = $_POST['descripcionSeguimiento'];
+//
+//            
+//        }
+//        else {
+        //$seguimiento->setDescripcion($_POST['descripcionSeguimiento']);
+        $seguimientodt = $descripcionSeguimiento;
+
+        //echo 'seguimiento--> '. $seguimientodt;
+
+        $seguimiento->setUsuario($_SESSION['idusuario']);
         $seguimiento->setIncidencia($_POST['incidenciaSeguimiento']);
+
+        if ($descripcionSeguimiento == '') {
+
+            $seguimiento->setDescripcion($_POST['descripcionSeguimiento']);
+        } else {
+            $seguimiento->setDescripcion($seguimientodt);
+        }
+
         $seguimiento->setFecha($fecha);
+
         $nuevoSeguimiento = $seguimiento->nuevoSeguimiento();
 
-        echo $nuevoSeguimiento;
+        if ($descripcionSeguimiento == '') {
+            echo $nuevoSeguimiento;
+        }
     }
 
     function filtroIncidencias() {
@@ -233,9 +261,9 @@ class IncidenciaController extends Controller {
 
         $empresa = new Empresa();
         $listaEmpresas = $empresa->getAllEmpresas();
-        
+
         $incidencia = new Incidencia();
-        $arrayFechas=[];
+        $arrayFechas = [];
 
         if (isset($_POST['prioridad'])) {
             $incidencia->setPrioridad($_POST['prioridad']);
@@ -255,28 +283,27 @@ class IncidenciaController extends Controller {
         if (isset($_POST['estado'])) {
             $incidencia->setEstado($_POST['estado']);
         }
-        
-         if (isset($_POST['fechaInicial'])&&$_POST['fechaInicial'] !=NULL ) {
-             print_r($_POST);
-             if (isset($_POST['fechaFinal'])&& $_POST['fechaFinal'] !=NULL) {
-                 echo 'llego aqui';
-                 $arrayFechas=["fechaInicial" => $_POST['fechaInicial'], "fechaFin" => $_POST['fechaFin']];
-             }else{
-                $arrayFechas=["fechaInicial" => $_POST['fechaInicial']];
+
+        if (isset($_POST['fechaInicial']) && $_POST['fechaInicial'] != NULL) {
+            print_r($_POST);
+            if (isset($_POST['fechaFinal']) && $_POST['fechaFinal'] != NULL) {
+                echo 'llego aqui';
+                $arrayFechas = ["fechaInicial" => $_POST['fechaInicial'], "fechaFin" => $_POST['fechaFin']];
+            } else {
+                $arrayFechas = ["fechaInicial" => $_POST['fechaInicial']];
             }
-        }else if(isset($_POST['fechaFinal'])){
-            $arrayFechas=["fechaFin" => $_POST['fechaFin']];
+        } else if (isset($_POST['fechaFinal'])) {
+            $arrayFechas = ["fechaFin" => $_POST['fechaFin']];
         }
-        
+
         $listaIncidenciasFiltrada = $incidencia->filtrarDatosIncidencias($arrayFechas);
 
         $this->view('todasIncidencias', ['incidencias' => $listaIncidenciasFiltrada,
             'categorias' => $listaCategorias,
             'tecnicos' => $listaUsuarios,
             'empresas' => $listaEmpresas,
-            'yo'=>$_SESSION['idusuario']
+            'yo' => $_SESSION['idusuario']
         ]);
-        
     }
 
     function filtroStats() {
@@ -298,20 +325,19 @@ class IncidenciaController extends Controller {
             echo json_encode(['categoria' => $categoria, 'prioridad' => $prioridad]);
         }
     }
-    
+
     function cambiarEstadoIncidencia() {
         $incidencia = new Incidencia();
         $incidencia->setEstado($_GET['es']);
         $incidencia->setIdIncidencia($_GET['id']);
         $incidenciaCambioEstado = $incidencia->updateEstadoIncidencia();
-        
+
         echo json_encode($incidenciaCambioEstado);
     }
-    
-    /*function borradoLogicoIncidencia() {
-        $incidencia = new Incidencia();
-        $incidencia->setEstado($_GET['es']);
-        $incidencia->setIdIncidencia($_GET['id']);
-    }*/
 
+    /* function borradoLogicoIncidencia() {
+      $incidencia = new Incidencia();
+      $incidencia->setEstado($_GET['es']);
+      $incidencia->setIdIncidencia($_GET['id']);
+      } */
 }

@@ -254,7 +254,7 @@ class Incidencia extends BD{
         $filas = $this->update("UPDATE $this->tabla "
                 . "SET titulo = :titulo, "
                 . "descripcion = :descripcion, "
-                . "fecha = :fecha, "
+                
                 . "prioridad = :prioridad, "
                 . "estado = :estado, "
                 . "categoria = :categoria, "
@@ -264,7 +264,7 @@ class Incidencia extends BD{
                 . "WHERE idIncidencia = :idIncidencia", 
                 ['titulo' => $this->getTitulo(), 
                     'descripcion' => $this->getDescripcion(), 
-                    'fecha' => $this->getFecha(),
+                   
                     'prioridad' => $this->getPrioridad(),
                     'estado' => $this->getEstado(), 
                     'categoria' => $this->getCategoria(), 
