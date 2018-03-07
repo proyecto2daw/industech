@@ -32,8 +32,13 @@
                 </div>
 
             </form>
-            {{datos.error}}
-
+            {%if datos.error%}
+            <script>
+                $(document).ready(function(){
+                   alert("Login incorrecto"); 
+                });
+            </script>
+           {%endif%}
         </div>
         
             <div class="alert alert-danger centrar" role="alert" style="display: none;">
