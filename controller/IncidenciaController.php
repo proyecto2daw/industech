@@ -9,7 +9,7 @@ require_once 'modelo/Usuario.php';
 require_once 'modelo/Empleado.php';
 
 class IncidenciaController extends Controller {
-
+    //Función run con switch para redirigir
     function run($action) {
         switch ($action) {
             case 'crear':
@@ -59,7 +59,8 @@ class IncidenciaController extends Controller {
                 break;
         }
     }
-
+    
+    //Función para crear una nueva Incidencia
     function crearIncidencia() {
         $incidencia = new Incidencia();
 
@@ -80,14 +81,16 @@ class IncidenciaController extends Controller {
             echo 'ok';
         }
     }
-
+    
+    //Función para obtener las Incidencias del usuario logueado
     function getMisIncidencias() {
         $incidencia = new Incidencia();
         $incidencia->setTecnico($_SESSION['idusuario']);
         $misIncidencias = $incidencia->getIncidenciasByTecnico();
         return $misIncidencias;
     }
-
+    
+    //Función para mostrar los datos y Seguimientos de la Incidencia seleccionada por el id
     function verIncidencia() {
         $incidencia = new Incidencia();
         $incidencia->setIdIncidencia($_GET['id']);
@@ -125,25 +128,29 @@ class IncidenciaController extends Controller {
             'nombrePrioridad' => $nombrePrioridad,
             'yo' => $_SESSION['idusuario']]);
     }
-
+    
+    //Función para obtener los datos para rellenar el combo de Categoría
     function obtenerDatosParaRellenarCombosModalCategoria() {
         $categoria = new Categoria();
         $listaCategorias = $categoria->getAllCategorias();
         echo json_encode($listaCategorias);
     }
-
+    
+    //Función para obtener los datos para rellenar el combo de Técnico (usuario)
     function obtenerDatosParaRellenarCombosModalTecnico() {
         $usuario = new Usuario();
         $listaUsuarios = $usuario->getAllUsuarios();
         echo json_encode($listaUsuarios);
     }
-
+    
+    //Función para obtener los datos para rellenar el combo de las Empresas en BD
     function obtenerDatosParaRellenarCombosModalEmpresa() {
         $empresa = new Empresa();
         $listaEmpresas = $empresa->getAllEmpresas();
         echo json_encode($listaEmpresas);
     }
-
+    
+    //Función para obtener los datos para rellenar el combo del Contacto (empleado)
     function obtenerDatosParaRellenarCombosModalContacto() {
         $empleado = new Empleado();
         $empleado->setEmpresa($_GET['idEmpresa']);
@@ -151,6 +158,7 @@ class IncidenciaController extends Controller {
         echo json_encode($listaEmpleados);
     }
 
+    //Función para mostrar la vista de las estadísticas (estadisticasView)
     function estadisticas() {
         $empresa = new Empresa();
         $categoria = new Categoria();
@@ -158,7 +166,8 @@ class IncidenciaController extends Controller {
         $empresas = $empresa->getAllEmpresas();
         $this->view('estadisticas', ["empresas" => $empresas, "categorias" => $categorias]);
     }
-
+    
+    //Función para obtener los datos para las estadísticas
     function getEstadisticas() {
         $incidencia = new Incidencia();
         $statsCategoria = $incidencia->getEstadisticaByCategoria();
@@ -168,7 +177,8 @@ class IncidenciaController extends Controller {
 
         echo json_encode(["categoria" => $statsCategoria, "empresa" => $statsEmpresa, "prioridad" => $statsPrioridad, "fecha" => $stasFecha]);
     }
-
+    
+    //Función para mostrar los datos de todas las Incidencias (para todasIncidenciasView)
     function verTodas() {
         $categoria = new Categoria();
         $listaCategorias = $categoria->getAllCategorias();
@@ -188,7 +198,8 @@ class IncidenciaController extends Controller {
             'yo' => $_SESSION['idusuario']
         ]);
     }
-
+    
+    //Función para modificar los datos de la Incidencia seleccionada
     function modificarIncidencia() {
         if ($_POST['descripcion'] == '' || $_POST['descripcion'] == ' ') {
             $descripcion = $_POST['viejoDescripcion'];
@@ -215,43 +226,30 @@ class IncidenciaController extends Controller {
 
         header('Location: index.php?controller=incidencia&action=ver&id=' . $incidencia->getIdIncidencia());
     }
-
+    
+    //Función para crear un nuevo Seguimiento en la Incidencia seleccionada
     function nuevoSeguimientoIncidencia($descripcionSeguimiento) {
         $fecha = date('Y-m-d h:i:s');
-
-        //echo 'descripciommnnn--> '. $descripcionSeguimiento;
         $seguimiento = new Seguimiento();
-//        if(isset($_POST['descripcionSeguimiento'])) {
-//            //$seguimiento->setDescripcion($descripcion);
-//                        $seguimientodt = $_POST['descripcionSeguimiento'];
-//
-//            
-//        }
-//        else {
-        //$seguimiento->setDescripcion($_POST['descripcionSeguimiento']);
-        $seguimientodt = $descripcionSeguimiento;
-
-        //echo 'seguimiento--> '. $seguimientodt;
-
+        $seguimientoData = $descripcionSeguimiento;
         $seguimiento->setUsuario($_SESSION['idusuario']);
         $seguimiento->setIncidencia($_POST['incidenciaSeguimiento']);
 
         if ($descripcionSeguimiento == '') {
-
             $seguimiento->setDescripcion($_POST['descripcionSeguimiento']);
         } else {
-            $seguimiento->setDescripcion($seguimientodt);
+            $seguimiento->setDescripcion($seguimientoData);
         }
-
+        
         $seguimiento->setFecha($fecha);
-
         $nuevoSeguimiento = $seguimiento->nuevoSeguimiento();
 
         if ($descripcionSeguimiento == '') {
             echo $nuevoSeguimiento;
         }
     }
-
+    
+    //Función para los filtros de las búsquedas de Incidencias
     function filtroIncidencias() {
         $categoria = new Categoria();
         $listaCategorias = $categoria->getAllCategorias();
@@ -284,18 +282,6 @@ class IncidenciaController extends Controller {
             $incidencia->setEstado($_POST['estado']);
         }
 
-//        if (isset($_POST['fechaInicial']) && $_POST['fechaInicial'] != NULL) {
-//            print_r($_POST);
-//            if (isset($_POST['fechaFinal']) && $_POST['fechaFinal'] != NULL) {
-//                echo 'llego aqui';
-//                $arrayFechas = ["fechaInicial" => $_POST['fechaInicial'], "fechaFin" => $_POST['fechaFin']];
-//            } else {
-//                $arrayFechas = ["fechaInicial" => $_POST['fechaInicial']];
-//            }
-//        } else if (isset($_POST['fechaFinal'])) {
-//            $arrayFechas = ["fechaFin" => $_POST['fechaFin']];
-//        }
-
         $listaIncidenciasFiltrada = $incidencia->filtrarDatosIncidencias($arrayFechas);
 
         $this->view('todasIncidencias', ['incidencias' => $listaIncidenciasFiltrada,
@@ -305,7 +291,8 @@ class IncidenciaController extends Controller {
             'yo' => $_SESSION['idusuario']
         ]);
     }
-
+    
+    //Función para obtener las estadísticas según los filtrados realizados
     function filtroStats() {
         $i = new Incidencia();
         if (isset($_GET['categoria'])) {
@@ -325,7 +312,8 @@ class IncidenciaController extends Controller {
             echo json_encode(['categoria' => $categoria, 'prioridad' => $prioridad]);
         }
     }
-
+    
+    //Función para cambiar el Estado de la Incidencia seleccionada
     function cambiarEstadoIncidencia() {
         $incidencia = new Incidencia();
         $incidencia->setEstado($_GET['es']);
@@ -334,10 +322,4 @@ class IncidenciaController extends Controller {
         
         echo $incidenciaCambioEstado;
     }
-
-    /* function borradoLogicoIncidencia() {
-      $incidencia = new Incidencia();
-      $incidencia->setEstado($_GET['es']);
-      $incidencia->setIdIncidencia($_GET['id']);
-      } */
 }
