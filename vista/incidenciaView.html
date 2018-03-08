@@ -2,23 +2,24 @@
 
 {% block content %}
 
-<section class="col-10">
-    <div>      
+<section class="col-lg-10 ">
+    <!-- Seccion Incidencias -->
+    <div>
+        <!-- Formulario para mostrar y modificar los datos de la Incidencia -->
         <form id="editarIncidenciaForm" method="post"> 
             <div class="row d-flex justify-content-between" style="margin-bottom: 3%; margin-right: 3%;">
                 <h4 class="col-sm-6">Incidencia</h4>
                 <div class="d-flex">
-                <input type="hidden" id="idIncidencia" name="incidenciaSeguimiento" value="{{datos.incidencia.idIncidencia}}" />
-                {%if datos.incidencia.tecnico==datos.yo%}
-                <button type="button" class="btn btn-primary offset-4" id="cerrarIncidencia"  data-toggle="modal" data-target="#confirmarCerrar" title="cerrar incidencia"><i class="fas fa-lock"></i></button>
-                <a href="index.php?controller=incidencia&action=ver&id={{datos.incidencia.idIncidencia}}" class="btn btn-secondary offset-4" id="btnCancelarModificar" title="cancelar modificar" hidden><i class="fas fa-times"></i></a>
-                
-                &nbsp;&nbsp;
-                <button type="button" class="btn btn-warning" id="btnActivarModificar" title="modificar incidencia"><i class="fas fa-edit"></i></button>
-                <button type="submit" class="btn btn-success" id="btnGuardarModificar" title="guardar cambios" hidden><i class="fas fa-check"></i></button>
-                {%endif%}
-            </div>
-            
+                    <input type="hidden" id="idIncidencia" name="incidenciaSeguimiento" value="{{datos.incidencia.idIncidencia}}" />
+                    {%if datos.incidencia.tecnico==datos.yo%}
+                    <button type="button" class="btn btn-primary offset-4" id="cerrarIncidencia"  data-toggle="modal" data-target="#confirmarCerrar" title="cerrar incidencia"><i class="fas fa-lock"></i></button>
+                    <a href="index.php?controller=incidencia&action=ver&id={{datos.incidencia.idIncidencia}}" class="btn btn-secondary offset-4" id="btnCancelarModificar" title="cancelar modificar" hidden><i class="fas fa-times"></i></a>
+                    &nbsp;&nbsp;
+                    <button type="button" class="btn btn-warning" id="btnActivarModificar" title="modificar incidencia"><i class="fas fa-edit"></i></button>
+                    <button type="submit" class="btn btn-success" id="btnGuardarModificar" title="guardar cambios" hidden><i class="fas fa-check"></i></button>
+                    {%endif%}
+                </div>
+            </div>            
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="nombreEmpresaModificar" class="col-form-label">Empresa</label>
@@ -45,8 +46,7 @@
                         <option value="3">Urgente</option>
                     </select>
                 </div>
-            </div>
-            
+            </div>            
             <div class="form-row">              
                 <div class="form-group col-sm-3">
                     <label for="inputTecnicoModificar" class="col-form-label">Técnico</label>
@@ -67,20 +67,20 @@
                     <label for="telContacto" class="col-form-label">Teléfono</label>
                     <input type="text" class="form-control form-control-sm" id="telContacto" name="telefonoContacto" value="{{datos.incidencia.telefonoContacto}}"  disabled>
                 </div>
-            </div>
-            
+            </div>            
             <div class="form-row">
                 <div class="form-group  col-xl-12 ">
                     <label for="inputDescripcion" class="col-form-label">Descripción</label>    
                     <input type="hidden" id="descripcionActual" name="viejoDescripcion" value="{{datos.incidencia.descripcion}}" />
                     <textarea class="form-control form-control-sm camposFormModificar" id="inputDescripcion" rows="3" name="descripcion" disabled>{{datos.incidencia.descripcion}}</textarea>                    
                 </div>
-            </div>
+            </div>               
         </form>            
-    </div>
+    </div>           
 
     <hr style="border: 1px solid black;">
-
+    
+    <!-- Seccion Seguimientos -->
     <div class="tab-content" id="myTabContent2">
         <div class="row d-flex justify-content-between" style="margin-bottom: 3%; margin-right: 2%;">
             <h4 class="col-sm-6">Seguimiento</h4>
@@ -89,13 +89,13 @@
             {%endif%}
         </div>
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <table class="table table-hover table-responsive-lg" id="pruebatabla">
+            <!-- Tabla para mostrar los Seguimientos en la Incidencia -->
+            <table class="table table-hover " id="pruebatabla">
                 <thead class="thead-dark colorfondo">
                     <tr>
                         <th scope="col">Fecha y Hora</th>
                         <th scope="col">Descripcion</th>
-                        <th scope="col">Técnico</th>
-                        
+                        <th scope="col">Técnico</th>                        
                     </tr>
                 </thead>
                 <tbody id="bodySeguimientos">                        
@@ -103,30 +103,15 @@
                     <tr>
                         <th scope="row">{{seguimiento.fecha}}</th>
                         <td>{{seguimiento.descripcion}}</td>
-                        <td>{{seguimiento.nombreTecnico}} {{seguimiento.apellidosTecnico}}</td>            
-                        
+                        <td>{{seguimiento.nombreTecnico}} {{seguimiento.apellidosTecnico}}</td>                       
                     </tr>                        
                     {%endfor%}
                 </tbody>
             </table>
         </div>  
 </section>
-
-
 <script src="js/incidencia.js"></script>
-<script>
-    $(document).ready(function(){    
-       
-    $('#pruebatabla').DataTable(
-            {
-                responsive:true,
-        
-                "lengthMenu": [ 7, 5, 3]
+<!-- script para el plugin de paginación -->
 
-        
-            });
-});
-
-</script>
 {%endblock%}
 

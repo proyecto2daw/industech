@@ -1,6 +1,15 @@
 
 $(document).ready(function () {    
-    
+   
+    $('#pruebatabla').DataTable(
+            {
+                responsive:false,
+        
+                "lengthMenu": [ 7, 5, 3]
+
+        
+            });
+   
     $.ajax({
         url: 'index.php?controller=incidencia&action=datosModalCategoria',
         method: 'POST',
@@ -114,7 +123,7 @@ $(document).ready(function () {
                     location.replace('index.php');
                 }
                 else {
-                    alert('No se ha podido cerrar la Incidencia');
+                    alertify.error('No se ha podido cerrar la Incidencia');
                 }
             }
         });

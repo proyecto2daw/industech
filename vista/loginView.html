@@ -6,14 +6,14 @@
         <link rel="stylesheet" type="text/css" href="css/loginStyle.css">
         <!-- FAVICON -->
         <link rel="icon" type="image/png" href="img/cloud.png"  />
-        
+         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/alertify.min.css"/>
         <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
     <body>
-
-
         <div id="prueba" class="centrar" data-aos="zoom-in-up">
+            <!-- Formulario y tabla para los datos del Login -->
             <form method="POST" action="index.php?controller=usuario&action=login">
                 <table>
                     <caption>Inicio Sesion</caption>
@@ -30,27 +30,25 @@
                     <input type="submit" value="Acceder" class="boton_personalizado">&nbsp;&nbsp;&nbsp;
                     <input type="reset"  value="Reset"  class="boton_personalizado">
                 </div>
-
             </form>
             {%if datos.error%}
             <script>
                 $(document).ready(function(){
-                   alert("Login incorrecto"); 
+                   alertify.error("Login incorrecto"); 
                 });
             </script>
            {%endif%}
         </div>
-        
-            <div class="alert alert-danger centrar" role="alert" style="display: none;">
-                This is a danger alert—check it out!
-            </div>
+        <!-- Alert de Bootstrap -->
+        <div class="alert alert-danger centrar" role="alert" style="display: none;">
+            This is a danger alert—check it out!
+        </div>
         <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>	
         <script>
             AOS.init({
                 duration: 600
             });
-             $( "[name='user']" ).focus(); 
+            $( "[name='user']" ).focus(); 
         </script>
-
     </body>
 </html>

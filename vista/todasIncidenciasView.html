@@ -3,51 +3,48 @@
 
 {% block content %}
 
-
-
-
 <section class="col-10">
     <div>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#filtro" aria-expanded="false" aria-controls="filtro">
-            Filtro
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#filtro" aria-expanded="false" aria-controls="filtro" title="filtros">
+            <i class="fas fa-sliders-h"></i>
         </button>
     </div>
     <div class="collapse" id="filtro" style="margin-top: 10px">
         <div class="card card-body">
-            <!--prueba -->
+            <!-- Formulario para los filtros de búsqueda -->
             <form method="POST" action="index.php?controller=incidencia&action=filtroIncidencias">
-                <div class="form-group row">                    
-                    <label for="inputTecnicoFiltro" class="col-sm-1 offset-1 col-form-label">Técnico</label>
-                    <div class="col col-sm-3">
-                        <select name="tecnico" class="form-control camposFormModificar" id="inputTecnicoFiltro" >
+                <div class="form-row  d-flex justify-content-center">                    
+                    <div class="form-group col-md-3">
+                        <label for="inputTecnicoFiltro" class="col-form-label">Técnico</label>
+                        <select name="tecnico" class="form-control form-control-sm" id="inputTecnicoFiltro" >
                             <option value="">Seleccione opcion</option>
                             {% for tecnico in datos.tecnicos %}
                             <option value="{{tecnico.idUsuario}}">{{tecnico.nombre}}</option>
                             {%endfor%}
                         </select>
                     </div>
-                    <label for="inputCategoriaFiltro" class="col-sm-1 offset-1 col-form-label">Categoria</label>
-                    <div class="col col-sm-3">
-                        <select name="categoria" class="form-control camposFormModificar" id="inputCategoriaFiltro" >
+                    <div class="form-group col-md-3">
+                        <label for="inputCategoriaFiltro" class="col-form-label">Categoría</label>
+                        <select name="categoria" class="form-control form-control-sm" id="inputCategoriaFiltro" >
                             <option value="">Seleccione opcion</option>
                             {% for categoria in datos.categorias %}
                             <option value="{{categoria.idCategoria}}">{{categoria.nombre}}</option>
                             {%endfor%} 
-                        </select>
+                        </select>                        
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputEstadoFiltro" class="col-sm-1 offset-1 col-form-label">Estado</label>
-                    <div class="col col-sm-3">
-                        <select name="estado" class="form-control" id="inputEstadoFiltro" >
+                    <div class="form-group col-md-3">
+                        <label for="inputEstadoFiltro" class="col-form-label">Estado</label>
+                        <select name="estado" class="form-control form-control-sm" id="inputEstadoFiltro" >
                             <option value="">Seleccione opcion</option>
-                            <option value="0">Realizado</option>
-                            <option value="1">No realizado</option>
+                            <option value="0">No realizado</option>
+                            <option value="1">Realizado</option>
                         </select>
-                    </div>
-                    <label for="inputPrioridadFiltro" class="col-sm-1  offset-1 col-form-label">Prioridad</label>
-                    <div class="col col-sm-3">
-                        <select name="prioridad" class="form-control" id="inputPrioridadFiltro" >
+                    </div>                   
+                </div>                
+                <div class="form-row  d-flex justify-content-center">
+                    <div class="form-group col-sm-3">
+                        <label for="inputPrioridadFiltro" class="col-form-label">Prioridad</label>
+                        <select name="prioridad" class="form-control form-control-sm" id="inputPrioridadFiltro" >
                             <option value="">Seleccione opcion</option>
                             <option value="0">Baja</option>
                             <option value="1">Media</option>
@@ -55,13 +52,9 @@
                             <option value="3">Urgente</option>
                         </select>
                     </div>
-                </div>
-
-
-                <div class="form-group row">                 
-                    <label for="nombreEmpresaFiltro" class="col-sm-1 offset-1 col-form-label">Empresa</label>
-                    <div class="col col-sm-3">
-                        <select class="form-control" id="nombreEmpresaFiltro" name="empresa">
+                    <div class="form-group col-sm-3">
+                        <label for="nombreEmpresaFiltro" class="col-form-label">Empresa</label>
+                        <select class="form-control form-control-sm" id="nombreEmpresaFiltro" name="empresa">
                             <option value="">Seleccione opcion</option>
                             {% for empresa in datos.empresas %}
                             <option value="{{empresa.idEmpresa}}">{{empresa.nombre}}</option>
@@ -69,95 +62,21 @@
                         </select>
                     </div>
                 </div>
-                
-                
-                
-                
-                
-                
-<div class="form-row">
-                <div class="form-group col-md-3">
-                    <label for="nombreEmpresaModificar" class="col-form-label">Empresa</label>
-                    <input type="hidden" id="empresaModificar" name="empresa" value="{{datos.incidencia.empresa}}" />
-                    <input type="text" class="form-control form-control-sm" id="nombreEmpresaModificar" name="empresaNombre" value="{{datos.incidencia.nombreEmpresa}}" disabled>
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="tit" class="col-form-label">Título</label>
-                    <input type="hidden" id="tituloActual" name="tituloIncidencia" value="{{datos.incidencia.titulo}}" />
-                    <input type="text" class="form-control form-control-sm" id="tit" name="titulo" value="{{datos.incidencia.titulo}}" disabled />
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="fech" class="col-form-label">Fecha</label>
-                    <input type="date" class="form-control form-control-sm" id="fech" name="fecha" value="{{datos.incidencia.fechaFormateada}}" disabled>
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="inputPrioridadModificar" class="col-form-label">Prioridad</label>
-                    <input type="hidden" id="prioridadActual" name="prioridad" value="{{datos.incidencia.prioridad}}" />
-                    <select name="prioridad" class="form-control form-control-sm camposFormModificar" id="inputPrioridadModificar" disabled>
-                        <option value="{{datos.incidencia.prioridad}}" selected>{{datos.nombrePrioridad}}</option>
-                        <option value="0">Baja</option>
-                        <option value="1">Media</option>
-                        <option value="2">Alta</option>
-                        <option value="3">Urgente</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="form-row">              
-                <div class="form-group col-sm-3">
-                    <label for="inputTecnicoModificar" class="col-form-label">Técnico</label>
-                    <input type="hidden" id="tecnicoActual" name="tecnico" value="{{datos.incidencia.tecnico}}" />
-                    <select name="tecnico" class="form-control form-control-sm camposFormModificar" id="inputTecnicoModificar" disabled></select>
-                </div>
-                <div class="form-group col-sm-3">
-                    <label for="inputCategoriaModificar" class="col-form-label">Categoría</label>
-                    <input type="hidden" id="categoriaActual" name="categoria" value="{{datos.incidencia.categoria}}" />
-                    <select name="categoria" class="form-control form-control-sm camposFormModificar" id="inputCategoriaModificar" disabled></select>
-                </div>
-                <div class="form-group col-sm-3">
-                    <label for="inputContactoModificar" class="col-form-label">Contacto</label>
-                    <input type="hidden" id="contactoActual" name="contacto" value="{{datos.incidencia.contacto}}" />
-                    <select name="contacto" class="form-control form-control-sm camposFormModificar" id="inputContactoModificar" disabled></select>  
-                </div>
-                <div class="form-group col-sm-3">
-                    <label for="telContacto" class="col-form-label">Teléfono</label>
-                    <input type="text" class="form-control form-control-sm" id="telContacto" name="telefonoContacto" value="{{datos.incidencia.telefonoContacto}}"  disabled>
-                </div>
-            </div>
-            
-            <div class="form-row">
-                <div class="form-group  col-xl-12 ">
-                    <label for="inputDescripcion" class="col-form-label">Descripción</label>    
-                    <input type="hidden" id="descripcionActual" name="viejoDescripcion" value="{{datos.incidencia.descripcion}}" />
-                    <textarea class="form-control form-control-sm camposFormModificar" id="inputDescripcion" rows="3" name="descripcion" disabled>{{datos.incidencia.descripcion}}</textarea>                    
-                </div>
-            </div>
-                
-                
-                
-                
-                
-                
-                
-                
-                <button type="submit" class="btn btn-primary">Buscar</button>
-
-            </form>  <!-- fin: prueba -->
-
-
+                <button type="submit" class="btn btn-info" title="buscar"><i class="fas fa-search"></i></button>
+            </form>
         </div>
-
-
     </div>
     <div class="row">
-
-        <table class="table table-hover table-responsive col-10"  id="todasIncidenciasTable" style="margin:0 auto;" >
+        <!-- Tabla para mostrar todas las Incidencias y los resultados de los filtrados de búsqueda -->
+        <table class="table table-hover   col-12"  id="todasIncidenciasTable" style="" >
             <thead class="thead-dark colorfondo">
                 <tr>
                     <th scope="col">Titulo</th>
-                    <th scope="col" class="hidden-sm">Descripcion</th>
+                    <th scope="col" class="">Estado</th>
+                    <th scope="col">Prioridad</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Categoria</th>
+                     <th scope="col">Empresa</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -165,9 +84,11 @@
                 {% for incidencia in datos.incidencias %}
                 <tr>
                     <th scope="row">{{incidencia.titulo}}</th>
-                    <td class="hidden-sm">{{incidencia.descripcion}}</td>
+                    <td class=""><img src="img/estado/{{incidencia.estado}}.png" alt="prioridad"><span style="display: none;">{{incidencia.estado}}</span></td>
+                      <td class=""><img src="img/{{incidencia.prioridad}}.png" alt="prioridad"><span style="display: none;">{{incidencia.prioridad}}</span></td>
                     <td>{{incidencia.fecha}}</td>
                     <td>{{incidencia.nombreCategoria}}</td>
+                    <td>{{incidencia.nombreEmpresa}}</td>
                     <td class="d-flex justify-content-end">
                         <a  href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" >
                             <button class="btn btn-info">
@@ -206,17 +127,13 @@
     </div>
 </section>
 
+<!-- script para la paginación -->
 <script type="text/javascript">
-
     $(document).ready(function () {
-
         $('#todasIncidenciasTable').DataTable(
                 {
                     responsive: true,
-
                     "lengthMenu": [15, 10, 5]
-
-
                 });
     });
 </script>

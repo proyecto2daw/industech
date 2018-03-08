@@ -309,7 +309,7 @@ class Incidencia extends BD{
     }
     
     function  filtrarDatosIncidencias($fechas){
-        $query="SELECT $this->tabla.*,categorias.nombre as nombreCategoria FROM $this->tabla,categorias where 1 = 1 and incidencias.categoria=categorias.idCategoria ";
+        $query="SELECT $this->tabla.*,categorias.nombre as nombreCategoria, emrpesas.nombre as nombreEmpresa FROM $this->tabla,categorias, empresas where 1 = 1 and incidencias.categoria=categorias.idCategoria and estado in(0,1) and incidencias.empresa =empresas.idEmpresa ";
         $where="";
         
         if($this->getPrioridad()!= ''){

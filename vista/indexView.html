@@ -2,14 +2,15 @@
 
 {% block content %}
 <section class="col-xl-10 col-md-12">
+    <!-- Tabla para mostrar las Incidencias del usuario logueado -->
     <table class="table table-hover responsive"  id="tablaIncidencias">
         <thead class="thead-dark colorfondo">
             <tr>
                 <th scope="col">Titulo</th>
                 <th scope="col">Fecha</th>
-                <th scope="col">Categoria</th>
                 <th scope="col">Prioridad</th>
                 <th scope="col"></th>
+    
             </tr>
         </thead>
         <tbody>
@@ -18,14 +19,13 @@
             <tr>
                 <th scope="row">{{incidencia.titulo}}</th>
                 <td>{{incidencia.fecha}}</td>
-                <td>{{incidencia.nombreCategoria}}</td>
-               
-                <td> <img src="img/{{incidencia.prioridad}}.png" alt="prioridad"></td>
+              <!--  <td>{{incidencia.nombreCategoria}}</td> -->              
+                <td> <img src="img/{{incidencia.prioridad}}.png" alt="prioridad"><span style="display:none;">{{incidencia.prioridad}}</span></td>
                 <td class="d-flex justify-content-end">
                     <a  href="index.php?controller=incidencia&action=ver&id={{incidencia.idIncidencia}}" title="ver incidencia" ><button class="btn btn-info"><i class="fa fa-eye"></i></button></a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;
                     <button class="btn btn-primary cerrar" title="cerrar incidencia" value="{{incidencia.idIncidencia}}"><i class="fas fa-lock"></i></button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;
                     <button class="btn btn-danger borrar" title="borrar incidencia" value="{{incidencia.idIncidencia}}"><i class="fas fa-trash-alt"></i></button>               
                 </td>            
             </tr>
@@ -58,8 +58,5 @@
         </div>
     </div>
 </div>
-
-<!-- PARA PROBAR EL MODAL ESTO PARA PONER EN EL BOTON:  value="{{incidencia.idIncidencia}}" -->
-
 
 {%endblock%}

@@ -9,7 +9,6 @@ require_once 'controller/EmpleadoController.php';
 session_start();
 
 //crearDatos();
-
 if (!isset($_SESSION['idusuario']) && !isset($_POST['user']) ) {
    loginView();   
 }elseif (isset($_GET['controller']) || isset($_SESSION['idusuario']) || isset($_POST['user'])) {
@@ -53,7 +52,7 @@ function crearDatos(){
     
     
     for($x=0;$x<100;$x++){
-    $fecha="2018-".rand(1,12)."-5 0:0:00";
+    $fecha="2017-".rand(1,12)."-5 0:0:00";
     
     $incidencia = new Incidencia();
 
@@ -63,9 +62,9 @@ function crearDatos(){
         $incidencia->setEstado(0);
         $incidencia->setPrioridad(rand(0,3));
         $incidencia->setCategoria(rand(1,3));
-        $incidencia->setEmpresa(rand(1,2));
+        $incidencia->setEmpresa(rand(1,3));
         $incidencia->setTecnico(rand(2,4));
-        $incidencia->setContacto(1);
+        $incidencia->setContacto(rand(1,4));
         $id = $incidencia->nuevaIncidencia();
         echo $id;
     }

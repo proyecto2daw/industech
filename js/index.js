@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+$('#tablaIncidencias').tablesorter(); 
     $.ajax({
         url: 'index.php?controller=incidencia&action=datosModalCategoria',
         method: 'POST',
@@ -90,7 +90,7 @@ $(document).ready(function () {
                         $('#tablaIncidencias').prepend('<tr>\n\
                                                             <th scope="row">' + $('[name="titulo"]').val() + '</th>\n\
                                                             <td>ahora</td>\n\
-                                                            <td>'+ $('[name="categoria"]').val()+'</td>\n\
+                                                            <td><img src="img/'+ $('[name="prioridad"]').val()+'.png" alt="prioridad"><span style="display:none;">'+ $('[name="prioridad"]').val()+'</span></td>\n\
                                                              \n\
                                                             <td class="d-flex justify-content-end">\n\
                                                                 <a class="btn btn-info" href="index.php?controller=incidencia&action=ver&id=' + data + '" title="ver incidencia" ><i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;'+
@@ -161,7 +161,7 @@ $(document).ready(function () {
                     location.replace('index.php');
                 }
                 else {
-                    alert('No se ha podido cerrar la Incidencia');
+                    alertify.error('No se ha podido cerrar la Incidencia');
                 }
             }
         });
